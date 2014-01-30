@@ -1,0 +1,4 @@
+This is a dummy file.
+It was created so that the initial repository will have something in it.
+This may make trac happy.
+
