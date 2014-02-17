@@ -9,6 +9,7 @@ Vagrant::Config.run do |config|
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "precise32"
   config.vm.box_url = "http://files.vagrantup.com/precise32.box"
+  config.vm.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
 
   # Boot with a GUI so you can see the screen. (Default is headless)
   # config.vm.boot_mode = :gui
@@ -32,7 +33,7 @@ Vagrant::Config.run do |config|
   # Share an additional folder to the guest VM. The first argument is
   # an identifier, the second is the path on the guest to mount the
   # folder, and the third is the path on the host to the actual folder.
-  config.vm.share_folder "htdocs", "/var/www", "htdocs"
+  # config.vm.share_folder "htdocs", "/var/www", "htdocs"
 
   # Enable provisioning with chef solo, specifying a cookbooks path, roles
   # path, and data_bags path (all relative to this Vagrantfile), and adding 
@@ -50,8 +51,10 @@ Vagrant::Config.run do |config|
 	chef.add_recipe "mysql::client"
 	chef.add_recipe "mysql::server"
 	chef.add_recipe "php"
+	chef.add_recipe "php::module_mcrypt"
 	chef.add_recipe "apache2::mod_php5"
 	chef.add_recipe "apache2::mod_rewrite"
+	chef.add_recipe "composer"
 
 	chef.json = {
 		:apache => {
@@ -64,4 +67,7 @@ Vagrant::Config.run do |config|
 		}
 	}
   end
+
+  config.vm.provision :shell, path: "link_directory.sh"
+
 end
