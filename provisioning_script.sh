@@ -5,7 +5,7 @@ apt-get update
 echo 'mysql-server mysql-server/root_password password root' | debconf-set-selections 
 echo 'mysql-server mysql-server/root_password_again password root'| debconf-set-selections 
 
-apt-get -y install php5 mysql-client mysql-server apache2 libapache2-mod-php5  php5-mcrypt
+apt-get -y install php5 mysql-client mysql-server apache2 libapache2-mod-php5  php5-mcrypt git
 
 chown -R vagrant:vagrant /var/www
 chmod -R a+X /var/www
@@ -33,7 +33,9 @@ ln -s /vagrant/RandomFruit/public /var/www/RandomFruit
 chmod -R a+rX /vagrant/RandomFruit
 chmod -R a+rX /var/www
 cd /vagrant/RandomFruit
-sh recompile.sh
+composer dump-autoload
+compsoser install
+chmod 777 app/storage
 cd -
 
 rm -rf /var/lock/apache2
