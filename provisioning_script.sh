@@ -34,7 +34,7 @@ chmod -R a+rX /vagrant/RandomFruit
 chmod -R a+rX /var/www
 cd /vagrant/RandomFruit
 composer dump-autoload
-compsoser install
+composer install
 chmod 777 app/storage
 cd -
 
