@@ -4,11 +4,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap 101 Template</title>
+    <title>Login - Random Fruit</title>
 
     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/login.css" rel="stylesheet">
+    <link href="includes/css/bootstrap.min.css" rel="stylesheet">
+    <link href="includes/css/login.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -20,8 +20,10 @@
 <body>
 <div class="container">
     <div class="login-container">
-        <form class="form-signin" role="form">
-            <h1 class="form-signin-heading">Random Fruit</h1>
+        <form class="form-signin" role="form" method="post" action="instructordash.php">
+            <h1 class="form-signin-heading">Random Fruit<br/>
+                <img src="content/images/fruit/rotate.php" alt="Header" width="125" height="125"/></h1>
+
 
             <h3 class="form-signin-heading">Please sign in</h2>
                 <!-- <input type="email" class="form-control" placeholder="Username" required autofocus> -->
@@ -34,9 +36,11 @@
         </form>
     </div>
 </div>
+
+
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="js/bootstrap.min.js"></script>
+<script src="includes/js/bootstrap.min.js"></script>
 </body>
 </html>

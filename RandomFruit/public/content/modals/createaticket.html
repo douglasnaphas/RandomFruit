@@ -1,0 +1,50 @@
+<div class="modal fade" id="createTicket" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Create a ticket</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form" method="post">
+                    <div class="form-group">
+                        <label for="ticket-subject">Subject</label>
+                        <input type="text" class="form-control" placeholder="Subject" id="ticket-subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="ticket-reporter">Reporter</label>
+                        <input type="text" class="form-control" placeholder="[Current User's Username]"
+                               id="ticket-reporter" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="ticket-description">Description</label>
+                        <textarea class="form-control" rows="6" placeholder="Enter description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="ticket-type">Type</label>
+                        <select class="form-control" id="ticket-type">
+                            <option value="task" selected>Task</option>
+                            <option value="documentation">Documentation</option>
+                            <option value="planning">Planning</option>
+                            <option value="defect">Defect</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="ticket-priority">Priority</label>
+                        <select class="form-control" id="ticket-priority">
+                            <option value="blocker">Blocker</option>
+                            <option value="critical">Critical</option>
+                            <option value="major" selected>Major</option>
+                            <option value="minor">Minor</option>
+                            <option value="trivial">Trivial</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Create ticket</button>
+            </div>
+        </div>
+    </div>
+</div>
