@@ -29,7 +29,7 @@
 <body>
 
 <!-- Include navigation top bar and side bar -->
-<?
+<?php
 include('includes/dashnav.php');
 ?>
 

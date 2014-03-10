@@ -38,7 +38,7 @@
 <!-- End top nav bar -->
 
 <!-- "Create a Ticket" Modal -->
-<?
+<?php
 include('content/modals/createaticket.html');
 ?>
 
