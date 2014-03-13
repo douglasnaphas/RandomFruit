@@ -22,7 +22,7 @@
     <div class="login-container">
         <form class="form-signin" role="form" method="post" action="instructordash.php">
             <h1 class="form-signin-heading">Random Fruit<br/>
-                <img src="content/images/fruit/rotate.php" alt="Header" width="125" height="125"/></h1>
+                <img src="includes/images/fruit/rotate.php" alt="Header" width="125" height="125"/></h1>
 
 
             <h3 class="form-signin-heading">Please sign in</h2>
