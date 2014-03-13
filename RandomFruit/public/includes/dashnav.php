@@ -39,7 +39,7 @@
 
 <!-- "Create a Ticket" Modal -->
 <?php
-include('content/modals/createaticket.html');
+include('includes/modals/createaticket.html');
 ?>
 
 <!-- Begin sidebar -->
