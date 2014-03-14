@@ -46,3 +46,7 @@ echo '#Include phpmyadmin config' >>/etc/apache2/apache2.conf
 echo 'Include /etc/phpmyadmin/apache.conf' >>/etc/apache2/apache2.conf
 rm -rf /var/lock/apache2
 service apache2 restart
+
+mysql -u root --password='root' -e 'CREATE DATABASE RandomFruit;'
+mysql -u root --password='root' -e "CREATE USER 'RandomFruit'@'localhost' IDENTIFIED BY 'Durian'; flush privileges;"
+mysql -u root --password='root' -e "GRANT ALL PRIVILEGES ON *.* TO 'RandomFruit'@'localhost'; flush privileges;"
