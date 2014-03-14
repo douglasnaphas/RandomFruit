@@ -15,10 +15,10 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#">Dashboard</a></li>
-                <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Tickets <b class="caret"></b></a>
+                <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Tickets<b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">View Tickets</a></li>
-                        <li><a href="#" data-toggle="modal" data-target="#createTicket">Create a ticket</a></li>
+                        <li><a href="viewtickets.php">View Tickets</a></li>
+                        <li><a href="#" data-toggle="modal" data-target="#createTicket">Create a Ticket</a></li>
                         <li><a href="#">Something else here</a></li>
                         <li class="divider"></li>
                         <li><a href="#">Separated link</a></li>
@@ -39,7 +39,7 @@
 
 <!-- "Create a Ticket" Modal -->
 <?php
-include('includes/modals/createaticket.html');
+include('content/modals/createaticket.html');
 ?>
 
 <!-- Begin sidebar -->
