@@ -44,9 +44,12 @@ cd -
 
 echo '#Include phpmyadmin config' >>/etc/apache2/apache2.conf
 echo 'Include /etc/phpmyadmin/apache.conf' >>/etc/apache2/apache2.conf
+sudo perl -i -pe 's/(\s*?AllowOverride\s*?)None/$1All/g' /etc/apache2/sites-available/default
+sudo a2enmod rewrite
 rm -rf /var/lock/apache2
 service apache2 restart
 
 mysql -u root --password='root' -e 'CREATE DATABASE RandomFruit;'
 mysql -u root --password='root' -e "CREATE USER 'RandomFruit'@'localhost' IDENTIFIED BY 'Durian'; flush privileges;"
 mysql -u root --password='root' -e "GRANT ALL PRIVILEGES ON *.* TO 'RandomFruit'@'localhost'; flush privileges;"
+
