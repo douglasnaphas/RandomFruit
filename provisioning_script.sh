@@ -41,8 +41,12 @@ composer install
 chmod 777 app/storage
 cd -
 
+# Create database & tables
+mysql --user='root' --password='root' --execute='CREATE DATABASE randomfruit;' 
+mysql --user='root' --password='root' --database='randomfruit' --execute='CREATE TABLE tickets (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, subject VARCHAR(250));'
 
 echo '#Include phpmyadmin config' >>/etc/apache2/apache2.conf
 echo 'Include /etc/phpmyadmin/apache.conf' >>/etc/apache2/apache2.conf
+#echo '$cfg['blowfish_secret'] = 'RopQDLK=*e|=SsUFP+)2MomgM]GS=nThg_ZH$R*T(qYyn}\';' >>/etc/phpmyadmin/config.inc.php
 rm -rf /var/lock/apache2
 service apache2 restart

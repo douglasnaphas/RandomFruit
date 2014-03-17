@@ -5,16 +5,16 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel">Create a ticket</h4>
             </div>
-            <div class="modal-body">
-                <form class="form" role="form" method="post">
+            <form class="form" role="form" action="includes/modals/action_createticket.php" method="post">
+                <div class="modal-body">
                     <div class="form-group">
                         <label for="ticket-subject">Subject</label>
-                        <input type="text" class="form-control" placeholder="Subject" id="ticket-subject" required>
+                        <input type="text" class="form-control" placeholder="Subject" id="ticket-subject" name="ticket-subject" required>
                     </div>
                     <div class="form-group">
                         <label for="ticket-reporter">Reporter</label>
                         <input type="text" class="form-control" placeholder="[Current User's Username]"
-                               id="ticket-reporter" required>
+                               id="ticket-reporter">
                     </div>
                     <div class="form-group">
                         <label for="ticket-description">Description</label>
@@ -57,12 +57,12 @@
                             <input type="radio" name="options" id="trivial">Trivial
                         </label>
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Create ticket</button>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-primary" value="Create ticket"></button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
