@@ -11,7 +11,11 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('login');
+Route::any('/', function(){
+	return Redirect::route('login');
 });
+Route::any('login', array('as' => 'login', 'uses' => 'UserController@loginAction'));
+
+Route::any('dash', array('as' => 'dash', function(){
+	return View::make('instructordash');
+}));
