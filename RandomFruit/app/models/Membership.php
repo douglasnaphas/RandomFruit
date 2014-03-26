@@ -17,8 +17,4 @@ class Membership extends Eloquent {
 		return $this->hasOne('User');
 	}
 
-	public function role(){
-		return $this->hasOne('Role');
-	}
-
 }

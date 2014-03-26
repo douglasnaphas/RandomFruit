@@ -1,0 +1,29 @@
+    1  cat /etc/rc.local 
+    2  sudo update-locale LANG=en_US
+    3  sudo locale-gen en_US
+    4  sudo update-locale LANG=en_US
+    5  hist
+    6  history
+    7  ls
+    8  cd /vagrant/RandomFruit/
+    9  ls
+   10  ./artisan migrate:make create_tickets_table --create='tickets'
+   11  ./artisan
+   12  ls
+   13  php artisan 
+   14  php artisan migrate:make create_tickets_table --create='tickets'
+   15  php artisan migrate
+   16  php artisan db:seed
+   17  cp app/models/Project.php app/models/Ticket.php
+   18  git diff
+   19  cp app/database/seeds/MembershipTableSeeder.php app/database/seeds/TicketsTableSeeder.php
+   20  vi app/database/seeds/DatabaseSeeder.php 
+   21  php artisan db:seed
+   22  php artisan migrate:reset
+   23  php artisan db:seed
+   24  php artisan migrate
+   25  php artisan db:seed
+   26  mv app/database/seeds/TicketsTableSeeder.php app/database/seeds/TicketTableSeeder.php
+   27  php artisan db:seed
+   28  ls
+   29  history > commands_from_03-26
