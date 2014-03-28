@@ -27,3 +27,10 @@ Route::any('project/{project_name}/ticket/{ticket_number}', function($project_na
 
 
 });
+
+Route::any('project/{project_name}/tickets', function($project_name){
+	$project = Project::where('name', '=', $project_name)->with('tickets')->get()->first();
+	return View::make('viewtickets')->with('project', $project);
+
+
+});

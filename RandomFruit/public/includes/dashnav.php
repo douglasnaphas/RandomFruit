@@ -17,7 +17,7 @@
                 <li><a href="#">Dashboard</a></li>
                 <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Tickets<b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="viewtickets.php">View Tickets</a></li>
+                        <li><a href="project/RandomFruit/tickets/">View Tickets</a></li>
                         <li><a href="#" data-toggle="modal" data-target="#createTicket">Create a Ticket</a></li>
                         <li><a href="#">Something else here</a></li>
                         <li class="divider"></li>
@@ -39,7 +39,7 @@
 
 <!-- "Create a Ticket" Modal -->
 <?php
-include('content/modals/createaticket.html');
+include('includes/modals/createaticket.html');
 ?>
 
 <!-- Begin sidebar -->
