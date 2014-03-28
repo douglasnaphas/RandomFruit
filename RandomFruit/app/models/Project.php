@@ -11,7 +11,11 @@ class Project extends Eloquent {
 	protected $table = 'projects';
 	
 
-	public static function users(){
+	public function users(){
 		return $this->belongsToMany('User', 'memberships');
 	} 
+
+	public function tickets(){
+		return $this->hasMany('Ticket');
+	}
 }

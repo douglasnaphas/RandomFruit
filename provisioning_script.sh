@@ -79,3 +79,8 @@ service apache2 restart
 mysql -u root --password='root' -e 'CREATE DATABASE RandomFruit;'
 mysql -u root --password='root' -e "CREATE USER 'RandomFruit'@'localhost' IDENTIFIED BY 'Durian'; flush privileges;"
 mysql -u root --password='root' -e "GRANT ALL PRIVILEGES ON *.* TO 'RandomFruit'@'localhost'; flush privileges;"
+
+# Create symbolic link to directory in home folder for easy access
+ln -s /vagrant/RandomFruit /home/vagrant/RandomFruit
+chown /vagrant /home/vagrant/RandomFruit 
+chmod a+rX /home/vagrant/RandomFruit

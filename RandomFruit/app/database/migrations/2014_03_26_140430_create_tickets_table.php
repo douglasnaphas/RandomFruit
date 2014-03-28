@@ -21,6 +21,7 @@ class CreateTicketsTable extends Migration {
 			$table->mediumText('description');
 			$table->integer('planned_hours');
 			$table->integer('actual_hours');
+			$table->integer('number');
 			$table->integer('project_id')->unsigned();
 			$table->foreign('project_id')->references('id')->on('projects');
 			$table->integer('creator_id')->unsigned();

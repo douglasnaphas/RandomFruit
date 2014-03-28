@@ -11,13 +11,20 @@ class Ticket extends Eloquent {
 	protected $table = 'tickets';
 
 	public function creator(){
-		return $this->hasOne('User', 'creator_id');
+		return $this->belongsTo('User', 'creator_id');
 	} 
+
+	public static function create(array $attributes){
+		$ticket = parent::create($attributes);
+		$ticket->number = Ticket::where('project_id', '=', $ticket->project_id)->count();
+		$ticket->save();
+
+	}
 	public function owner(){
-		return $this->hasOne('User', 'owner_id');
+		return $this->belongsTo('User', 'owner_id');
 	} 
 	
 	public function project(){
-		return $this->hasOne('Project');
+		return $this->belongsTo('Project');
 	}
 }
