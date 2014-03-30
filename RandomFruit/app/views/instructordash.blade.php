@@ -9,11 +9,11 @@
 
     <title>Dashboard - Random Fruit</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="includes/css/bootstrap.css" rel="stylesheet">
+	<!-- Bootstrap core CSS -->
+	{{HTML::style('includes/css/bootstrap.css')}}
 
     <!-- Custom styles for this template -->
-    <link href="includes/css/dashboard.css" rel="stylesheet">
+	{{HTML::style('includes/css/dashboard.css')}}
 
     <!-- Just for debugging purposes. Don't actually copy this line! -->
     <!--[if lt IE 9]>
@@ -29,9 +29,7 @@
 <body>
 
 <!-- Include navigation top bar and side bar -->
-<?php
-include('includes/dashnav.php');
-?>
+@include('dash/dashnav');
 
 <!-- Begin main content -->
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -202,7 +200,7 @@ include('includes/dashnav.php');
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="includes/js/bootstrap.min.js"></script>
+{{HTML::script('includes/js/bootstrap.min.js')}}
 <script src="../../assets/js/docs.min.js"></script>
 </body>
 </html>

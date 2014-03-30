@@ -17,7 +17,7 @@
                 <li><a href="#">Dashboard</a></li>
                 <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Tickets<b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="project/RandomFruit/tickets/">View Tickets</a></li>
+                        <li><a href="{{URL::to('project/RandomFruit/tickets')}}">View Tickets</a></li>
                         <li><a href="#" data-toggle="modal" data-target="#createTicket">Create a Ticket</a></li>
                         <li><a href="#">Something else here</a></li>
                         <li class="divider"></li>
@@ -38,9 +38,7 @@
 <!-- End top nav bar -->
 
 <!-- "Create a Ticket" Modal -->
-<?php
-include('includes/modals/createaticket.html');
-?>
+@include('dash/modals/createaticket');
 
 <!-- Begin sidebar -->
 <div class="container-fluid">

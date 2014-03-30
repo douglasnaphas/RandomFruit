@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login - Random Fruit</title>
 
-    <!-- Bootstrap -->
+	<!-- Bootstrap -->
+	{{HTML::style('includes/css/bootstrap.min.css')}}
+	{{HTML::style('includes/css/login.css')}}
     <link href="includes/css/bootstrap.min.css" rel="stylesheet">
     <link href="includes/css/login.css" rel="stylesheet">
 
@@ -39,6 +41,6 @@
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="includes/js/bootstrap.min.js"></script>
+{{HTML::script('includes/js/bootstrap.min.js')}}
 </body>
 </html>

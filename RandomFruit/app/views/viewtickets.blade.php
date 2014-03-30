@@ -29,9 +29,7 @@
 <body>
 
 <!-- Include navigation top bar and side bar -->
-<?php
-include('includes/dashnav.php');
-?>
+@include('dash/dashnav');
 
 <!-- Begin main content -->
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -96,10 +94,10 @@ include('includes/dashnav.php');
                             {{{ $ticket->title }}}
                         </td>
                         <td>
-                            {{{ $ticket->creator->name }}}
+                            {{{ $ticket->creator->username }}}
                         </td>    
                         <td>
-                            {{{ $ticket->owner->name }}}
+                            {{{ $ticket->owner->username }}}
                         </td>
                         <td>
                             {{{ $ticket->description }}}
