@@ -14,7 +14,7 @@
 
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Dashboard</a></li>
+                <li><a href="{{URL::to('dash')}}">Dashboard</a></li>
                 <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Tickets<b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="{{URL::to('project/RandomFruit/tickets')}}">View Tickets</a></li>
