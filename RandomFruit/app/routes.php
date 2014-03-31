@@ -9,12 +9,25 @@
 | It's a breeze. Simply tell Laravel the URIs it should respond to
 | and give it the Closure to execute when that URI is requested.
 |
-*/
+ */
 
-Route::any('/', function(){
-	return Redirect::route('login');
+Route::filter('user_only', function(){
+	if(!Auth::check())
+		return Redirect::to('login');
+
 });
-Route::any('login', array('as' => 'login', 'uses' => 'UserController@loginAction'));
+
+Route::filter('guest_only', function(){
+	if(Auth::check())
+		return Redirect::to('dash');
+});
+
+
+Route::any('/', array('before' => 'user_only', function(){
+	return Redirect::route('dash');
+}));
+
+Route::any('login', array('as' => 'login', 'uses' => 'UserController@loginAction', 'before' => 'guest_only'));
 
 Route::any('dash', array('as' => 'dash', function(){
 	return View::make('instructordash');
@@ -34,3 +47,5 @@ Route::any('project/{project_name}/tickets', function($project_name){
 
 
 });
+
+Route::any('logout', array('uses' => 'UserController@logout'));
