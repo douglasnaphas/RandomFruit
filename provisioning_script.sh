@@ -84,3 +84,9 @@ mysql -u root --password='root' -e "GRANT ALL PRIVILEGES ON *.* TO 'RandomFruit'
 ln -s /vagrant/RandomFruit /home/vagrant/RandomFruit
 chown /vagrant /home/vagrant/RandomFruit 
 chmod a+rX /home/vagrant/RandomFruit
+
+# Set up the tables and seed them.
+cd /vagrant/RandomFruit
+php artisan migrate:reset
+php artisan migrate
+php artisan db:seed
