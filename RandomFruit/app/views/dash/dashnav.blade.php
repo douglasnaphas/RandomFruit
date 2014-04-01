@@ -26,7 +26,13 @@
                         <li><a href="#">One more separated link</a></li>
                     </ul>
                 </li>
-                <li><a href="#">Profile</a></li>
+		<li><a href="#" class="dropdown-toggle" data-toggle="dropdown">{{Auth::user()->username}}<b class="caret"></b></a>
+		<ul class="dropdown-menu">
+			<li><a href="#">Edit Profile</a></li>
+			<li><a href="{{ URL::action('UserController@logout') }}">Logout</a></li>
+				
+			</ul>
+		</li>
                 <li><a href="#">Help</a></li>
             </ul>
             <form class="navbar-form navbar-right">
