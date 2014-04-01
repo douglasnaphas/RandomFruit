@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login - Random Fruit</title>
 
-    <!-- Bootstrap -->
+	<!-- Bootstrap -->
+	{{HTML::style('includes/css/bootstrap.min.css')}}
+	{{HTML::style('includes/css/login.css')}}
     <link href="includes/css/bootstrap.min.css" rel="stylesheet">
     <link href="includes/css/login.css" rel="stylesheet">
 
@@ -20,19 +22,23 @@
 <body>
 <div class="container">
     <div class="login-container">
-        <form class="form-signin" role="form" method="post" action="instructordash.php">
+	{{Form::Open(array('action' => 'UserController@loginAction', 'class' => 'form-signin'));}}
             <h1 class="form-signin-heading">Random Fruit<br/>
                 <img src="includes/images/fruit/rotate.php" alt="Header" width="125" height="125"/></h1>
-
-
             <h3 class="form-signin-heading">Please sign in</h2>
-                <input type="text" class="form-control" placeholder="Username" required autofocus>
-                <input type="password" class="form-control" placeholder="Password" required>
+	    @if($error_message != "")
+	    <div class="alert alert-danger" >
+		    {{ $error_message }}
+	    </div>
+	    @endif
+                <input type="text" class="form-control" placeholder="Username" required autofocus name="username">
+                <input type="password" class="form-control" placeholder="Password" name="password" required>
                 <label class="checkbox">
-                    <input type="checkbox" value="remember-me"> Remember me
+                    <input type="checkbox" value="remember-me" name="remember-me"> Remember me
                 </label>
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-        </form>
+	{{Form::Close()}}
+        <!-- </form> -->
     </div>
 </div>
 
@@ -40,6 +46,6 @@
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="includes/js/bootstrap.min.js"></script>
+{{HTML::script('includes/js/bootstrap.min.js')}}
 </body>
 </html>

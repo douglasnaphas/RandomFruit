@@ -19,6 +19,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 */
 	protected $hidden = array('password');
 
+	public static $loginRules = array(
+		'username' => 'required',
+		'password' => 'required'
+	);
+
 	/**
 	 * Get the unique identifier for the user.
 	 *
@@ -48,5 +53,21 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	{
 		return $this->email;
 	}
+	
 
+	public function projects()
+	{
+		return $this->belongsToMany('Project', 'memberships');
+	}
+
+	public function tickets_created()
+	{
+		return $this->hasMany('Ticket', 'creator_id');
+	}
+
+
+	public function tickets_owned()
+	{
+		return $this->hasMany('Ticket', 'owner_id');
+	}
 }

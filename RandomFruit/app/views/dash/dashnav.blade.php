@@ -15,10 +15,10 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#">Dashboard</a></li>
-                <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Tickets <b class="caret"></b></a>
+                <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Tickets<b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">View Tickets</a></li>
-                        <li><a href="#" data-toggle="modal" data-target="#createTicket">Create a ticket</a></li>
+                        <li><a href="{{URL::to('project/RandomFruit/tickets')}}">View Tickets</a></li>
+                        <li><a href="#" data-toggle="modal" data-target="#createTicket">Create a Ticket</a></li>
                         <li><a href="#">Something else here</a></li>
                         <li class="divider"></li>
                         <li><a href="#">Separated link</a></li>
@@ -26,7 +26,13 @@
                         <li><a href="#">One more separated link</a></li>
                     </ul>
                 </li>
-                <li><a href="#">Profile</a></li>
+		<li><a href="#" class="dropdown-toggle" data-toggle="dropdown">{{Auth::user()->username}}<b class="caret"></b></a>
+		<ul class="dropdown-menu">
+			<li><a href="#">Edit Profile</a></li>
+			<li><a href="{{ URL::action('UserController@logout') }}">Logout</a></li>
+				
+			</ul>
+		</li>
                 <li><a href="#">Help</a></li>
             </ul>
             <form class="navbar-form navbar-right">
@@ -38,9 +44,7 @@
 <!-- End top nav bar -->
 
 <!-- "Create a Ticket" Modal -->
-<?php
-include('includes/modals/createaticket.html');
-?>
+@include('dash/modals/createaticket');
 
 <!-- Begin sidebar -->
 <div class="container-fluid">
