@@ -1,30 +1,28 @@
 <?php
-class UserController extends BaseController{
-	public function loginAction(){
-		$error_message = "";
-		if(Input::server("REQUEST_METHOD") == 'POST'){
-			$validator = Validator::make(Input::all(), User::$loginRules);
-			if($validator->passes()){
-				if (Auth::attempt(array('username' => Input::get("username"), 'password' => Input::get("password")))){
-					return Redirect::route("dash");	
-				}
 
-			}
-			$error_message = "<strong>Oops! That password does not match the username.</strong><br />Please try again.";
-		}
-		return View::make('login')->with('error_message', $error_message);
-	}
+class TicketController extends BaseController
+{
+    public function createticketAction()
+    {
+        $error_message = "";
+        if (Input::server("REQUEST_METHOD") == 'POST') {
+            $validator = Validator::make(Input::all(), Ticket::$validation_rules);
+            if ($validator->passes()) {
+                $ticket = array(
+                    'ticket-subject' => Input::get("ticket-subject"),
+                    'ticket-reporter' => Input::get("ticket-reporter"),
+                    'ticket-description' => Input::get("ticket-description"),
+                    'ticket-type' => Input::get("ticket-type"),
+                    'ticket-priority' => Input::get("ticket-priority"));
 
-	public function logout(){
-		$error_message = "";
-		if(Auth::check()){
-			$error_message = "User " . Auth::user()->username . " has been logged out.";
-			Auth::logout();
-		}
-		else{
-			$error_message = "Sorry, you must be logged in to log out.";
-		}
-		return View::make('login')->with('error_message', $error_message);
+                $decodedticket = json_decode();
+                {
+                    return Redirect::route("dash");
+                }
 
-	}
+            }
+            $error_message = "<strong>Oops! You've incorrectly filled the fields out.</strong><br />Please try again.";
+        }
+        return View::make('login')->with('error_message', $error_message);
+    }
 }

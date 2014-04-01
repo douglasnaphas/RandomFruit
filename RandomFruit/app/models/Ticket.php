@@ -12,9 +12,15 @@ class Ticket extends Eloquent {
 
 	public function creator(){
 		return $this->belongsTo('User', 'creator_id');
-	} 
+	}
 
-	public static function create(array $attributes){
+    public static $validation_rules = array(
+        'username' => 'required',
+        'password' => 'required'
+    );
+
+
+    public static function create(array $attributes){
 		$ticket = parent::create($attributes);
 		$ticket->number = Ticket::where('project_id', '=', $ticket->project_id)->count();
 		$ticket->save();

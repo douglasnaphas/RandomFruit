@@ -25,16 +25,16 @@
 
                     <div class="btn-group" data-toggle="buttons">
                         <label class="btn btn-primary">
-                            <input type="radio" name="options" id="task">Task
+                            <input type="radio" name="ticket-type" id="task">Task
                         </label>
                         <label class="btn btn-primary">
-                            <input type="radio" name="options" id="documentation">Documentation
+                            <input type="radio" name="ticket-type" id="documentation">Documentation
                         </label>
                         <label class="btn btn-primary">
-                            <input type="radio" name="options" id="planning">Planning
+                            <input type="radio" name="ticket-type" id="planning">Planning
                         </label>
                         <label class="btn btn-primary">
-                            <input type="radio" name="options" id="defect">Defect
+                            <input type="radio" name="ticket-type" id="defect">Defect
                         </label>
                     </div>
                     <br/><br/>
@@ -42,19 +42,19 @@
 
                     <div class="btn-group" data-toggle="buttons">
                         <label class="btn btn-primary">
-                            <input type="radio" name="options" id="blocker">Blocker
+                            <input type="radio" name="ticket-priority" id="blocker">Blocker
                         </label>
                         <label class="btn btn-primary">
-                            <input type="radio" name="options" id="critical">Critical
+                            <input type="radio" name="ticket-priority" id="critical">Critical
                         </label>
                         <label class="btn btn-primary">
-                            <input type="radio" name="options" id="major">Major
+                            <input type="radio" name="ticket-priority" id="major">Major
                         </label>
                         <label class="btn btn-primary">
-                            <input type="radio" name="options" id="minor">Minor
+                            <input type="radio" name="ticket-priority" id="minor">Minor
                         </label>
                         <label class="btn btn-primary">
-                            <input type="radio" name="options" id="trivial">Trivial
+                            <input type="radio" name="ticket-priority" id="trivial">Trivial
                         </label>
                     </div>
                 </div>
