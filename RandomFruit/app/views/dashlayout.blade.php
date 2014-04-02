@@ -46,6 +46,7 @@
 @section('scripts')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 {{HTML::script('includes/js/bootstrap.min.js')}}
+{{HTML::script('includes/js/ajax-form.js')}}
 <script src="../../assets/js/docs.min.js"></script>
 @show
 </body>

@@ -5,6 +5,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel">Create a Ticket</h4>
             </div>
+
             <form class="form" role="form" action="includes/modals/action_createticket.php" method="post">
                 <div class="modal-body">
                     <div class="form-group">
