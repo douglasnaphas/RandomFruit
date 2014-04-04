@@ -15,7 +15,7 @@ class TicketController extends BaseController
 		/* Convert form input names to mysql field names */
 
 		$ticket_attributes = array(
-			'title' => Input::get("ticket-subject"),
+			'title' => Input::get("ticket-title"),
 			'creator_id' => Auth::user()->id,
 			'owner_id' => Auth::user()->id,
 			'project_id' => Project::fromName('RandomFruit')->id,

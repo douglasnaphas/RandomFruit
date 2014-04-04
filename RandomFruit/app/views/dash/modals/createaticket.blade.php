@@ -5,21 +5,20 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel">Create a Ticket</h4>
             </div>
-           <form class="form" role="form" id="ct_form" action="includes/modals/action_createticket.php">
+           <form class="form" role="form" data-async data-target="createTicket" id="ct_form" action="{{URL::action('TicketController@createticketAction')}}" method="post">
                 <div class="modal-body">
-                    <div class="form-group has-success has-feedback" id="title-input">
+                    <div class="form-group" id="title-input">
                         <label for="ticket-title">Title</label>
                         <input type="text" class="form-control" placeholder="Subject" id="ticket-title" name="ticket-title" required>
                     </div>
-                    <div class="form-group has-success has-feedback" id="creator-input">
+                    <div class="form-group" id="creator-input">
                         <label for="ticket-creator">Creator</label>
                         <input type="text" class="form-control" placeholder="[Current User's Username]"
                                id="ticket-creator">
                     </div>
-                    <div class="form-group has-success has-feedback" id="description-input">
+                    <div class="form-group  " id="description-input">
                         <label for="ticket-description">Description</label>
-                        <textarea class="form-control" rows="6" placeholder="Enter description"
-                                  id="ticket-description"></textarea>
+                        <textarea class="form-control" rows="6" placeholder="Enter description" name="ticket-description" id="ticket-description"></textarea>
                     </div>
                     <label for="ticket-type">Type</label><br/>
 
