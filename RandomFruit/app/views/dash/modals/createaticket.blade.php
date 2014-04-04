@@ -5,22 +5,21 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel">Create a Ticket</h4>
             </div>
-            {{Form::Open(array('action' => 'TicketController@createticketAction', 'class' => 'form'));}}
-           <!-- <form class="form" role="form" action="includes/modals/action_createticket.php" method="post"> -->
+           <form class="form" role="form" id="ct_form" action="includes/modals/action_createticket.php">
                 <div class="modal-body">
-                    <div class="form-group">
-                        <label for="ticket-subject">Subject</label>
-                        <input type="text" class="form-control" placeholder="Subject" id="ticket-subject" name="ticket-subject" required>
+                    <div class="form-group has-success has-feedback" id="title-input">
+                        <label for="ticket-title">Title</label>
+                        <input type="text" class="form-control" placeholder="Subject" id="ticket-title" name="ticket-title" required>
                     </div>
-                    <div class="form-group">
-                        <label for="ticket-reporter">Reporter</label>
+                    <div class="form-group has-success has-feedback" id="creator-input">
+                        <label for="ticket-creator">Creator</label>
                         <input type="text" class="form-control" placeholder="[Current User's Username]"
-                               id="ticket-reporter">
+                               id="ticket-creator">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group has-success has-feedback" id="description-input">
                         <label for="ticket-description">Description</label>
                         <textarea class="form-control" rows="6" placeholder="Enter description"
-                                  id="ticket-description" name="ticket-description"></textarea>
+                                  id="ticket-description"></textarea>
                     </div>
                     <label for="ticket-type">Type</label><br/>
 
@@ -63,8 +62,34 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <input type="submit" class="btn btn-primary" value="Create ticket">
                 </div>
-            <!-- </form> -->
-            {{Form::Close()}}
+            </form>
+	   <script>
+		// Attach a submit handler to the form
+		$( "#ct_form" ).submit(function( event ) {
+
+		// Stop form from submitting normally
+		event.preventDefault();
+
+		// Get some values from elements on the page:
+		var $form = $( this ),
+		title = $form.find( "input[name='ticket-title']" ).val(),
+		creator = $form.find( "input[name='ticket-creator']" ).val(),		
+		description = $form.find( "input[name='ticket-description']" ).val(),
+		type = $form.find( "input[name='ticket-type']" ).val(),
+		priority = $form.find( "input[name='ticket-priority']" ).val(),
+		
+		url = $form.attr( "action" );
+		
+		// Send the data using post
+		var posting = $.post( url, { ticket-title: title, ticket-creator: creator, ticket-description: description, ticket-type: type, ticket-priority: priority } );
+		
+		// Put the results in a div
+		posting.done(function( data ) {
+			var content = $( data ).find( "#content" );
+			$( "#result" ).empty().append( content );
+		});
+		});
+	   </script>
         </div>
     </div>
 </div>
