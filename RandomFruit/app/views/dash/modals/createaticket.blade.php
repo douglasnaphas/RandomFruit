@@ -8,6 +8,10 @@
             {{Form::Open(array('action' => 'TicketController@createticketAction', 'class' => 'form'));}}
            <!-- <form class="form" role="form" action="includes/modals/action_createticket.php" method="post"> -->
                 <div class="modal-body">
+		    <div class="form-group">
+			    <label for="ticket-project-id">Project</label>
+			    <ul class="dropdown-menu"></ul>
+		    </div>
                     <div class="form-group">
                         <label for="ticket-subject">Subject</label>
                         <input type="text" class="form-control" placeholder="Subject" id="ticket-subject" name="ticket-subject" required>
