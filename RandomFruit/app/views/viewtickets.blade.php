@@ -42,9 +42,9 @@ View Tickets for {{ $project->name }}
                         <label class="btn btn-primary">
                             <input type="radio" name="options" id="trivial">Planned
                         </label>
-                         <label class="btn btn-primary">
-                             <input type="radio" name="options" id="trivial">Actual
-                         </label>
+                        <label class="btn btn-primary">
+                           <input type="radio" name="options" id="trivial">Actual
+                        </label>
                     </div>
                     <div class="pull-right">
                         <button type="button" class="btn btn-primary">Search</button>
@@ -71,7 +71,7 @@ View Tickets for {{ $project->name }}
                             {{{ $ticket->number }}}
                         </td>
                         <td>
-                            {{{ $ticket->title }}}
+                            <a href="{{URL::to('project/RandomFruit/ticket')}}">{{{ $ticket->title }}}</a>
                         </td>
                         <td>
                             {{{ $ticket->creator->username }}}

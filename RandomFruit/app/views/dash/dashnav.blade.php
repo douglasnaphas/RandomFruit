@@ -26,7 +26,12 @@
                         <li><a href="#">One more separated link</a></li>
                     </ul>
                 </li>
-                <li><a href="#">Profile</a></li>
+                <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Me<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Edit Profile</a></li>
+                        <li><a href="#">Logout</a></li>
+                    </ul>
+                </li>
                 <li><a href="#">Help</a></li>
             </ul>
             <form class="navbar-form navbar-right">
