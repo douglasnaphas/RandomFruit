@@ -14,9 +14,13 @@ class TicketController extends BaseController
 	$description = Input::get('ticket-description');
 
 	/* Mock forgeign key values. */
-	$project_id = "1";
-	$creator_id = "1";
-	$owner_id = "1";
+	$user = Auth::user();
+	foreach($user->projects as $project){
+		echo $project->id;
+	}
+	$project_id = 1;
+	$creator_id = $user->id;
+	$owner_id = $user->id;
 
 
 	$sql = "INSERT INTO tickets (title, description, project_id, creator_id, owner_id) VALUES ('$subject', '$description', 1, 1, 1)";
