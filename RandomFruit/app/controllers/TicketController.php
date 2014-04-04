@@ -5,6 +5,30 @@ class TicketController extends BaseController
     public function createticketAction()
     {
         $error_message = "";
+	$con = mysqli_connect("localhost", "RandomFruit", "Durian", "RandomFruit");
+	// Check connection                                                                                                                            
+	if (mysqli_connect_errno()) {
+	    echo "Failed to connect to MySQL: " . mysqli_connect_error();
+	}
+	$subject = Input::get('ticket-subject');
+	$description = Input::get('ticket-description');
+
+	/* Mock forgeign key values. */
+	$project_id = "1";
+	$creator_id = "1";
+	$owner_id = "1";
+
+
+	$sql = "INSERT INTO tickets (title, description, project_id, creator_id, owner_id) VALUES ('$subject', '$description', 1, 1, 1)";
+
+	if (!mysqli_query($con, $sql)) {
+	    die('Error: ' . mysqli_error($con));
+	}
+	//echo "<html><head><script>top.location = '../../instructordash.php';</script></head><body></body></html>";
+
+	mysqli_close($con);
+
+/*
         if (Input::server("REQUEST_METHOD") == 'POST') {
             $validator = Validator::make(Input::all(), Ticket::$validation_rules);
             if ($validator->passes()) {
@@ -23,6 +47,8 @@ class TicketController extends BaseController
             }
             $error_message = "<strong>Oops! You've incorrectly filled the fields out.</strong><br />Please try again.";
         }
-        return View::make('login')->with('error_message', $error_message);
+*/
+        //return View::make('dash/modals/action_createticket')->with('post_data', Input::all());
+	return;
     }
 }
