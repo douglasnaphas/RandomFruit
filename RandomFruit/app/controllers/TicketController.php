@@ -11,7 +11,9 @@ class TicketController extends BaseController
 	    echo "Failed to connect to MySQL: " . mysqli_connect_error();
 	}
 	$subject = Input::get('ticket-subject');
+	$subject = $con->real_escape_string( $subject );
 	$description = Input::get('ticket-description');
+	$description = $con->real_escape_string( $description );
 
 	/* Mock forgeign key values. */
 	$user = Auth::user();
@@ -53,6 +55,6 @@ class TicketController extends BaseController
         }
 */
         //return View::make('dash/modals/action_createticket')->with('post_data', Input::all());
-	return;
+	return View::make('instructordash'); // We could remember the page where we start.
     }
 }
