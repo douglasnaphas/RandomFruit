@@ -18,4 +18,15 @@ class Project extends Eloquent {
 	public function tickets(){
 		return $this->hasMany('Ticket');
 	}
+
+	/**
+	 * Searches for a project with the given name
+	 *
+	 * @param string name - The project name
+	 * @return Project - The project if it exists. Otherwise null
+	 */
+	public static function fromName($name){
+		return self::where('name', '=', $name)->get()->first();
+	}
+
 }

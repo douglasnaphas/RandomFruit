@@ -14,12 +14,15 @@ class Ticket extends Eloquent {
 		return $this->belongsTo('User', 'creator_id');
 	}
 
+	/**
+	 * @var array Array of rules used to validate form input prior to submitting
+	 */
     public static $validation_rules = array(
-        'ticket-subject' => 'required',
-        'ticket-reporter' => 'required',
-        'ticket-description' => 'required',
-        'ticket-type' => 'required',
-        'ticket-priority' => 'required'
+        'name' => 'required',
+        'creator_id' => 'required',
+		'project_id' => 'required',
+		'owner_id' => 'required',
+		'description' => 'required',
     );
 
 
@@ -36,4 +39,5 @@ class Ticket extends Eloquent {
 	public function project(){
 		return $this->belongsTo('Project');
 	}
+
 }
