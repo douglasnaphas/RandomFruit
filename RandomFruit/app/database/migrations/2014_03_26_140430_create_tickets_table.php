@@ -24,11 +24,11 @@ class CreateTicketsTable extends Migration {
 			$table->integer('number');
 			$table->date('due_date')->nullable();
 			$table->integer('project_id')->unsigned();
-			$table->foreign('project_id')->references('id')->on('projects');
+			$table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
 			$table->integer('creator_id')->unsigned();
-			$table->foreign('creator_id')->references('id')->on('users');
+			$table->foreign('creator_id')->references('id')->on('users')->onDelete('cascade');
 			$table->integer('owner_id')->unsigned();
-			$table->foreign('owner_id')->references('id')->on('users');
+			$table->foreign('owner_id')->references('id')->on('users')->onDelete('cascade');
 			$table->unique(array('project_id', 'number'));
 
 			

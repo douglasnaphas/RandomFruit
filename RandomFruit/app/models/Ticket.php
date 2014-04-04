@@ -4,9 +4,7 @@
 class Ticket extends Eloquent {
 
 	/**
-	 * The database table used by the model.
-	 *
-	 * @var string
+	 * @var string The database table used by the model.
 	 */
 	protected $table = 'tickets';
 
@@ -51,8 +49,22 @@ class Ticket extends Eloquent {
 		return $this->belongsTo('User', 'owner_id');
 	} 
 
+	/**
+	 * Defines the tickets relationship to it's project
+	 * @example $project = $ticket->owner; echo $project->title
+	 * 
+	 */
 	public function project(){
 		return $this->belongsTo('Project');
+	}
+
+	/**
+	 * Generate the url to the ticket's home page
+	 *
+	 * @return string The url to the tickets home page
+	 */
+	public function getUrl(){
+		return URL::to("project/" . $this->project->title . "/ticket/" . $this->id);
 	}
 
 }

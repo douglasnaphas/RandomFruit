@@ -32,5 +32,29 @@ class UserTableSeeder extends Seeder {
 				'is_admin' => 1
 			)
 		);
+		User::create(
+			array(
+				'username' => 'greg',
+				'password' => Hash::make('gerg'),
+				'email' => 'greg@localhost',
+				'is_admin' => 1
+			)
+		);
+		User::create(
+			array(
+				'username' => 'alex',
+				'password' => Hash::make('xela'),
+				'email' => 'greg@localhost',
+				'is_admin' => 1
+			)
+		);
+		User::create(
+			array(
+				'username' => 'jeff',
+				'password' => Hash::make('ffej'),
+				'email' => 'greg@localhost',
+				'is_admin' => 1
+			)
+		);
 	}
 }

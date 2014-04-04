@@ -20,6 +20,7 @@ class CreateMembershipsTable extends Migration {
 			$table->foreign('project_id')->references('id')->on('projects')->on_delete('cascade');
 			$table->integer('user_id')->unsigned();
 			$table->foreign('user_id')->references('id')->on('users')->on_delete('cascade');
+			$table->unique(array('user_id', 'project_id'));
 			$table->timestamps();
 		});
 	}

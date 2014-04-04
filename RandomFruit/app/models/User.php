@@ -70,4 +70,14 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	{
 		return $this->hasMany('Ticket', 'owner_id');
 	}
+
+	/**
+	 * Retrieves a user based on their unique user name
+	 *
+	 * @param string $user_name The username to be queried for
+	 * @return User User model with username == $user_name
+	 */
+	public static function fromUserName($user_name){
+		return self::where('username', '=', $user_name)->first();
+	}
 }
