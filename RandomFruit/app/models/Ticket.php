@@ -10,6 +10,9 @@ class Ticket extends Eloquent {
 	 */
 	protected $table = 'tickets';
 
+	/* Defines values that cannot be filled from array */
+	protected $guarded = array('id', 'number');
+
 	public function creator(){
 		return $this->belongsTo('User', 'creator_id');
 	}
@@ -17,25 +20,29 @@ class Ticket extends Eloquent {
 	/**
 	 * @var array Array of rules used to validate form input prior to submitting
 	 */
-    public static $validation_rules = array(
-        'name' => 'required',
-        'creator_id' => 'required',
+	public static $validation_rules = array(
+		'title' => 'required',
+		'creator_id' => 'required',
 		'project_id' => 'required',
 		'owner_id' => 'required',
 		'description' => 'required',
-    );
+	);
 
-
-    public static function create(array $attributes){
+	/**
+	 * Creates a Ticket model and then assigns the number.
+	 * @return Ticket the newly created ticket model
+	 */
+	public static function create(array $attributes){
 		$ticket = parent::create($attributes);
 		$ticket->number = Ticket::where('project_id', '=', $ticket->project_id)->count();
 		$ticket->save();
+		return $ticket;
 
 	}
 	public function owner(){
 		return $this->belongsTo('User', 'owner_id');
 	} 
-	
+
 	public function project(){
 		return $this->belongsTo('Project');
 	}

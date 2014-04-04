@@ -29,6 +29,8 @@ Route::any('/', array('before' => 'user_only', function(){
 
 Route::any('login', array('as' => 'login', 'uses' => 'UserController@loginAction', 'before' => 'guest_only'));
 
+Route::post('api/create_ticket', array('as' => 'createTicket', 'uses' => 'TicketController@createticketAction'));
+
 Route::any('dash', array('as' => 'dash', function(){
 	return View::make('instructordash');
 }));

@@ -20,7 +20,7 @@
                     <div class="form-group">
                         <label for="ticket-description">Description</label>
                         <textarea class="form-control" rows="6" placeholder="Enter description"
-                                  id="ticket-description"></textarea>
+                                  id="ticket-description" name="ticket-description"></textarea>
                     </div>
                     <label for="ticket-type">Type</label><br/>
 
