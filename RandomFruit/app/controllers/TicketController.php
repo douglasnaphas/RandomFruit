@@ -11,10 +11,9 @@ class TicketController extends BaseController
 	 */
 	public function createticketAction()
 	{
-		/* Convert form input names to mysql field names
-		 * @Todo rename fields to match forms
-		 *
-		 */
+
+		/* Convert form input names to mysql field names */
+
 		$ticket_attributes = array(
 			'title' => Input::get("ticket-subject"),
 			'creator_id' => Auth::user()->id,
@@ -26,19 +25,32 @@ class TicketController extends BaseController
 		);
 
 		/* Create a validator using the rules defined in the tickets model */
+		
 		$validator = Validator::make($ticket_attributes, Ticket::$validation_rules);
 
 		// If the input from the form wasn't valid, return an error message
 		if($validator->fails()){
-			return Response::json($validator->messages()->toArray(), 500);
+
+			// According to http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+			// 406 = "Not Acceptable"
+
+			return Response::json($validator->messages()->toArray(), 406);
 		}
 		else{ 
+
 			// Otherwise, attempt to create the ticket
 			try{
+
+				// Creates the ticket and returns the new ticket model
 				$ticket = Ticket::create($ticket_attributes);
-				return Response::json($ticket); //Return the ticket as a json file
+				
+				// Returns json response with return code "OK"
+				return Response::json($ticket, 200); //Return the ticket as a json file
+
 			}catch(Exception $e){
+
 				//If we hit an exception, then we have to revise our validator
+				//500 -- "Internal Server error"
 				return Response::json(
 					array("message" => "An sql error has occured", 
 					"debug" =>  $e->getMessage()), 501);
