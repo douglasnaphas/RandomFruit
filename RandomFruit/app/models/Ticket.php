@@ -15,8 +15,11 @@ class Ticket extends Eloquent {
 	}
 
     public static $validation_rules = array(
-        'username' => 'required',
-        'password' => 'required'
+        'ticket-subject' => 'required',
+        'ticket-reporter' => 'required',
+        'ticket-description' => 'required',
+        'ticket-type' => 'required',
+        'ticket-priority' => 'required'
     );
 
 

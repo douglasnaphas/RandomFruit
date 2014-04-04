@@ -5,8 +5,8 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel">Create a Ticket</h4>
             </div>
-
-            <form class="form" role="form" action="includes/modals/action_createticket.php" method="post">
+            {{Form::Open(array('action' => 'TicketController@createticketAction', 'class' => 'form'));}}
+           <!-- <form class="form" role="form" action="includes/modals/action_createticket.php" method="post"> -->
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="ticket-subject">Subject</label>
@@ -61,9 +61,10 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <input type="submit" class="btn btn-primary" value="Create ticket"></button>
+                    <input type="submit" class="btn btn-primary" value="Create ticket">
                 </div>
-            </form>
+            <!-- </form> -->
+            {{Form::Close()}}
         </div>
     </div>
 </div>

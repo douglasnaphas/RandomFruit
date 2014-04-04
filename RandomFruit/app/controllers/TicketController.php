@@ -15,7 +15,7 @@ class TicketController extends BaseController
                     'ticket-type' => Input::get("ticket-type"),
                     'ticket-priority' => Input::get("ticket-priority"));
 
-                $decodedticket = json_decode();
+
                 {
                     return Redirect::route("dash");
                 }
