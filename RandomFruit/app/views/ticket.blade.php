@@ -35,18 +35,6 @@ Ticket #{{{ $ticket->number }}}
             </div>
         </div>
                 <p> {{{$ticket->description}}}</p>
-         <?php
-        $mysqli = new mysqli( 'localhost', 'root', 'root', 'RandomFruit');
-        $result = $mysqli->query("select count(*) from RandomFruit.tickets");
-        ?>
-        <p>We have <?php echo $result->num_rows ?> tickets.</p>
-        
-        <?php
-            $result= $mysqli->query( "desc RandomFruit.tickets");
-            var_dump($result);
-            
-        
-        ?>
             
 <!--                <th>Ticket #</th>
                     <th>Title</th>
