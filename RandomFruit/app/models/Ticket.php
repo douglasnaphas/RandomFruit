@@ -39,6 +39,14 @@ class Ticket extends Eloquent {
 		return $ticket;
 
 	}
+
+	/**
+	 * Defines the tickets relationship to it's owner.
+	 * This allows use of the 'owner' attribute as if it were a User model.
+	 *
+	 * @example: $owner = $ticket->owner; echo $owner->username;
+	 * 
+	 */
 	public function owner(){
 		return $this->belongsTo('User', 'owner_id');
 	} 
