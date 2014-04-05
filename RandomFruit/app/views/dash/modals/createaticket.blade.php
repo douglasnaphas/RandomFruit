@@ -62,33 +62,6 @@
                     <input type="submit" class="btn btn-primary" value="Create ticket">
                 </div>
             </form>
-	   <script>
-		// Attach a submit handler to the form
-		$( "#ct_form" ).submit(function( event ) {
-
-		// Stop form from submitting normally
-		event.preventDefault();
-
-		// Get some values from elements on the page:
-		var $form = $( this ),
-		title = $form.find( "input[name='ticket-title']" ).val(),
-		creator = $form.find( "input[name='ticket-creator']" ).val(),		
-		description = $form.find( "input[name='ticket-description']" ).val(),
-		type = $form.find( "input[name='ticket-type']" ).val(),
-		priority = $form.find( "input[name='ticket-priority']" ).val(),
-		
-		url = $form.attr( "action" );
-		
-		// Send the data using post
-		var posting = $.post( url, { ticket-title: title, ticket-creator: creator, ticket-description: description, ticket-type: type, ticket-priority: priority } );
-		
-		// Put the results in a div
-		posting.done(function( data ) {
-			var content = $( data ).find( "#content" );
-			$( "#result" ).empty().append( content );
-		});
-		});
-	   </script>
         </div>
     </div>
 </div>
