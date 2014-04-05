@@ -17,5 +17,6 @@ return array(
 	*/
 
 	'driver' => 'array',
+	'database' = 'mysql_test'
 
 );
