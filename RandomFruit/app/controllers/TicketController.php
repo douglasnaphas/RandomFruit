@@ -59,4 +59,54 @@ class TicketController extends BaseController
 		}
 
 	}
+
+	/**
+	 * Edits a ticket!
+	 *
+	 * @param string $project_name
+	 * @param string $ticket_number
+	 *
+	 * @returns Response 200 with ticket model if successfull, 406 with error messages if validation fails, 
+	 * 	501 with {error: "human readable", debug: "exception message"} if sql satements fail
+	 */
+	public function editTicketAction($project_name, $ticket_number)
+	{
+		$values_to_edit = array();
+		$rules_to_check = array();
+		$selected_ticket;
+		if(false){
+			//Todo: add validation rules for $project_name and $ticket_number
+			return; //error
+		}
+
+		if(!($selected_ticket = Project::fromName($project_name)->ticketFromNumber($ticket_number))){
+			return; //error
+		}
+
+		$editable_values = ['title', 'description', 'owner_id'];
+
+		foreach($editable_value as $form_field){
+			if($maybe_value = Input::has("ticket-$form_field")){
+				$values_to_edit[$form_field] = $maybe_value;
+				$rules_to_check[$form_field] = Ticket::$validation_rules[$form_field];
+				$ticket->attributes[$form_field] = $editable_value;
+			}
+		}
+
+		$ticket_attribute_validator = Validator::make($rules_to_check, $values_to_edit);
+
+		if($ticket_attribute_validator->fails()){
+			return Response::json($ticket_attribute_validator->messages(), 406);
+		}
+		else{
+			try{
+
+				$selected_ticket->save();
+				Response::json($selected_ticket, 200);
+
+			}catch(Exception $e){
+				return Response::json(array( 'error' => 'Unable to process request', 'debug' => $e->getMessage(), 501);
+			}
+		}
+	}
 }
