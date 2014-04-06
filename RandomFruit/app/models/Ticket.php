@@ -26,17 +26,6 @@ class Ticket extends Eloquent {
 		'description' => 'required',
 	);
 
-	/**
-	 * Creates a Ticket model and then assigns the number.
-	 * @return Ticket the newly created ticket model
-	 */
-	public static function create(array $attributes){
-		$ticket = parent::create($attributes);
-		$ticket->number = Ticket::where('project_id', '=', $ticket->project_id)->count();
-		$ticket->save();
-		return $ticket;
-
-	}
 
 	/**
 	 * Defines the tickets relationship to it's owner.

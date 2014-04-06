@@ -31,6 +31,8 @@ Route::any('login', array('as' => 'login', 'uses' => 'UserController@loginAction
 
 Route::post('api/create_ticket', array('as' => 'createTicket', 'uses' => 'TicketController@createticketAction'));
 
+Route::post('api/edit_ticket/{project_name}/{ticket_number}', array('as' => 'createTicket', 'uses' => 'TicketController@editTicketAction'));
+
 Route::any('dash', array('as' => 'dash', function(){
 	return View::make('instructordash');
 }));

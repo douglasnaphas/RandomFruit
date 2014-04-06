@@ -29,4 +29,15 @@ class Project extends Eloquent {
 		return self::where('name', '=', $name)->get()->first();
 	}
 
+
+	/**
+	 * Gets a project's ticket relative to it's number
+	 * @param integer $ticket_number - The ticket number
+	 *
+	 * @return Ticket - The corresponding ticket number
+	 */
+	public function getTicketFromNumber($ticket_number){
+		return Ticket::where('project_id', '=', $this->id)->where('number', '=', $ticket_number)->get()->first();
+	}
+
 }

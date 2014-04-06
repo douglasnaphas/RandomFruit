@@ -79,30 +79,30 @@ class TicketController extends BaseController
 			return; //error
 		}
 
-		if(!($selected_ticket = Project::fromName($project_name)->ticketFromNumber($ticket_number))){
+		if(!($selected_ticket = Project::fromName($project_name)->getTicketFromNumber($ticket_number))){
 			return; //error
 		}
 
 		$editable_values = array('title', 'description', 'owner_id');
 
-		foreach($editable_value as $form_field){
+		foreach($editable_values as $form_field){
 			if($maybe_value = Input::has("ticket-$form_field")){
 				$values_to_edit[$form_field] = $maybe_value;
 				$rules_to_check[$form_field] = Ticket::$validation_rules[$form_field];
-				$ticket->attributes[$form_field] = $editable_value;
+				$ticket->attributes[$form_field] = $maybe_value;
 			}
 		}
 
-		$ticket_attribute_validator = Validator::make($rules_to_check, $values_to_edit);
+		$ticket_attribute_validator = Validator::make($values_to_edit, $rules_to_check);
 
 		if($ticket_attribute_validator->fails()){
-			return Response::json($ticket_attribute_validator->messages(), 406);
+			return Response::json(array($ticket_attribute_validator->messages()->toArray(), $values_to_edit, $rules_to_check), 406);
 		}
 		else{
 			try{
 
 				$selected_ticket->save();
-				Response::json($selected_ticket, 200);
+				return Response::json($selected_ticket, 200);
 
 			}catch(Exception $e){
 				return Response::json(array( 'error' => 'Unable to process request', 'debug' => $e->getMessage()), 501);

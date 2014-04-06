@@ -22,4 +22,30 @@ class TicketControllerTest extends TestCase{
 		$response_json = json_decode($response->getcontent());
 		$this->assertEquals('ThisIsATest', $response_json->title);
 	}
+
+	public function testEditTicketName(){
+		$user = User::fromUserName('admin');
+		$this->be($user);
+		$ticket = new Ticket();
+
+		$ticket->title = 'OldName';
+		$ticket->description = 'OldDescription';
+		$ticket->creator_id = $user->id; 
+		$ticket->owner_id = $user->id;
+		$ticket->project_id = Project::fromName('RandomFruit')->id;
+		$ticket->save();
+
+		//Refresh the ticket values to get the number
+		$ticket = Ticket::find($ticket->id);
+
+
+		$post_input = array(
+			'ticket-title' => 'NewName',
+		);
+
+		$response = $this->call('POST', "/api/edit_ticket/RandomFruit/" . $ticket->number, $post_input);
+		$response_message = json_decode($response->getcontent());
+		var_dump($response_message);
+
+	}
 }

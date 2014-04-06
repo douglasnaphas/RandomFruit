@@ -1,0 +1,7 @@
+#!/usr/bin/perl
+
+# This is how I avoid symbolic links in version control.
+# This program acts as a shortcut to phpunit
+
+unshift(@ARGV, 'php', './vendor/phpunit/phpunit/phpunit');
+exec(@ARGV);

@@ -3,6 +3,7 @@
 class TicketTableSeeder extends Seeder {
 	public function run()
 	{
+		DB::table('tickets')->delete();
 		$project = Project::where('name', '=', 'RandomFruit')->get()->first();
 		$ticket_name = "It's broken";
 		$ticket_description = "fix_it";
