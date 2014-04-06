@@ -10,37 +10,23 @@
 			   <script>
 				   function projectChange( project_id ){
 					   var owner_select = document.getElementById('owner');
+					   owner_select.options.length = 0;
+
 					   <?php
 					   $available_options = array();
 					   foreach(Auth::user()->projects as $project){
+					   echo "if (project_id == '$project->id'){\n";
+
 					   foreach($project->users as $user){
-					   $available_options[] = array('name' => $user->username,
-					   'id' => $user->id, 'project_id' => $project->id
-					   );
-
+					   echo "\towner_select.options[owner_select.options.length] = new Option('$user->username', '$user->id');\n";
 
 					   }
-					   }
+					   echo "}\n";
 					   
-					   echo "var available_options = " . json_encode($available_options, true) . ";\n";
+					   }
+
 
 					   ?>
-					   for(var i = 0; i < owner_select.options.length; i++){
-						   var current_option = owner_select.options[i];
-						   if(current_option.getAttribute('data-project') == project_id){
-							   continue;
-						   }
-						   else{
-							   current_option.remove();
-						   }
-					   }
-					   for(var i = 0; i < available_options.length; i++){
-						   var current_option = available_options[i];
-						   if(current_option.project_id == project_id){
-							   owner_select.innerHTML += '<option value="' + current_option.user + '" data-project="' +
-							   current_option.project_id + '">' + current_option.name + "</option>";
-						   }
-					   }
 
 				   }
 
