@@ -9,7 +9,10 @@ jQuery(function ($) {
             data: $form.serialize(),
 
             success: function (data, status) {
-                /* $.('#createTicket').modal('hide'); */
+                $('#'+$form.attr('data-modal-id')).modal('hide');
+//		alert(
+//		$form.attr('data-modal-id'));
+//		alert("Ticket created.");
                 $target.html(data);
             },
 

@@ -5,7 +5,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel">Create a Ticket</h4>
             </div>
-           <form class="form" role="form" data-async data-target="createTicket" id="ct_form" action="{{URL::action('TicketController@createticketAction')}}" method="post">
+           <form class="form" role="form" data-async data-target="createTicket" data-modal-id="createTicket" id="ct_form" action="{{URL::action('TicketController@createticketAction')}}" method="post">
                 <div class="modal-body">
                     <div class="form-group" id="title-input">
                         <label for="ticket-title">Title</label>
