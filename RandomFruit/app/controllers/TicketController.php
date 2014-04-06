@@ -83,7 +83,7 @@ class TicketController extends BaseController
 			return; //error
 		}
 
-		$editable_values = ['title', 'description', 'owner_id'];
+		$editable_values = array('title', 'description', 'owner_id');
 
 		foreach($editable_value as $form_field){
 			if($maybe_value = Input::has("ticket-$form_field")){
@@ -105,7 +105,7 @@ class TicketController extends BaseController
 				Response::json($selected_ticket, 200);
 
 			}catch(Exception $e){
-				return Response::json(array( 'error' => 'Unable to process request', 'debug' => $e->getMessage(), 501);
+				return Response::json(array( 'error' => 'Unable to process request', 'debug' => $e->getMessage()), 501);
 			}
 		}
 	}

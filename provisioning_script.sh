@@ -77,6 +77,7 @@ service apache2 restart
 
 ## Database setup
 mysql -u root --password='root' -e 'CREATE DATABASE RandomFruit;'
+mysql -u root --password='root' -e 'CREATE DATABASE RandomFruitTest;'
 mysql -u root --password='root' -e "CREATE USER 'RandomFruit'@'localhost' IDENTIFIED BY 'Durian'; flush privileges;"
 mysql -u root --password='root' -e "GRANT ALL PRIVILEGES ON *.* TO 'RandomFruit'@'localhost'; flush privileges;"
 
