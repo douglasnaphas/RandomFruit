@@ -19,7 +19,7 @@ class Ticket extends Eloquent {
 	 * @var array Array of rules used to validate form input prior to submitting
 	 */
 	public static $validation_rules = array(
-		'title' => 'required',
+		'title' => 'required|max:255',
 		'creator_id' => 'required',
 		'project_id' => 'required',
 		'owner_id' => 'required',

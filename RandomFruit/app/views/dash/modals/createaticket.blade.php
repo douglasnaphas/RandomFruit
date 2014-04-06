@@ -16,7 +16,7 @@
                         <input type="text" class="form-control" placeholder="[Current User's Username]"
                                id="ticket-creator">
                     </div>
-                    <div class="form-group  " id="description-input">
+                    <div class="form-group" id="description-input">
                         <label for="ticket-description">Description</label>
                         <textarea class="form-control" rows="6" placeholder="Enter description" name="ticket-description" id="ticket-description"></textarea>
                     </div>
@@ -59,7 +59,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <input type="submit" class="btn btn-primary" value="Create ticket">
+                    <input type="submit" class="btn btn-primary" value="Create ticket" data-toggle="modal">
                 </div>
             </form>
         </div>
