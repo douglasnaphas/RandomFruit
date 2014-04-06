@@ -7,9 +7,13 @@
             </div>
            <form class="form" role="form" data-async data-target="createTicket" id="ct_form" action="{{URL::action('TicketController@createticketAction')}}" method="post">
                 <div class="modal-body">
-                    <div class="form-group" id="title-input">
-                        <label for="ticket-title">Title</label>
-                        <input type="text" class="form-control" placeholder="Subject" id="ticket-title" name="ticket-title" required>
+		    <div class="form-group">
+			    <label for="ticket-project-id">Project</label>
+			    <ul class="dropdown-menu"></ul>
+		    </div>
+                    <div class="form-group">
+                        <label for="ticket-subject">Subject</label>
+                        <input type="text" class="form-control" placeholder="Subject" id="ticket-subject" name="ticket-subject" required>
                     </div>
                     <div class="form-group" id="creator-input">
                         <label for="ticket-creator">Creator</label>
