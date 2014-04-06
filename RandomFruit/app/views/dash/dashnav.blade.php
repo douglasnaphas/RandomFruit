@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Random Fruit</a>
+            <a class="navbar-brand">Random Fruit</a>
         </div>
         <span class="navbar-left" style="color:#ffffff; padding-top: 17px">Instructor</span>
 

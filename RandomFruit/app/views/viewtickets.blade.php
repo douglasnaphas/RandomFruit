@@ -71,7 +71,7 @@ View Tickets for {{ $project->name }}
                             {{{ $ticket->number }}}
                         </td>
                         <td>
-                            <a href="{{URL::to('project/RandomFruit/ticket')}}">{{{ $ticket->title }}}</a>
+                            <a href="{{URL::to('project/RandomFruit/ticket/'.$ticket->number )}}">{{{ $ticket->title }}}</a>
                         </td>
                         <td>
                             {{{ $ticket->creator->username }}}
