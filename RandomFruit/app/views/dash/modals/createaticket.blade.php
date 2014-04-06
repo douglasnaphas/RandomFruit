@@ -7,6 +7,14 @@
             </div>
            <form class="form" role="form" data-async data-target="createTicket" data-modal-id="createTicket" id="ct_form" action="{{URL::action('TicketController@createticketAction')}}" method="post">
                 <div class="modal-body">
+		    <div class="form-group" id="project-input">
+			<label for="project-input">Project</label>
+			<select id="project" name="project">
+				@foreach(Auth::user()->projects as $project)
+       					<option value="{{ $project->id}}">{{$project->name}}</option>
+				@endforeach
+			</select>
+		    </div>
                     <div class="form-group" id="title-input">
                         <label for="ticket-title">Title</label>
                         <input type="text" class="form-control" placeholder="Subject" id="ticket-title" name="ticket-title" required>

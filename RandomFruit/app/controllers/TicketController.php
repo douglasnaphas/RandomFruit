@@ -18,7 +18,8 @@ class TicketController extends BaseController
 			'title' => Input::get("ticket-title"),
 			'creator_id' => Auth::user()->id,
 			'owner_id' => Auth::user()->id,
-			'project_id' => Project::fromName('RandomFruit')->id,
+			'project_id' => Input::get("project"),
+			/* Project::fromName('RandomFruit')->id, */
 			'description' => Input::get("ticket-description")
 			// 'ticket-type' => Input::get("ticket-type"),
 			// 'ticket-priority' => Input::get("ticket-priority"));
