@@ -81,7 +81,7 @@
 					<br/>
 					<label for="planned-hours">Planned Value (hours)</label><br/>
 					<div class="form-group" id="planned-hours-input">
-						<input type="number" id="planned-hours" name="planned-hours" value="1" min="0"/>
+						<input type="number" id="planned-hours" name="planned-hours" value="1.0" min="0" step=".1"/>
 					</div>
 
 					<!-- TODO: add this to ticket model
