@@ -23,7 +23,6 @@ class Ticket extends Eloquent {
 		'creator_id' => 'required',
 		'project_id' => 'required',
 		'owner_id' => 'required',
-		'description' => 'required',
 	);
 
 	/**

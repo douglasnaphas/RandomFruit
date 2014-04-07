@@ -49,6 +49,8 @@
 
 						</select>
 					</div>
+
+					
 					<div class="form-group" id="title-input">
 						<label for="ticket-title">Title</label>
 						<input type="text" class="form-control" placeholder="Subject" id="ticket-title" name="ticket-title" required>
