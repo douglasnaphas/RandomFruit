@@ -58,6 +58,8 @@
 						<textarea class="form-control" rows="6" placeholder="Enter description" name="ticket-description" id="ticket-description"></textarea>
 					</div>
 
+					<!-- TODO: add type to ticket model and TicketController
+
 					<label for="ticket-type">Type</label><br/>
 
 					<div class="btn-group" data-toggle="buttons">
@@ -74,11 +76,15 @@
 							<input type="radio" name="ticket-type" id="defect">Defect
 						</label>
 					</div>
-					<br/><br/>
+					<br/>
+					-->
+					<br/>
 					<label for="planned-hours">Planned Value (hours)</label><br/>
 					<div class="form-group" id="planned-hours-input">
 						<input type="number" id="planned-hours" name="planned-hours" value="1" min="0"/>
 					</div>
+
+					<!-- TODO: add this to ticket model
 					<label for="ticket-priority">Priority</label><br/>
 
 					<div class="btn-group" data-toggle="buttons">
@@ -98,6 +104,7 @@
 							<input type="radio" name="ticket-priority" id="trivial">Trivial
 						</label>
 					</div>
+					-->
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
