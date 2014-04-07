@@ -40,7 +40,7 @@
 			</select>
 		</div>
 		    <div class="form-group" id="owner-input">
-			<label for="owner-input">Project</label>
+			<label for="owner-input">Assignee</label>
 			<select id="owner" name="owner">
 				<?php $first_project = Auth::user()->projects->first() ?>
 				@foreach($first_project->users as $user)
@@ -52,11 +52,6 @@
                     <div class="form-group" id="title-input">
                         <label for="ticket-title">Title</label>
                         <input type="text" class="form-control" placeholder="Subject" id="ticket-title" name="ticket-title" required>
-                    </div>
-                    <div class="form-group" id="creator-input">
-                        <label for="ticket-creator">Creator</label>
-                        <input type="text" class="form-control" placeholder="[Current User's Username]"
-                               id="ticket-creator">
                     </div>
                     <div class="form-group" id="description-input">
                         <label for="ticket-description">Description</label>
