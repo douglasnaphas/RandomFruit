@@ -17,7 +17,7 @@ class TicketController extends BaseController
 		$ticket_attributes = array(
 			'title' => Input::get("ticket-title"),
 			'creator_id' => Auth::user()->id,
-			'owner_id' => Auth::user()->id,
+			'owner_id' => Input::get("owner"),
 			'project_id' => Input::get("project"),
 			/* Project::fromName('RandomFruit')->id, */
 			'description' => Input::get("ticket-description")
