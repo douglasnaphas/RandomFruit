@@ -83,7 +83,7 @@
 					<div class="form-group" id="planned-hours-input">
 						<input type="number" id="planned-hours" name="planned-hours" value="1.0" min="0" step=".1"/>
 					</div>
-					<label for="due-date">Planned Value (hours)</label><br/>
+					<label for="due-date">Due date</label><br/>
 					<div class="form-group" id="due-date-input">
 						<input type="text" id="due-date" name="due-date">
 					</div>
