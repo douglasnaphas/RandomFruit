@@ -38,11 +38,11 @@
             </ul>
             <form class="navbar-form navbar-right">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Enter Ticket #">
-                    <span class="input-group-btn">
+                    <input type="text" class="form-control" placeholder="Search Tickets">
+                    <!--<span class="input-group-btn">
                         <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-search"></i>
                         </button>
-                    </span>
+                    </span>-->
                 </div>
             </form>
         </div>

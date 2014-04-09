@@ -50,20 +50,20 @@ Ticket #{{{ $ticket->number }}}
 <script>
     $('.edit-owner').editable("", {
         width: '100%',
-        height: '18px'
+        height: '25px'
     });
     $('.edit-planned').editable("", {
         width: '100%',
-        height: '18px'
+        height: '25px'
     });
     $('.edit-actual').editable("" , {
         width: '100%',
-        height: '18px'
+        height: '25px'
     });
     $('.edit-description').editable("", {
         type: 'textarea',
         rows: 8,
-        width: '10%'
+        width: '30%'
     });
 
     $('.edit-owner').mouseover(function () {
