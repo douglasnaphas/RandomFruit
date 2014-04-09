@@ -15,11 +15,15 @@ class TicketControllerTest extends TestCase{
 		$this->be($user);
 		$post_input = array(
 			'ticket-title' => 'ThisIsATest',
-			'ticket-description' => 'Fix this test'
+			'ticket-description' => 'Fix this test',
+			'project' => Project::fromName('RandomFruit')->id,
+			'owner' => $user->id,
+			'planned-hours' => 4.0
 		);
 		$response = $this->action('POST', 'TicketController@createticketAction', $post_input);
-		$this->assertResponseOk();
 		$response_json = json_decode($response->getcontent());
+		var_dump($response_json);
+		$this->assertResponseOk();
 		$this->assertEquals('ThisIsATest', $response_json->title);
 	}
 
