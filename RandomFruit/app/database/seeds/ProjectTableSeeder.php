@@ -10,5 +10,11 @@ class ProjectTableSeeder extends Seeder {
 				'description' => 'Project tracking software'
 			)
 		);
+		Project::create(
+			array(
+				'name' => 'Lightning',
+				'description' => 'Something with phones.'
+			)
+		);
 	}
 }

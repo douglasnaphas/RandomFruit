@@ -10,6 +10,24 @@ class MemberShipTableSeeder extends Seeder {
 				'project_id' => Project::fromName('RandomFruit')->id
 			)
 		);
+		Membership::create(
+			array(
+				'user_id' => User::fromUserName('admin')->id,
+				'project_id' => Project::fromName('Lightning')->id
+			)
+		);
+		Membership::create(
+			array(
+				'user_id' => User::fromUserName('jeff')->id,
+				'project_id' => Project::fromName('RandomFruit')->id
+			)
+		);
+		Membership::create(
+			array(
+				'user_id' => User::fromUserName('greg')->id,
+				'project_id' => Project::fromName('Lightning')->id
+			)
+		);
 		$projects = Project::where('name', '=', 'RandomFruit')->get();
 	}
 }

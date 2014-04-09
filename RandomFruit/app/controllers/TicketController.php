@@ -17,12 +17,24 @@ class TicketController extends BaseController
 		$ticket_attributes = array(
 			'title' => Input::get("ticket-title"),
 			'creator_id' => Auth::user()->id,
-			'owner_id' => Auth::user()->id,
-			'project_id' => Project::fromName('RandomFruit')->id,
-			'description' => Input::get("ticket-description")
+			'owner_id' => Input::get("owner"),
+			'project_id' => Input::get("project"),
+			'planned_hours' => Input::get("planned-hours"),
+			/* Project::fromName('RandomFruit')->id, */
+			'description' => Input::get("ticket-description"),
 			// 'ticket-type' => Input::get("ticket-type"),
 			// 'ticket-priority' => Input::get("ticket-priority"));
 		);
+		$due_date = Input::get('due-date');
+
+		if($due_date != '' && $due_date != NULL){
+			$due_date = new DateTime($due_date);
+			$ticket_attributes['due_date'] = $due_date->format('Y-m-d');
+
+		}
+		
+
+
 
 		/* Create a validator using the rules defined in the tickets model */
 		

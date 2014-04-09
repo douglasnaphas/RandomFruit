@@ -19,9 +19,9 @@ class CreateTicketsTable extends Migration {
 			$table->timestamps();
 			$table->string('title');
 			$table->mediumText('description');
-			$table->integer('planned_hours');
-			$table->integer('actual_hours');
 			$table->integer('number')->nullable();
+			$table->decimal('planned_hours', 6, 1);
+			$table->decimal('actual_hours', 6, 1);
 			$table->date('due_date')->nullable();
 			$table->integer('project_id')->unsigned();
 			$table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');

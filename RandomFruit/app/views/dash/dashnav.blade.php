@@ -8,13 +8,13 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Random Fruit</a>
+            <a class="navbar-brand">Random Fruit</a>
         </div>
         <span class="navbar-left" style="color:#ffffff; padding-top: 17px">Instructor</span>
 
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Dashboard</a></li>
+                <li><a href="{{URL::to('dash')}}">Dashboard</a></li>
                 <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Tickets<b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="{{URL::to('project/RandomFruit/tickets')}}">View Tickets</a></li>
