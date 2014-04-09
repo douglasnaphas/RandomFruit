@@ -484,7 +484,7 @@
             },
             select: {
                 element : function(settings, original) {
-                    var select = $('<select />');
+                    var select = $('<select class="form-control" />');
                     $(this).append(select);
                     return(select);
                 },
