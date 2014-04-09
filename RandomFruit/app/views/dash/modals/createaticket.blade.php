@@ -33,7 +33,7 @@
 					</script>
 					<div class="form-group" id="project-input">
 						<label for="project-input">Project</label>
-						<select id="project" name="project" onchange="projectChange(document.getElementById('project').options[document.getElementById('project').selectedIndex].value)">
+						<select id="project" name="project" class="form-control" onchange="projectChange(document.getElementById('project').options[document.getElementById('project').selectedIndex].value)">
 							@foreach(Auth::user()->projects as $project)
 							<option value="{{ $project->id }}">{{ $project->name }}</option>
 							@endforeach
@@ -41,7 +41,7 @@
 					</div>
 					<div class="form-group" id="owner-input">
 						<label for="owner-input">Assignee</label>
-						<select id="owner" name="owner">
+						<select id="owner" name="owner" class="form-control">
 							<?php $first_project = Auth::user()->projects->first() ?>
 							@foreach($first_project->users as $user)
 							<option value="{{$user->id}}" data-project="{{$first_project->id}}">{{$user->username}}</option>
