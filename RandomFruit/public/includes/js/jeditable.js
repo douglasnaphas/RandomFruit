@@ -467,7 +467,7 @@
             },
             textarea: {
                 element : function(settings, original) {
-                    var textarea = $('<textarea />');
+                    var textarea = $('<textarea class="form-control" />');
                     if (settings.rows) {
                         textarea.attr('rows', settings.rows);
                     } else if (settings.height != "none") {

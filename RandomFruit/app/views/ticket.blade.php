@@ -48,11 +48,22 @@ Ticket #{{{ $ticket->number }}}
 <div class="edit-description">{{{ $ticket->description }}}</div>
 
 <script>
-    $('.edit-owner').editable("", {});
-    $('.edit-planned').editable();
-    $('.edit-actual').editable();
+    $('.edit-owner').editable("", {
+        width: '100%',
+        height: '18px'
+    });
+    $('.edit-planned').editable("", {
+        width: '100%',
+        height: '18px'
+    });
+    $('.edit-actual').editable("" , {
+        width: '100%',
+        height: '18px'
+    });
     $('.edit-description').editable("", {
-        type: 'textarea'
+        type: 'textarea',
+        rows: 8,
+        width: '10%'
     });
 
     $('.edit-owner').mouseover(function () {
@@ -88,55 +99,6 @@ Ticket #{{{ $ticket->number }}}
         $('.icon-description').addClass('glyphicon-none');
     });
 </script>
-
-<!-- Div implementation
-<h4>Details</h4>
-<div class="row ticket-container">
-    <div class="col-md-1">Creator:</div>
-    <div class="col-md-1">{{{ $ticket->creator->username }}}</div>
-    <div class="col-md-1">Planned Hours</div>
-    <div class="col-md-4">{{{ $ticket->planned_hours }}}</div>
-</div>
-<div class="row">
-    <div class="col-md-1">Pla</div>
-</div>
--->
-
-<!-- Jeff implementation
-        <div class="row">
-          <div class="col-6 col-sm-6 col-lg-4 col-lg-4">
-            <h4>Details</h4>
-            <div>Creator: &nbsp;&nbsp;&nbsp;&nbsp; {{{ $ticket->creator->username }}}</div>
-            <div class="edit-owner">Owner: &nbsp;&nbsp;&nbsp;&nbsp; {{{ $ticket->owner->username }}}</div>
-          </div>
-            <script>
-                $(function() {
-                    /*$.(".edit-owner").hover(function() {
-                        $(this).append("<i class="glyphicon glyphicon-pencil">");
-                    });*/
-                    $(".edit-owner").editable("", {});
-                });
-            </script>
-          <div class="col-6 col-sm-6 col-lg-4 col-lg-4">
-            <h4>&nbsp;&nbsp;&nbsp;&nbsp;</h4>
-            <p>Planned Hours: &nbsp;&nbsp;&nbsp;&nbsp; {{{ $ticket->planned_hours }}}</p>
-            <p>Actual Hours: &nbsp;&nbsp;&nbsp;&nbsp; {{{ $ticket->actual_hours }}}</p>
-          </div>
-        </div>
-        <div class="row">
-            <div class="col-6 col-sm-6">
-                <h4>Description</h4>
-            </div>
-        </div>
-                <p> {{{$ticket->description}}}</p>
--->
-<!--                <th>Ticket #</th>
-                    <th>Title</th>
-                    <th>Creator</th>
-                    <th>Owner</th>
-                    <th>Description</th>
-                    <th>Planned</th>
-                    <th>Actual</th>-->
 
 
 @stop
