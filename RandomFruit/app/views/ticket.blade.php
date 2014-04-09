@@ -15,8 +15,6 @@ Ticket #{{{ $ticket->number }}}
 @stop
 
 @section('content')
-
-<!-- table implementation -->
 <h3>Details</h3>
 <table class="table-nonfluid">
     <tr>
@@ -38,7 +36,7 @@ Ticket #{{{ $ticket->number }}}
 </table>
 
 <div>
-    <div class="description-container">
+    <div class="header-container">
         <h3>Description</h3>
     </div>
     <div class="glyphicon-container">
@@ -50,20 +48,24 @@ Ticket #{{{ $ticket->number }}}
 <script>
     $('.edit-owner').editable("", {
         width: '100%',
-        height: '25px'
+        height: '25px',
+        name: 'owner_id'
     });
     $('.edit-planned').editable("", {
         width: '100%',
-        height: '25px'
+        height: '25px',
+        name: 'planned_hours'
     });
     $('.edit-actual').editable("" , {
         width: '100%',
-        height: '25px'
+        height: '25px',
+        name: 'actual_hours'
     });
     $('.edit-description').editable("", {
         type: 'textarea',
         rows: 8,
-        width: '30%'
+        width: '30%',
+        name: 'description'
     });
 
     $('.edit-owner').mouseover(function () {
