@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand">Random Fruit</a>
+            <span class="navbar-brand">Random Fruit</span>
         </div>
         <span class="navbar-left" style="color:#ffffff; padding-top: 17px">Instructor</span>
 
@@ -26,17 +26,24 @@
                         <li><a href="#">One more separated link</a></li>
                     </ul>
                 </li>
-		<li><a href="#" class="dropdown-toggle" data-toggle="dropdown">{{Auth::user()->username}}<b class="caret"></b></a>
-		<ul class="dropdown-menu">
-			<li><a href="#">Edit Profile</a></li>
-			<li><a href="{{ URL::action('UserController@logout') }}">Logout</a></li>
-				
-			</ul>
-		</li>
+                <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">{{Auth::user()->username}}<b
+                            class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Edit Profile</a></li>
+                        <li><a href="{{ URL::action('UserController@logout') }}">Logout</a></li>
+
+                    </ul>
+                </li>
                 <li><a href="#">Help</a></li>
             </ul>
             <form class="navbar-form navbar-right">
-                <input type="text" class="form-control" placeholder="Enter Ticket #">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Enter Ticket #">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </span>
+                </div>
             </form>
         </div>
     </div>
