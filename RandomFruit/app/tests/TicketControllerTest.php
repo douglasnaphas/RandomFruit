@@ -27,7 +27,7 @@ class TicketControllerTest extends TestCase{
 		$this->assertEquals('ThisIsATest', $response_json->title);
 	}
 
-	public function testEditTicketName(){
+	public function testEditTicketHours(){
 		$user = User::fromUserName('admin');
 		$this->be($user);
 		$ticket = new Ticket();
@@ -37,6 +37,7 @@ class TicketControllerTest extends TestCase{
 		$ticket->creator_id = $user->id; 
 		$ticket->owner_id = $user->id;
 		$ticket->project_id = Project::fromName('RandomFruit')->id;
+		$ticket->planned_hours = 4.0;
 		$ticket->save();
 
 		//Refresh the ticket values to get the number
@@ -44,12 +45,13 @@ class TicketControllerTest extends TestCase{
 
 
 		$post_input = array(
-			'ticket-title' => 'NewName',
+			'planned_hours' => 7.0,
 		);
 
 		$response = $this->call('POST', "/api/edit_ticket/RandomFruit/" . $ticket->number, $post_input);
 		$response_message = json_decode($response->getcontent());
 		var_dump($response_message);
+		$this->assertEquals(7.0, $response_message->planned_hours);
 
 	}
 }
