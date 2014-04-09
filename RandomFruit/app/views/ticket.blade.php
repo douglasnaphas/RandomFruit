@@ -49,23 +49,27 @@ Ticket #{{{ $ticket->number }}}
     $('.edit-owner').editable("", {
         width: '100%',
         height: '25px',
-        name: 'owner_id'
+        name: 'owner_id',
+        indicator: 'Saving...'
     });
     $('.edit-planned').editable("", {
         width: '100%',
         height: '25px',
-        name: 'planned_hours'
+        name: 'planned_hours',
+        indicator: 'Saving...'
     });
     $('.edit-actual').editable("" , {
         width: '100%',
         height: '25px',
-        name: 'actual_hours'
+        name: 'actual_hours',
+        indicator: 'Saving...'
     });
     $('.edit-description').editable("", {
         type: 'textarea',
         rows: 8,
         width: '30%',
-        name: 'description'
+        name: 'description',
+        indicator: 'Saving...'
     });
 
     $('.edit-owner').mouseover(function () {
