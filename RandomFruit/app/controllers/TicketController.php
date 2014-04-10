@@ -93,6 +93,10 @@ class TicketController extends BaseController
 			$modified_attribute = 'planned_hours';
 			$selected_ticket->planned_hours = Input::get('planned_hours');
 		}
+		if(Input::has('actual_hours')){
+			$modified_attribute = 'actual_hours';
+			$selected_ticket->actual_hours = Input::get('actual_hours');
+		}
 		try{
 
 			$selected_ticket->save();
