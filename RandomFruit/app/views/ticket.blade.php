@@ -46,15 +46,22 @@ Ticket #{{{ $ticket->number }}}
 <div class="edit-description">{{{ $ticket->description }}}</div>
 
 <script>
+
+var edit_url = {{'"' . URL::to("api/edit_ticket/$project->name/$ticket->number") . '"'}};
     $('.edit-owner').editable("", {
         width: '100%',
         height: '25px',
         name: 'owner_id'
     });
-    $('.edit-planned').editable("", {
+    $('.edit-planned').editable(edit_url, {
         width: '100%',
         height: '25px',
-        name: 'planned_hours'
+        name: 'planned_hours',
+		callback: function(value, settings){
+			var ticket_model  = $.parseJSON(value);
+			$(this).html(ticket_model.planned_hours);
+		}
+		
     });
     $('.edit-actual').editable("" , {
         width: '100%',
