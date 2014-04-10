@@ -46,6 +46,13 @@ Ticket #{{{ $ticket->number }}}
 <div class="edit-description">{{{ $ticket->description }}}</div>
 
 <script>
+function text_handle(element, value, settings){
+	if(value.status == 'success'){
+		$(element).html(value.data[settings.name]);
+	}else{
+		$(element).html(value.messages[settings.name]);
+	}
+}
 
 var edit_url = {{'"' . URL::to("api/edit_ticket/$project->name/$ticket->number") . '"'}};
     $('.edit-owner').editable("", {
@@ -58,8 +65,8 @@ var edit_url = {{'"' . URL::to("api/edit_ticket/$project->name/$ticket->number")
         height: '25px',
         name: 'planned_hours',
 		callback: function(value, settings){
-			var ticket_model  = $.parseJSON(value);
-			$(this).html(ticket_model.planned_hours);
+			$(this).html('birds');
+			text_handle(this, value, settings);
 		}
 		
     });

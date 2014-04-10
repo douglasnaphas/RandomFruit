@@ -49,9 +49,14 @@ class TicketControllerTest extends TestCase{
 		);
 
 		$response = $this->call('POST', "/api/edit_ticket/RandomFruit/" . $ticket->number, $post_input);
+		echo($response->getcontent());
 		$response_message = json_decode($response->getcontent());
 		var_dump($response_message);
-		$this->assertEquals(7.0, $response_message->planned_hours);
+		$this->assertEquals(7.0, $response_message->data->planned_hours);
+
+	}
+	public function testCreateTicketHours(){
+
 
 	}
 }

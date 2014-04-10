@@ -90,13 +90,20 @@ class TicketController extends BaseController
 			return; //error
 		}
 		if(Input::has('planned_hours')){
+			$modified_attribute = 'planned_hours';
 			$selected_ticket->planned_hours = Input::get('planned_hours');
 		}
 		try{
 
 			$selected_ticket->save();
 			$selected_ticket = Ticket::find($selected_ticket->id);
-			return Response::json($selected_ticket, 200);
+			$payload = array( 
+				'status' => 'success',
+				'data' => array( 
+					$modified_attribute => $selected_ticket->getAttribute($modified_attribute)
+				)
+			);
+			return Response::json($payload, 200);
 
 		}catch(Exception $e){
 			return Response::json(array( 'error' => 'Unable to process request', 'debug' => $e->getMessage()), 501);

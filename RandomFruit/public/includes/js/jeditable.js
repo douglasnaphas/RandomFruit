@@ -343,7 +343,7 @@
                                 var ajaxoptions = {
                                     type    : 'POST',
                                     data    : submitdata,
-                                    dataType: 'html',
+                                    dataType: 'json',
                                     url     : settings.target,
                                     success : function(result, status) {
                                         if (ajaxoptions.dataType == 'html') {
