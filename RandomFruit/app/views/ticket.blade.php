@@ -65,15 +65,17 @@ var edit_url = {{'"' . URL::to("api/edit_ticket/$project->name/$ticket->number")
         height: '25px',
         name: 'planned_hours',
 		callback: function(value, settings){
-			$(this).html('birds');
 			text_handle(this, value, settings);
 		}
 		
     });
-    $('.edit-actual').editable("" , {
+    $('.edit-actual').editable(edit_url , {
         width: '100%',
         height: '25px',
-        name: 'actual_hours'
+        name: 'actual_hours',
+		callback: function(value, settings){
+			text_handle(this, value, settings);
+		}
     });
     $('.edit-description').editable("", {
         type: 'textarea',
