@@ -89,6 +89,7 @@ var edit_url = {{'"' . URL::to("api/edit_ticket/$project->name/$ticket->number")
 		callback: function(value, settings){
 			text_handle(this, value, settings);
 		},
+		submit: "OK",
         indicator: 'Saving...'
     });
 
