@@ -80,7 +80,7 @@ View Tickets for {{ $project->name }}
                             {{{ $ticket->owner->username }}}
                         </td>
                         <td>
-                            {{{ $ticket->description }}}
+                            {{{ substr($ticket->description, 0, 50) . "..." }}}
                         </td>
                         <td>
                             {{{ $ticket->planned_hours }}}
