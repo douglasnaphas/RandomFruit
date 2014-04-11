@@ -51,7 +51,7 @@ function text_handle(element, value, settings){
 		$(element).html(value.data[settings.name]);
 	}else if (value.status == 'fail'){
 		alert(value.messages[settings.name][0]);
-		$(element).html('Error');
+		$(element).html(value.data[settings.name]);
 	}
 }
 

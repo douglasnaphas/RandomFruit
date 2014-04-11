@@ -100,9 +100,13 @@ class TicketController extends BaseController
 		}
 		$validator = Validator::make(array($modified_attribute => Input::get($modified_attribute)), Ticket::$validation_rules);
 		if($validator->fails()){
+			$original = $selected_ticket->getOriginal();
 			$payload = array(
 				'status' => 'fail',
-				'messages' => $validator->messages()->toArray()
+				'messages' => $validator->messages()->toArray(),
+				'data' => array(
+					$modified_attribute => $original[$modified_attribute]
+				)
 			);
 			return Response::json($payload);
 
