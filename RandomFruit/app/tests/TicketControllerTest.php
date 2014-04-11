@@ -83,4 +83,32 @@ class TicketControllerTest extends TestCase{
 		$this->assertEquals(7.0, $response_message->data->actual_hours);
 
 	}
+	public function testBadTicketHours(){
+		$user = User::fromUserName('admin');
+		$this->be($user);
+		$ticket = new Ticket();
+
+		$ticket->title = 'OldName';
+		$ticket->description = 'OldDescription';
+		$ticket->creator_id = $user->id; 
+		$ticket->owner_id = $user->id;
+		$ticket->project_id = Project::fromName('RandomFruit')->id;
+		$ticket->planned_hours = 4.0;
+		$ticket->save();
+
+		//Refresh the ticket values to get the number
+		$ticket = Ticket::find($ticket->id);
+
+
+		$post_input = array(
+			'actual_hours' =>  'burgers',
+		);
+
+		$response = $this->call('POST', "/api/edit_ticket/RandomFruit/" . $ticket->number, $post_input);
+		echo($response->getcontent());
+		$response_message = json_decode($response->getcontent());
+		var_dump($response_message);
+		$this->assertEquals("fail", $response_message->status);
+
+	}
 }

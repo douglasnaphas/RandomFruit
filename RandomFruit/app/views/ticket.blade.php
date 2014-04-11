@@ -66,7 +66,8 @@ var edit_url = {{'"' . URL::to("api/edit_ticket/$project->name/$ticket->number")
         name: 'planned_hours',
 		callback: function(value, settings){
 			text_handle(this, value, settings);
-		}
+		},
+	indicator: 'Saving...'
 		
     });
     $('.edit-actual').editable(edit_url , {
@@ -75,7 +76,8 @@ var edit_url = {{'"' . URL::to("api/edit_ticket/$project->name/$ticket->number")
         name: 'actual_hours',
 		callback: function(value, settings){
 			text_handle(this, value, settings);
-		}
+		},
+        indicator: 'Saving...'
     });
     $('.edit-description').editable("", {
         type: 'textarea',

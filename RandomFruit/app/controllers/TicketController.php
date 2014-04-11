@@ -86,6 +86,7 @@ class TicketController extends BaseController
 		$values_to_edit = array();
 		$rules_to_check = array();
 		$selected_ticket;
+		$validator;
 		if(!($selected_ticket = Project::fromName($project_name)->getTicketFromNumber($ticket_number))){
 			return; //error
 		}
@@ -96,6 +97,19 @@ class TicketController extends BaseController
 		if(Input::has('actual_hours')){
 			$modified_attribute = 'actual_hours';
 			$selected_ticket->actual_hours = Input::get('actual_hours');
+		}
+		if(Input::has('actual_hours')){
+			$modified_attribute = 'actual_hours';
+			$selected_ticket->actual_hours = Input::get('actual_hours');
+		}
+		$validator = Validator::make(array($modified_attribute => Input::get($modified_attribute)), Ticket::$validation_rules);
+		if($validator->fails()){
+			$payload = array(
+				'status' => 'fail',
+				'data' => $validator->messages()->toArray()
+			);
+			return Response::json($payload, 406);
+
 		}
 		try{
 
