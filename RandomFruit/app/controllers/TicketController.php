@@ -98,6 +98,10 @@ class TicketController extends BaseController
 			$modified_attribute = 'actual_hours';
 			$selected_ticket->actual_hours = Input::get('actual_hours');
 		}
+		if(Input::has('description')){
+			$modified_attribute = 'description';
+			$selected_ticket->description = Input::get('description');
+		}
 		$validator = Validator::make(array($modified_attribute => Input::get($modified_attribute)), Ticket::$validation_rules);
 		if($validator->fails()){
 			$original = $selected_ticket->getOriginal();

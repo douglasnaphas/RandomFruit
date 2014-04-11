@@ -81,11 +81,14 @@ var edit_url = {{'"' . URL::to("api/edit_ticket/$project->name/$ticket->number")
 		},
         indicator: 'Saving...'
     });
-    $('.edit-description').editable("", {
+    $('.edit-description').editable(edit_url, {
         type: 'textarea',
         rows: 8,
         width: '30%',
         name: 'description',
+		callback: function(value, settings){
+			text_handle(this, value, settings);
+		},
         indicator: 'Saving...'
     });
 
