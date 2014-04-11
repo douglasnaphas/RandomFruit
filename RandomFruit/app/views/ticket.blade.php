@@ -56,11 +56,18 @@ function text_handle(element, value, settings){
 }
 
 var edit_url = {{'"' . URL::to("api/edit_ticket/$project->name/$ticket->number") . '"'}};
-    $('.edit-owner').editable("", {
+var assign_owner_url = {{'"' . URL::route("ownerAssign", array("project_name" => $project->name, "ticket_number" => $ticket->number)) . '"'}};
+    $('.edit-owner').editable(assign_owner_url, {
+		type: 'select',
+		loadurl: '{{URL::action("TicketController@getOwnerSelectedInList", array('project_name' => $project->name, "ticket_number" => $ticket->number))}}',
         width: '100%',
         height: '25px',
         name: 'owner_id',
-        indicator: 'Saving...'
+		submit: 'OK',
+        indicator: 'Saving...',
+		callback: function(value, settings){
+			text_handle(this, value, settings);
+		},
     });
     $('.edit-planned').editable(edit_url, {
         width: '100%',

@@ -33,6 +33,9 @@ Route::post('api/create_ticket', array('as' => 'createTicket', 'uses' => 'Ticket
 
 Route::post('api/edit_ticket/{project_name}/{ticket_number}', array('as' => 'createTicket', 'uses' => 'TicketController@editTicketAction'));
 
+Route::get('api/owner_select/{project_name}/{ticket_number}', array('as' => 'ownerList', 'uses' => 'TicketController@getOwnerSelectedInList'));
+Route::post('api/owner_assign/{project_name}/{ticket_number}', array('as' => 'ownerAssign', 'uses' => 'TicketController@assignTicketOwner'));
+
 Route::any('dash', array('as' => 'dash', function(){
 	return View::make('instructordash');
 }));
@@ -50,8 +53,6 @@ Route::any('project/{project_name}/ticket/{ticket_number}', function($project_na
 Route::any('project/{project_name}/tickets', function($project_name){
 	$project = Project::where('name', '=', $project_name)->with('tickets')->get()->first();
 	return View::make('viewtickets')->with('project', $project);
-
-
 });
 
 Route::any('logout', array('uses' => 'UserController@logout'));

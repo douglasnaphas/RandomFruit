@@ -102,6 +102,10 @@ class TicketController extends BaseController
 			$modified_attribute = 'description';
 			$selected_ticket->description = Input::get('description');
 		}
+		if(Input::has('owner_id')){
+			$modified_attribute = 'owner_id';
+			$selected_ticket->owner_id = Input::get('owner_id');
+		}
 		$validator = Validator::make(array($modified_attribute => Input::get($modified_attribute)), Ticket::$validation_rules);
 		if($validator->fails()){
 			$original = $selected_ticket->getOriginal();
@@ -129,6 +133,110 @@ class TicketController extends BaseController
 
 		}catch(Exception $e){
 			return Response::json(array( 'error' => 'Unable to process request', 'debug' => $e->getMessage()), 501);
+		}
+	}
+
+	/**
+	 * given a project_name, ticket number from a url, and an owner id from post data, re-assign a ticket
+	 *
+	 */
+	public function assignTicketOwner($project_name, $ticket_number)
+	{
+		$project = Project::fromName($project_name);
+		$ticket = $project->getTicketFromNumber($ticket_number);
+		if($project == null){
+			return Response::JSON(
+				array(
+					"status" => "fail",
+					"message" => "Requested project '$project_name' does not exist"
+				)
+			);
+		}
+		if($ticket == NULL ){
+
+			return Response::JSON(
+				array(
+					"status" => "fail",
+					"message" => "Requested ticket '$ticket_number' does not exist"
+				)
+			);
+
+		}
+		$modified_attribute = "owner_id";
+		$validator = Validator::make(array($modified_attribute => Input::get($modified_attribute)), Ticket::$validation_rules);
+		if($validator->fails()){
+			$original = $ticket->getOriginal();
+			$payload = array(
+				'status' => 'fail',
+				'messages' => $validator->messages()->toArray(),
+				'data' => array(
+					$modified_attribute => $original[$modified_attribute]
+				)
+			);
+			return Response::JSON($payload);
+
+		}
+		try{
+			$ticket->owner_id = Input::get($modified_attribute);
+			$ticket->save();
+			$ticket = Ticket::find($ticket->id);
+			$payload = array( 
+				'status' => 'success',
+				'data' => array( 
+					$modified_attribute => $ticket->owner->username
+				)
+			);
+			return Response::JSON($payload, 200);
+
+		}catch(Exception $e){
+			return Response::JSON(array( 'error' => 'Unable to process request', 'debug' => $e->getMessage()), 501);
+		}
+	}
+
+	/**
+	 * Gets a list of users for a project as a json response
+	 *
+	 */
+	public function getOwnerSelectedInList($project_name, $ticket_number){
+		$project = Project::fromName($project_name);
+		$ticket = $project->getTicketFromNumber($ticket_number);
+		if($project == null){
+			return Response::JSON(
+				array(
+					"status" => "fail",
+					"message" => "Requested project '$project_name' does not exist"
+				)
+			);
+		}
+		if($ticket == NULL ){
+
+			return Response::JSON(
+				array(
+					"status" => "fail",
+					"message" => "Requested ticket '$ticket_number' does not exist"
+				)
+			);
+
+		}
+		else
+		{
+			try{
+				$payload = array();
+				$owner_id = $ticket->owner->id;
+				foreach($project->users as $user){
+					$payload[$user->id] = $user->username;
+				}
+				$payload['selected'] = $owner_id;
+				return Response::JSON($payload);
+			}catch (Exception $e){
+				return Response::JSON(
+					array(
+						"status"=>"error",
+						"message"=>"An internal server error occurred."
+					)
+				);
+			}
+
 		}
 	}
 }
