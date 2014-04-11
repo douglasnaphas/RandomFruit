@@ -49,8 +49,9 @@ Ticket #{{{ $ticket->number }}}
 function text_handle(element, value, settings){
 	if(value.status == 'success'){
 		$(element).html(value.data[settings.name]);
-	}else{
-		$(element).html(value.messages[settings.name]);
+	}else if (value.status == 'fail'){
+		alert(value.messages[settings.name][0]);
+		$(element).html('Error');
 	}
 }
 
@@ -68,7 +69,8 @@ var edit_url = {{'"' . URL::to("api/edit_ticket/$project->name/$ticket->number")
 		callback: function(value, settings){
 			text_handle(this, value, settings);
 		},
-	indicator: 'Saving...'
+		
+        indicator: 'Saving...'
     });
     $('.edit-actual').editable(edit_url , {
         width: '100%',

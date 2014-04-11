@@ -98,17 +98,13 @@ class TicketController extends BaseController
 			$modified_attribute = 'actual_hours';
 			$selected_ticket->actual_hours = Input::get('actual_hours');
 		}
-		if(Input::has('actual_hours')){
-			$modified_attribute = 'actual_hours';
-			$selected_ticket->actual_hours = Input::get('actual_hours');
-		}
 		$validator = Validator::make(array($modified_attribute => Input::get($modified_attribute)), Ticket::$validation_rules);
 		if($validator->fails()){
 			$payload = array(
 				'status' => 'fail',
-				'data' => $validator->messages()->toArray()
+				'messages' => $validator->messages()->toArray()
 			);
-			return Response::json($payload, 406);
+			return Response::json($payload);
 
 		}
 		try{
