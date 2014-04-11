@@ -48,6 +48,10 @@ class Ticket extends Eloquent {
 		return $this->belongsTo('Project');
 	}
 
+	public function comments(){
+		return $this->hasMany('Comment');
+	}
+
 	/**
 	 * Generate the url to the ticket's home page
 	 *
