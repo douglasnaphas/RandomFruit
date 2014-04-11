@@ -58,7 +58,8 @@ var edit_url = {{'"' . URL::to("api/edit_ticket/$project->name/$ticket->number")
     $('.edit-owner').editable("", {
         width: '100%',
         height: '25px',
-        name: 'owner_id'
+        name: 'owner_id',
+        indicator: 'Saving...'
     });
     $('.edit-planned').editable(edit_url, {
         width: '100%',
@@ -68,6 +69,7 @@ var edit_url = {{'"' . URL::to("api/edit_ticket/$project->name/$ticket->number")
 			text_handle(this, value, settings);
 		}
 		
+        indicator: 'Saving...'
     });
     $('.edit-actual').editable(edit_url , {
         width: '100%',
@@ -76,12 +78,14 @@ var edit_url = {{'"' . URL::to("api/edit_ticket/$project->name/$ticket->number")
 		callback: function(value, settings){
 			text_handle(this, value, settings);
 		}
+        indicator: 'Saving...'
     });
     $('.edit-description').editable("", {
         type: 'textarea',
         rows: 8,
         width: '30%',
-        name: 'description'
+        name: 'description',
+        indicator: 'Saving...'
     });
 
     $('.edit-owner').mouseover(function () {
