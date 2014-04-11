@@ -14,27 +14,11 @@
 
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="{{URL::to('dash')}}">Dashboard</a></li>
-                <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Tickets<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="{{URL::to('project/RandomFruit/tickets')}}">View Tickets</a></li>
-                        <li><a href="#" data-toggle="modal" data-target="#createTicket">Create a Ticket</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">One more separated link</a></li>
-                    </ul>
-                </li>
-                <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">{{Auth::user()->username}}<b
-                            class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Edit Profile</a></li>
-                        <li><a href="{{ URL::action('UserController@logout') }}">Logout</a></li>
-
-                    </ul>
-                </li>
-                <li><a href="#">Help</a></li>
+		<li><a href="{{URL::to('dash')}}" data-toggle="tooltip" data-placement="bottom" title="Dashboard"><i class="glyphicon glyphicon-home"></i></a></li>
+		<li><a href="#" data-toggle="modal" data-target="#createTicket"><i class="glyphicon glyphicon-edit" data-toggle="tooltip" data-placement="bottom" title="Create Ticket"></i></a></li>
+		<li><a href="#"><i class="glyphicon glyphicon-cog"></i></a></li>
+                <li><a href="#"><i class="glyphicon glyphicon-question-sign"></i></a></li>
+		<li><a href="{{ URL::action('UserController@logout') }}"><i class="glyphicon glyphicon-off"></i></a></li>
             </ul>
             <form class="navbar-form navbar-right">
                 <div class="input-group">
@@ -49,6 +33,10 @@
     </div>
 </div>
 <!-- End top nav bar -->
+
+<script>
+$("[data-toggle=tooltip]").tooltip();
+</script>
 
 <!-- "Create a Ticket" Modal -->
 @include('dash/modals/createaticket');
