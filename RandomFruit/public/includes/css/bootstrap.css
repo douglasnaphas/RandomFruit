@@ -4600,6 +4600,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     padding: 15px 15px;
     font-size: 18px;
     line-height: 20px;
+    color: #FFFFFF;
 }
 
 .navbar-brand:hover,
@@ -4943,7 +4944,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-inverse .navbar-brand {
-    color: #999;
+    color: #ffffff;
 }
 
 .navbar-inverse .navbar-brand:hover,

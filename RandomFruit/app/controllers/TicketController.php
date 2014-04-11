@@ -86,39 +86,31 @@ class TicketController extends BaseController
 		$values_to_edit = array();
 		$rules_to_check = array();
 		$selected_ticket;
-		if(false){
-			//Todo: add validation rules for $project_name and $ticket_number
-			return; //error
-		}
-
 		if(!($selected_ticket = Project::fromName($project_name)->getTicketFromNumber($ticket_number))){
 			return; //error
 		}
-
-		$editable_values = array('title', 'description', 'owner_id');
-
-		foreach($editable_values as $form_field){
-			if($maybe_value = Input::has("ticket-$form_field")){
-				$values_to_edit[$form_field] = $maybe_value;
-				$rules_to_check[$form_field] = Ticket::$validation_rules[$form_field];
-				$ticket->attributes[$form_field] = $maybe_value;
-			}
+		if(Input::has('planned_hours')){
+			$modified_attribute = 'planned_hours';
+			$selected_ticket->planned_hours = Input::get('planned_hours');
 		}
-
-		$ticket_attribute_validator = Validator::make($values_to_edit, $rules_to_check);
-
-		if($ticket_attribute_validator->fails()){
-			return Response::json(array($ticket_attribute_validator->messages()->toArray(), $values_to_edit, $rules_to_check), 406);
+		if(Input::has('actual_hours')){
+			$modified_attribute = 'actual_hours';
+			$selected_ticket->actual_hours = Input::get('actual_hours');
 		}
-		else{
-			try{
+		try{
 
-				$selected_ticket->save();
-				return Response::json($selected_ticket, 200);
+			$selected_ticket->save();
+			$selected_ticket = Ticket::find($selected_ticket->id);
+			$payload = array( 
+				'status' => 'success',
+				'data' => array( 
+					$modified_attribute => $selected_ticket->getAttribute($modified_attribute)
+				)
+			);
+			return Response::json($payload, 200);
 
-			}catch(Exception $e){
-				return Response::json(array( 'error' => 'Unable to process request', 'debug' => $e->getMessage()), 501);
-			}
+		}catch(Exception $e){
+			return Response::json(array( 'error' => 'Unable to process request', 'debug' => $e->getMessage()), 501);
 		}
 	}
 }

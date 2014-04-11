@@ -100,3 +100,40 @@ body {
     display: inline-block;
     border-radius: 50%;
 }
+
+.table-nonfluid {
+    width: auto;
+}
+
+.table-nonfluid {
+    width: auto;
+}
+
+.table-nonfluid > thead > tr > th,
+.table-nonfluid > tbody > tr > th,
+.table-nonfluid > tfoot > tr > th,
+.table-nonfluid > thead > tr > td,
+.table-nonfluid > tbody > tr > td,
+.table-nonfluid > tfoot > tr > td {
+    padding: 10px;
+}
+
+.table-nonfluid td.data-cell {
+    padding: 10px 100px 10px 0px;
+}
+.glyphicon-none:before {
+    content: "\2122";
+    color: transparent !important;
+}
+
+.clearBoth {
+    clear: both;
+}
+
+.header-container {
+    display: inline-block;
+}
+
+.glyphicon-container {
+    display: inline-block;
+}

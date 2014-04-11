@@ -30,6 +30,7 @@
 {{HTML::script('includes/js/bootstrap.min.js')}}
 {{HTML::script('includes/js/ajax-form.js')}}
 {{HTML::script('includes/js/bootstrap-datepicker.js')}}
+{{HTML::script('includes/js/jeditable.js')}}
 <script src="../../assets/js/docs.min.js"></script>
 @show
 
