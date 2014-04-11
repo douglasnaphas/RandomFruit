@@ -73,7 +73,7 @@ Dashboard
                     <td>".$title."</td>
                     <td>".$user->username."</td>
                     <td>".$user->username."</td>
-                    <td>".$desc."</td>
+                    <td>".substr($desc,0,50) . "..." ."</td>
                     <td>".$ph."</td>
                     <td>".$ah."</td>
                   </tr>";
