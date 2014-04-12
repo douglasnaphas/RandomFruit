@@ -146,6 +146,7 @@ var assign_owner_url = {{'"' . URL::route("ownerAssign", array("project_name" =>
         $('.icon-description').addClass('glyphicon-none');
     });
 </script>
+@include('dash/modals/createcomment')
 
 
 @stop

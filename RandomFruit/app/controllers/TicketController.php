@@ -278,7 +278,8 @@ class TicketController extends BaseController
 		}
 		//Create a comment
 		try{
-			$comment = new Comment(array("content" => Input::get('content')));
+			$comment = new Comment();
+			$comment->content = Input::get('content');
 			$comment->ticket()->associate($ticket);
 			$comment->user()->associate($comment_author);
 			$comment->save();
