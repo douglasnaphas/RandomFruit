@@ -57,4 +57,10 @@ class Ticket extends Eloquent {
 		return URL::to("project/" . $this->project->title . "/ticket/" . $this->id);
 	}
 
+	public function parsedDescription(){
+		$parser = new \Michelf\MarkdownExtra;
+		$parser->no_markup = true;
+		$parser->no_entities = true;
+	}
+
 }

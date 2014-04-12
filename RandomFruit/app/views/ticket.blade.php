@@ -43,7 +43,7 @@ Ticket #{{{ $ticket->number }}}
         <span class="icon-description glyphicon-none"></span>
     </div>
 </div> <br class="clearBoth">
-<div class="edit-description">{{{ $ticket->description }}}</div>
+<div class="edit-description">{{ \Michelf\MarkdownExtra::defaultTransform(($ticket->description)) }}</div>
 
 <script>
 function text_handle(element, value, settings){
@@ -97,6 +97,7 @@ var assign_owner_url = {{'"' . URL::route("ownerAssign", array("project_name" =>
 			text_handle(this, value, settings);
 		},
 		submit: "OK",
+		loadurl: {{ '"' . URL::route("getDescription", array( "project_name" => $project->name, "ticket_number" => $ticket->number)) . '"'}},
         indicator: 'Saving...'
     });
 

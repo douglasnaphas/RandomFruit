@@ -5,7 +5,9 @@
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.1.*",
-		"phpunit/phpunit": "4.0"
+		"phpunit/phpunit": "4.0",
+		"michelf/php-markdown": "1.4.0",
+		"ezyang/htmlpurifier": "v4.6.0"
 	},
 	"autoload": {
 		"classmap": [

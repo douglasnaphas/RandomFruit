@@ -35,6 +35,7 @@ Route::post('api/edit_ticket/{project_name}/{ticket_number}', array('as' => 'cre
 
 Route::get('api/owner_select/{project_name}/{ticket_number}', array('as' => 'ownerList', 'uses' => 'TicketController@getOwnerSelectedInList'));
 Route::post('api/owner_assign/{project_name}/{ticket_number}', array('as' => 'ownerAssign', 'uses' => 'TicketController@assignTicketOwner'));
+Route::get('api/ticket_description/{project_name}/{ticket_number}', array('as' => 'getDescription', 'uses' => 'TicketController@getTicketDescription'));
 
 Route::any('dash', array('as' => 'dash', function(){
 	return View::make('instructordash');

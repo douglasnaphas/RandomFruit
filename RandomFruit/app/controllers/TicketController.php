@@ -1,4 +1,5 @@
 <?php
+use \Michelf\MarkdownExtra;
 
 class TicketController extends BaseController
 {
@@ -100,7 +101,7 @@ class TicketController extends BaseController
 		}
 		if(Input::has('description')){
 			$modified_attribute = 'description';
-			$selected_ticket->description = htmlspecialchars(Input::get('description'));
+			$selected_ticket->description = Input::get('description');
 		}
 		if(Input::has('owner_id')){
 			$modified_attribute = 'owner_id';
@@ -129,6 +130,9 @@ class TicketController extends BaseController
 					$modified_attribute => htmlspecialchars($selected_ticket->getAttribute($modified_attribute))
 				)
 			);
+			if($modified_attribute == "description"){
+				$payload['data'][$modified_attribute] = MarkdownExtra::defaultTransform($payload['data'][$modified_attribute]);
+			}
 			return Response::json($payload, 200);
 
 		}catch(Exception $e){
@@ -239,4 +243,17 @@ class TicketController extends BaseController
 
 		}
 	}
+
+	/**
+	 * Returns, in plain text(markdown) the description of a ticket.
+	 *
+	 */
+	public function getTicketDescription($project_name, $ticket_number){
+		$selected_ticket;
+		if(!($selected_ticket = Project::fromName($project_name)->getTicketFromNumber($ticket_number))){
+			return "Could not load description"; //error
+		}
+		return $selected_ticket->description;
+	}
+
 }
