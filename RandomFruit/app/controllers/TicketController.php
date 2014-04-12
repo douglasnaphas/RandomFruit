@@ -263,5 +263,30 @@ class TicketController extends BaseController
 		}
 		return View::make('ajax/listComments')->with(array('ticket' => $selected_ticket));
 	}
+	public function createComment($project_name, $ticket_number){
+		//Get the current user
+		$comment_author = Auth::user();
+		$project = Project::fromName($project_name);
+		$ticket = $project->getTicketFromNumber($ticket_number);
+		if(!($project || $ticket)){ //If project or ticket is null
+			return new Response('Project/ticket combination does not exist', Response::HTTP_NOT_FOUND);
+		}
+		//Make sure that the user can create a comment
+		if(!($project->hasMember($comment_author->id))){
+			throw new Exception('Boop!');
+			return new Response('You cannot comment on a project unless you are a member', Response::HTTP_FORBIDDEN);
+		}
+		//Create a comment
+		try{
+			$comment = new Comment(array("content" => Input::get('content')));
+			$comment->ticket()->associate($ticket);
+			$comment->user()->associate($comment_author);
+			$comment->save();
+			return View::make('ajax/listComments')->with(array('ticket' => $ticket));
+		}catch(Exception $e){
+			throw $e;
+			return new Response('A server side error occurred', 506);
+		}
+	}
 
 }

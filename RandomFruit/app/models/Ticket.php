@@ -73,9 +73,4 @@ class Ticket extends Eloquent {
 		return $purifier->purify($parser->transform($this->description));
 	}
 
-	public function comments(){
-		return $this->hasMany('Comment');
-
-	}
-
 }
