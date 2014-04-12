@@ -256,4 +256,12 @@ class TicketController extends BaseController
 		return $selected_ticket->description;
 	}
 
+	public function showCommentsHTML($project_name, $ticket_number){
+		$selected_ticket;
+		if(!($selected_ticket = Project::fromName($project_name)->getTicketFromNumber($ticket_number))){
+			return "Could not load comments"; //error
+		}
+		return View::make('ajax/listComments')->with(array('ticket' => $selected_ticket));
+	}
+
 }
