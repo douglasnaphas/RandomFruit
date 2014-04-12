@@ -58,9 +58,15 @@ class Ticket extends Eloquent {
 	}
 
 	public function parsedDescription(){
+		$purifier_config = HTMLPurifier_Config::createDefault();
 		$parser = new \Michelf\MarkdownExtra;
-		$parser->no_markup = true;
-		$parser->no_entities = true;
+
+		$purifier_config->set('Core.Encoding', 'UTF-8');
+		$purifier_config->set('HTML.Doctype', 'XHTML 1.0 Transitional');
+		$purifier_config->set('Cache.DefinitionImpl', null);
+		$purifier_config->set('HTML.Allowed', 'h1,h2,h3,h4,h5,h6,pre,code[class],a[href|title],blockquote[cite]');
+		$purifier = new HTMLPurifier($purifier_config);
+		return $purifier->purify($parser->transform($this->description));
 	}
 
 }

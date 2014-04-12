@@ -131,7 +131,7 @@ class TicketController extends BaseController
 				)
 			);
 			if($modified_attribute == "description"){
-				$payload['data'][$modified_attribute] = MarkdownExtra::defaultTransform($payload['data'][$modified_attribute]);
+				$payload['data'][$modified_attribute] = $selected_ticket->parsedDescription();
 			}
 			return Response::json($payload, 200);
 

@@ -43,7 +43,7 @@ Ticket #{{{ $ticket->number }}}
         <span class="icon-description glyphicon-none"></span>
     </div>
 </div> <br class="clearBoth">
-<div class="edit-description">{{ \Michelf\MarkdownExtra::defaultTransform(($ticket->description)) }}</div>
+<div class="edit-description">{{ $ticket->parsedDescription() }}</div>
 
 <script>
 function text_handle(element, value, settings){
