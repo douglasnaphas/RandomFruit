@@ -43,9 +43,21 @@ Ticket #{{{ $ticket->number }}}
         <span class="icon-description glyphicon-none"></span>
     </div>
 </div> <br class="clearBoth">
-<div class="edit-description">{{ $ticket->parsedDescription() }}</div>
+<div class="panel panel-default"><div class="edit-description panel-body">{{ $ticket->parsedDescription() }}</div></div>
+
+<div>
+    <div class="header-container">
+        <h3>Comments</h3>
+    </div>
+</div> <br class="clearBoth">
+<div id="comments">
+	Loading comments...
+</div>
 
 <script>
+$.get( {{'"' . URL::route('getComments', array("project_name" => $project->name, "ticket_number" => $ticket->number)) . '"'}}, function( data ) {
+		  $( "#comments" ).html( data );
+			});
 function text_handle(element, value, settings){
 	if(value.status == 'success'){
 		$(element).html(value.data[settings.name]);
