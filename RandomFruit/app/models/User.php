@@ -80,4 +80,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	public static function fromUserName($user_name){
 		return self::where('username', '=', $user_name)->first();
 	}
+
+	public function comments(){
+		return $this->hasMany('Comment');
+	}
 }
