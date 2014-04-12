@@ -100,7 +100,7 @@ class TicketController extends BaseController
 		}
 		if(Input::has('description')){
 			$modified_attribute = 'description';
-			$selected_ticket->description = Input::get('description');
+			$selected_ticket->description = htmlspecialchars(Input::get('description'));
 		}
 		if(Input::has('owner_id')){
 			$modified_attribute = 'owner_id';
@@ -126,7 +126,7 @@ class TicketController extends BaseController
 			$payload = array( 
 				'status' => 'success',
 				'data' => array( 
-					$modified_attribute => $selected_ticket->getAttribute($modified_attribute)
+					$modified_attribute => htmlspecialchars($selected_ticket->getAttribute($modified_attribute))
 				)
 			);
 			return Response::json($payload, 200);
