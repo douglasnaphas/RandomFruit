@@ -23,6 +23,7 @@ class TicketController extends BaseController
 			'planned_hours' => Input::get("planned-hours"),
 			/* Project::fromName('RandomFruit')->id, */
 			'description' => Input::get("ticket-description"),
+			'week_due' => Input::get("week_due")
 			// 'ticket-type' => Input::get("ticket-type"),
 			// 'ticket-priority' => Input::get("ticket-priority"));
 		);
@@ -31,7 +32,6 @@ class TicketController extends BaseController
 		if($due_date != '' && $due_date != NULL){
 			$due_date = new DateTime($due_date);
 			$ticket_attributes['due_date'] = $due_date->format('Y-m-d');
-
 		}
 		
 

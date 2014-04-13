@@ -210,4 +210,23 @@ class TicketControllerTest extends TestCase{
 		$this->assertEquals($post_input['content'], $ticket->comments[0]->content);
 
 	}
+
+	public function testSetWeekDue(){
+		$user = User::fromUserName('admin');
+		$this->be($user);
+		$post_input = array(
+			'ticket-title' => 'ThisIsATest',
+			'ticket-description' => 'Fix this test',
+			'project' => Project::fromName('RandomFruit')->id,
+			'owner' => $user->id,
+			'planned-hours' => 4.0,
+			'week_due' => Week::where('project_id','=',Project::fromName('RandomFruit')->id)->where('number', '=', 1)->get()->first()->id,
+		);
+		vardump($post_input);
+		$response = $this->action('POST', 'TicketController@createticketAction', $post_input);
+		$response_json = json_decode($response->getcontent());
+		var_dump($response_json);
+		$this->assertResponseOk();
+		$this->assertEquals(1, $response['week_due']);
+	}
 }
