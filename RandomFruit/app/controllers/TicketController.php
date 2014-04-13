@@ -23,7 +23,7 @@ class TicketController extends BaseController
 			'planned_hours' => Input::get("planned-hours"),
 			/* Project::fromName('RandomFruit')->id, */
 			'description' => Input::get("ticket-description"),
-			'week_due' => Input::get("week_due")
+			'week_due_id' => Input::get("week_due")
 			// 'ticket-type' => Input::get("ticket-type"),
 			// 'ticket-priority' => Input::get("ticket-priority"));
 		);

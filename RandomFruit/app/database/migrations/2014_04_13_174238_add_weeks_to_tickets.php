@@ -14,10 +14,10 @@ class AddWeeksToTickets extends Migration {
 	{
 		Schema::table('tickets', function(Blueprint $table)
 		{
-			$table->integer('week_due')->unsigned()->nullable()->default(NULL);
-			$table->foreign('week_due')->references('id')->on('weeks')->onDelete('set null')->nullable()->default(NULL);
-			$table->integer('week_completed')->unsigned()->nullable()->default(NULL);
-			$table->foreign('week_completed')->references('id')->on('weeks')->onDelete('set null')->nullable()->default(NULL);
+			$table->integer('week_due_id')->unsigned()->nullable()->default(NULL);
+			$table->foreign('week_due_id')->references('id')->on('weeks')->onDelete('set null')->nullable()->default(NULL);
+			$table->integer('week_completed_id')->unsigned()->nullable()->default(NULL);
+			$table->foreign('week_completed_id')->references('id')->on('weeks')->onDelete('set null')->nullable()->default(NULL);
 		});
 	}
 
@@ -30,8 +30,8 @@ class AddWeeksToTickets extends Migration {
 	{
 		Schema::table('tickets', function(Blueprint $table)
 		{
-			$table->dropForeign('tickets_week_due_foreign');
-			$table->dropForeign('tickets_week_completed_foreign');
+			$table->dropForeign('tickets_week_due_id_foreign');
+			$table->dropForeign('tickets_week_completed_id_foreign');
 		});
 	}
 
