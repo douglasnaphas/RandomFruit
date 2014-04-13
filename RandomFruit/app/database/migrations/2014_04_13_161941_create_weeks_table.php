@@ -21,6 +21,9 @@ class CreateWeeksTable extends Migration {
 			$table->integer('project_id')->unsigned();
 			$table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
 			$table->unique(array('number','project_id'));
+			$table->integer('week_due')->unsigned()->nullable()->default(NULL);
+			$table->foreign('week_completed')->references('id')->on('weeks')->onDelete('cascade')->nullable()->default(NULL);
+			$table->integer('week_completed')->unsigned();
 			$table->timestamps();
 
 
