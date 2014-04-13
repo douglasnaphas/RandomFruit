@@ -299,7 +299,7 @@ window.Chart = function(context){
 			scaleFontStyle : "normal",
 			scaleFontColor : "#666",
 			scaleShowGridLines : true,
-			scaleGridLineColor : "rgba(0,0,0,.05)",
+			scaleGridLineColor : "rgba(0,0,0,.10)",
 			scaleGridLineWidth : 1,
 			bezierCurve : false,
 			pointDot : true,
