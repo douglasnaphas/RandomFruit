@@ -101,5 +101,10 @@ class Ticket extends Eloquent {
 		$purifier = new HTMLPurifier($purifier_config);
 		return $purifier->purify(strip_tags($parser->transform($this->description)));
 	}
+        
+        public function ticketsOwned(){
+            
+                return $this->hasMany('Ticket', 'owner_id');
+        }
 
 }

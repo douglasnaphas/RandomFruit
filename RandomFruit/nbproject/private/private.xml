@@ -4,12 +4,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Jeff/jeffrepo/RandomFruit/app/views/dashlayout.blade.php</file>
-            <file>file:/C:/Users/Jeff/jeffrepo/RandomFruit/public/includes/js/graph.js</file>
             <file>file:/C:/Users/Jeff/jeffrepo/RandomFruit/app/views/instructordash.blade.php</file>
-            <file>file:/C:/Users/Jeff/jeffrepo/RandomFruit/public/includes/js/Chart.js</file>
+            <file>file:/C:/Users/Jeff/jeffrepo/RandomFruit/public/includes/js/chart.js</file>
+            <file>file:/C:/Users/Jeff/jeffrepo/RandomFruit/public/includes/js/canvassaver.js</file>
             <file>file:/C:/Users/Jeff/jeffrepo/RandomFruit/app/views/viewtickets.blade.php</file>
-            <file>file:/C:/Users/Jeff/jeffrepo/RandomFruit/public/includes/js/legend.js</file>
-            <file>file:/C:/Users/Jeff/jeffrepo/RandomFruit/public/includes/css/legend.css</file>
         </group>
     </open-files>
 </project-private>
