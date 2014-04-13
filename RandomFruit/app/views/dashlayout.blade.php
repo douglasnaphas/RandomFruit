@@ -14,6 +14,7 @@
     <!-- Custom styles for this template -->
     {{HTML::style('includes/css/dashboard.css')}}
     {{HTML::style('includes/css/datepicker.css')}}
+    {{HTML::style('includes/css/legend.css')}}
 
     <!-- Just for debugging purposes. Don't actually copy this line! -->
     <!--[if lt IE 9]>
@@ -32,6 +33,9 @@
     {{HTML::script('includes/js/bootstrap-datepicker.js')}}
     {{HTML::script('includes/js/bootstrap-touchspin.js')}}
     {{HTML::script('includes/js/jeditable.js')}}
+    {{HTML::script('includes/js/chart.js')}}
+    {{HTML::script('includes/js/legend.js')}}
+    {{HTML::script('includes/js/graph.js')}}
     <script src="../../assets/js/docs.min.js"></script>
     @show
 

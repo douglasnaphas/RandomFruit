@@ -2,15 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/Jeff/jeffrepo/RandomFruit/app/views/instructordash.blade.php</file>
-            <file>file:/C:/Users/Jeff/jeffrepo/RandomFruit/public/includes/css/bootstrap.css</file>
-            <file>file:/C:/Users/Jeff/jeffrepo/RandomFruit/app/routes.php</file>
-            <file>file:/C:/Users/Jeff/jeffrepo/RandomFruit/app/views/dash/dashnav.blade.php</file>
-            <file>file:/C:/Users/Jeff/jeffrepo/RandomFruit/app/views/viewtickets.blade.php</file>
-            <file>file:/C:/Users/Jeff/jeffrepo/RandomFruit/app/models/Ticket.php</file>
-            <file>file:/C:/Users/Jeff/jeffrepo/RandomFruit/app/views/ticket.blade.php</file>
-            <file>file:/C:/Users/Jeff/jeffrepo/RandomFruit/app/views/dash/modals/createaticket.blade.php</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
