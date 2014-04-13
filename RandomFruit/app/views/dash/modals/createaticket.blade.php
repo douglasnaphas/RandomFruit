@@ -12,6 +12,8 @@
                         function projectChange(project_id) {
                             var owner_select = document.getElementById('owner');
                             owner_select.options.length = 0;
+                            var week_select = document.getElementById('week_due');
+                            week_select.options.length = 0;
 
                             <?php
                             $available_options = array();
@@ -19,7 +21,10 @@
                             echo "if (project_id == '$project->id'){\n";
 
                             foreach($project->users as $user){
-                            echo "\towner_select.options[owner_select.options.length] = new Option('$user->username', '$user->id');\n";
+			    echo "\towner_select.options[owner_select.options.length] = new Option('$user->username', '$user->id');\n";
+			    }
+			    foreach($project->weeks as $week){
+			    echo "\tweek_select.options[week_select.options.length] = new Option('$week->number ($week->end_date)', '$week->id');\n";
 
                             }
                             echo "}\n";
@@ -52,7 +57,17 @@
 
                         </select>
                     </div>
+                    <div class="form-group" id="week_due-input">
+                        <label for="week_due-input">Week</label>
+                        <select id="week_due" name="week_due" class="form-control">
+                            <?php $first_project = Auth::user()->projects->first() ?>
+                            @foreach($first_project->weeks as $week)
+			    <option value="{{$week->id}}" data-project="{{$first_project->id}}">{{"$week->number ($week->end_date)"}}
+                            </option>
+                            @endforeach
 
+                        </select>
+                    </div>
 
                     <div class="form-group" id="title-input">
                         <label for="ticket-title">Title</label>
