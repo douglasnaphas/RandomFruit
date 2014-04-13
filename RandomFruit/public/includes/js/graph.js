@@ -12,8 +12,8 @@ function lineChart() {
         datasets : [
                 {
                         fillColor : "rgba(0,0,0,0)",
-                        strokeColor : "rgba(255,162,5,1)",
-                        pointColor : "rgba(255,162,5,1)",
+                        strokeColor : "rgba(5,162,5,1)",
+                        pointColor : "rgba(5,162,5,1)",
                         pointStrokeColor : "#fff",
                         data : [65,67,75,81,85,90,95],
                         title: 'Planned'
