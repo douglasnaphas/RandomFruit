@@ -12,7 +12,7 @@ Dashboard
 @section('content')
     <div>
         <canvas id="canvas" height="500" width="1000"></canvas>
-
+        <div id="btn"></div>
 	<script>
             var lineChartData = {
                     labels : ["Week 1","Week 2","Week 3","Week 4","Week 5","Week 6","Week 7", "Week 8", "Week 9", "Week 10"],
@@ -49,7 +49,7 @@ Dashboard
         var graph = document.getElementById("canvas");
         var cs = new CanvasSaver('./saveme.php');
         var btn = cs.generateButton('Save Graph', myLine, 'PAEChart');
-        document.appendChild(btn);
+        
         </script>
     </div>
 
