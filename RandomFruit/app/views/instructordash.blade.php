@@ -11,10 +11,9 @@ Dashboard
 
 @section('content')
     <div>
-        <canvas id="canvas" height="450" width="1000"></canvas>
+        <canvas id="canvas" height="500" width="1000"></canvas>
 
 	<script>
-
             var lineChartData = {
                     labels : ["Week 1","Week 2","Week 3","Week 4","Week 5","Week 6","Week 7", "Week 8", "Week 9", "Week 10"],
                     datasets : [
@@ -43,12 +42,10 @@ Dashboard
                                     title: "Earned"
                             }
                     ]
-
             }
 
 	var myLine = new Chart(document.getElementById("canvas").getContext("2d")).Line(lineChartData, {showLegend: true});
-	
-	</script>
+        </script>
     </div>
 
     <h2 class="sub-header">Owned Tickets</h2>
