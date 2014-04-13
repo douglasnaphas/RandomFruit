@@ -39,7 +39,7 @@ Route::get('api/ticket_description/{project_name}/{ticket_number}', array('as' =
 Route::get('api/get_comments/{project_name}/{ticket_number}', array('as' => 'getComments', 'uses' => 'TicketController@showCommentsHTML'));
 Route::post('api/create_comment/{project_name}/{ticket_number}', array('as' => 'createComment', 'uses' => 'TicketController@createComment'));
 
-Route::any('dash', array('as' => 'dash', function(){
+Route::any('dash', array('as' => 'dash', 'before' => 'user_only', function(){
 	return View::make('instructordash');
 }));
 
