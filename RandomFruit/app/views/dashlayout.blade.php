@@ -33,6 +33,7 @@
     {{HTML::script('includes/js/bootstrap-touchspin.js')}}
     {{HTML::script('includes/js/jeditable.js')}}
     {{HTML::script('includes/js/chart.js')}}
+    {{HTML::script('includes/js/canvassaver.js')}}
     
     <script src="../../assets/js/docs.min.js"></script>
     @show

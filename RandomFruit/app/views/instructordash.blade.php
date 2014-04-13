@@ -42,9 +42,14 @@ Dashboard
                                     title: "Earned"
                             }
                     ]
-            }
+            };
 
 	var myLine = new Chart(document.getElementById("canvas").getContext("2d")).Line(lineChartData, {showLegend: true});
+        //This should produce a button that allows for the graph to be saved
+        var graph = document.getElementById("canvas");
+        var cs = new CanvasSaver('./saveme.php');
+        var btn = cs.generateButton('Save Graph', myLine, 'PAEChart');
+        document.appendChild(btn);
         </script>
     </div>
 
