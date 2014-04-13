@@ -52,6 +52,10 @@ class Ticket extends Eloquent {
 		return $this->hasMany('Comment');
 	}
 
+	public function week(){
+		return $this->belongsTo('Week');
+	}
+
 	/**
 	 * Generate the url to the ticket's home page
 	 *

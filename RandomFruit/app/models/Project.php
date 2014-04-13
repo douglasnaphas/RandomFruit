@@ -44,4 +44,8 @@ class Project extends Eloquent {
 		return (Membership::where('project_id', '=', $this->id)->where('user_id', '=', $user_id)->count() == 1);
 	}
 
+	public function weeks(){
+		return $this->hasMany('Week');
+	}
+
 }
