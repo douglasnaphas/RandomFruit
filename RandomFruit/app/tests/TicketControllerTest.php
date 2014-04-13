@@ -222,7 +222,7 @@ class TicketControllerTest extends TestCase{
 			'planned-hours' => 4.0,
 			'week_due' => Week::where('project_id','=',Project::fromName('RandomFruit')->id)->where('number', '=', 1)->get()->first()->id,
 		);
-		vardump($post_input);
+		var_dump($post_input);
 		$response = $this->action('POST', 'TicketController@createticketAction', $post_input);
 		$response_json = json_decode($response->getcontent());
 		var_dump($response_json);
