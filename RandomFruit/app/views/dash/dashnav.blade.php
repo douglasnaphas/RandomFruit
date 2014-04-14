@@ -65,6 +65,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar" id="sidebar-links">
+            <strong>DASHBOARD</strong>
             <ul class="nav nav-sidebar">
                 <li><a href="#">Overview</a></li>
             </ul>
