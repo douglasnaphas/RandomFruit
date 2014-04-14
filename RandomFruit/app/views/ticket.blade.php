@@ -37,6 +37,9 @@ Ticket #{{{ $ticket->number }}}
 		<td><strong>Week due:</strong></td>
 		<td class="data-cell edit-week_due">{{ $ticket->due ? $ticket->due->number : "Unset "}} ({{ $ticket->due  ? $ticket->due->end_date : "Click to assign"}})</td>
 		<td><span class="icon-owner glyphicon-none"></span></td>
+		<td><strong>Week completed:</strong></td>
+		<td class="data-cell edit-week_completed">{{ $ticket->completed ? $ticket->completed->number : "Not Completed"}} ({{ $ticket->due  ? $ticket->completed->end_date : "Click to mark as done"}})</td>
+		<td><span class="icon-owner glyphicon-none"></span></td>
 	</tr>
 
 

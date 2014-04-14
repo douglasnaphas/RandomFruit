@@ -348,6 +348,52 @@ class TicketController extends BaseController
 			}
 		}
 	}
+	/**
+	 * Gets a list of users for a project as a json response
+	 *
+	 */
+	public function getWeekCompletedSelectedInList($project_name, $ticket_number){
+		$project = Project::fromName($project_name);
+		$ticket = $project->getTicketFromNumber($ticket_number);
+		if($project == null){
+			return Response::JSON(
+				array(
+					"status" => "fail",
+					"message" => "Requested project '$project_name' does not exist"
+				)
+			);
+		}
+		if($ticket == NULL ){
+
+			return Response::JSON(
+				array(
+					"status" => "fail",
+					"message" => "Requested ticket '$ticket_number' does not exist"
+				)
+			);
+
+		}
+		else
+		{
+			try{
+				$payload = array();
+				$week_id = $ticket->week_completed_id ? $ticket->week_completed_id : 'NULL';
+				$payload['NULL'] = "Not Complete";
+				foreach($project->weeks as $week){
+					$payload[$week->id] = "$week->number ($week->end_date)";
+				}
+				$payload['selected'] = $week_id;
+				return Response::JSON($payload);
+			}catch (Exception $e){
+				return Response::JSON(
+					array(
+						"status"=>"error",
+						"message"=>"An internal server error occurred."
+					)
+				);
+			}
+		}
+	}
 
 	/**
 	 * Returns, in plain text(markdown) the description of a ticket.
