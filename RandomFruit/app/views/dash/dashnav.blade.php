@@ -14,19 +14,39 @@
 
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-		<li><a href="{{URL::to('dash')}}" data-toggle="tooltip" data-placement="bottom" title="Dashboard"><i class="glyphicon glyphicon-home"></i></a></li>
-		<li><a href="#" data-toggle="modal" data-target="#createTicket"><i class="glyphicon glyphicon-edit" data-toggle="tooltip" data-placement="bottom" title="Create Ticket"></i></a></li>
-		<li><a href="#"><i class="glyphicon glyphicon-cog"></i></a></li>
-                <li><a href="#"><i class="glyphicon glyphicon-question-sign"></i></a></li>
-		<li><a href="{{ URL::action('UserController@logout') }}"><i class="glyphicon glyphicon-off"></i></a></li>
+                <li data-toggle="tooltip" data-placement="bottom" title="Dashboard">
+                    <a href="{{URL::to('dash')}}">
+                        <i class="glyphicon glyphicon-home"></i>
+                    </a>
+                </li>
+                <li data-toggle="tooltip" data-placement="bottom" title="Create Ticket">
+                    <a href="#" data-toggle="modal" data-target="#createTicket">
+                        <i class="glyphicon glyphicon-edit"></i>
+                    </a>
+                </li>
+                <li data-toggle="tooltip" data-placement="bottom" title="Settings">
+                    <a href="#">
+                        <i class="glyphicon glyphicon-cog"></i>
+                    </a>
+                </li>
+                <li data-toggle="tooltip" data-placement="bottom" title="Help">
+                    <a href="#">
+                        <i class="glyphicon glyphicon-question-sign"></i>
+                    </a>
+                </li>
+                <li data-toggle="tooltip" data-placement="bottom" title="Logout">
+                    <a href="{{ URL::action('UserController@logout') }}">
+                        <i class="glyphicon glyphicon-off"></i>
+                    </a>
+                </li>
             </ul>
-            <form class="navbar-form navbar-right">
+            <form class="navbar-form navbar-pull">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search Tickets">
-                    <!--<span class="input-group-btn">
+                    <span class="input-group-btn">
                         <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-search"></i>
                         </button>
-                    </span>-->
+                    </span>
                 </div>
             </form>
         </div>
@@ -35,7 +55,7 @@
 <!-- End top nav bar -->
 
 <script>
-$("[data-toggle=tooltip]").tooltip();
+    $("[data-toggle=tooltip]").tooltip();
 </script>
 
 <!-- "Create a Ticket" Modal -->
@@ -44,19 +64,27 @@ $("[data-toggle=tooltip]").tooltip();
 <!-- Begin sidebar -->
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
+        <div class="col-sm-3 col-md-2 sidebar" id="sidebar-links">
             <ul class="nav nav-sidebar">
-                <li class="active"><a href="#">Overview</a></li>
-                <li><a href="#">Reports</a></li>
-                <li><a href="#">Analytics</a></li>
-                <li><a href="#">Export</a></li>
+                <li><a href="#">Overview</a></li>
             </ul>
+            <strong>TICKETS</strong>
             <ul class="nav nav-sidebar">
-                <li><a href="">Nav item</a></li>
-                <li><a href="">Nav item again</a></li>
-                <li><a href="">One more nav</a></li>
-                <li><a href="">Another nav item</a></li>
-                <li><a href="">More navigation</a></li>
+                <li>
+                    <a href="#collapseTicket" data-toggle="collapse" data-parent="#sidebar-links">View tickets</a>
+                    <div id="collapseTicket" class="collapse">
+                        <ul>
+                            <li><a href="#">Active Tickets</a></li>
+                            <li><a href="#">Assigned To Me</a></li>
+                            <li><a href="#">My Tickets</a></li>
+                            <li><a href="#">All Tickets</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+            <strong>REPORTS</strong>
+            <ul class="nav nav-sidebar">
+                <li><a href="">Generate Burndown Chart</a></li>
             </ul>
             <ul class="nav nav-sidebar">
                 <li><a href="">Nav item again</a></li>
