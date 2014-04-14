@@ -6,10 +6,13 @@ Instructor Dash
 @stop
 
 @section('page_header')
-Dashboard
+Burndown Chart
 @stop
 
 @section('content')
+<?php
+$curDate = date("mdy_His");
+?>
     <div>
         <canvas id="canvas" height="500" width="1000"></canvas>
         <div id="btn"></div>
@@ -48,9 +51,14 @@ Dashboard
         //This should produce a button that allows for the graph to be saved
         var graph = document.getElementById("canvas");
         var cs = new CanvasSaver('./saveme.php');
-        var btn = cs.generateButton('Save Graph', myLine, 'PAEChart');
+        var btn = cs.generateButton("Save Graph", graph, "BurndownChart_<?php echo $curDate; ?>");
         
         </script>
+	<div id="saveChartBtn"></div>
+	<script>
+		var saveBtnDiv = document.getElementById('saveChartBtn');
+		saveBtnDiv.appendChild(btn);
+	</script>
     </div>
 
     <h2 class="sub-header">Owned Tickets</h2>

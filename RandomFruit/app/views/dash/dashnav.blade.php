@@ -67,7 +67,7 @@
         <div class="col-sm-3 col-md-2 sidebar" id="sidebar-links">
             <strong>DASHBOARD</strong>
             <ul class="nav nav-sidebar">
-                <li><a href="#">Overview</a></li>
+                <li><a href="{{URL::to('dash')}}">Overview</a></li>
             </ul>
             <strong>TICKETS</strong>
             <ul class="nav nav-sidebar">
@@ -79,7 +79,7 @@
                             <li><a href="#">Completed Tickets</a></li>
                             <li><a href="#">Assigned To Me</a></li>
                             <li><a href="#">My Tickets</a></li>
-                            <li><a href="#">All Tickets</a></li>
+                            <li><a href="{{URL::to('project/RandomFruit/tickets')}}">All Tickets</a></li>
                         </ul>
                     </div>
                 </li>
