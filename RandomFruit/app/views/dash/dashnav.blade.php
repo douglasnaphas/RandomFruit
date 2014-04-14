@@ -76,6 +76,7 @@
                     <div id="collapseTicket" class="collapse">
                         <ul>
                             <li><a href="#">Active Tickets</a></li>
+                            <li><a href="#">Completed Tickets</a></li>
                             <li><a href="#">Assigned To Me</a></li>
                             <li><a href="#">My Tickets</a></li>
                             <li><a href="#">All Tickets</a></li>
