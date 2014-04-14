@@ -19,10 +19,12 @@ class Ticket extends Eloquent {
 	 * @var array Array of rules used to validate form input prior to submitting
 	 */
 	public static $validation_rules = array(
-		'title' => 'required|max:255',
-		'creator_id' => 'required',
-		'project_id' => 'required',
-		'owner_id' => 'required',
+		'title' => 'sometimes|required|max:255',
+		'creator_id' => 'sometimes|required',
+		'project_id' => 'sometimes|required',
+		'owner_id' => 'sometimes|required',
+		'actual_hours' => 'numeric',
+		'planned_hours' => 'numeric'
 	);
 
 
@@ -46,13 +48,63 @@ class Ticket extends Eloquent {
 		return $this->belongsTo('Project');
 	}
 
+	public function comments(){
+		return $this->hasMany('Comment');
+	}
+
+	public function week_due(){
+		return $this->belongsTo('Week', 'week_due_id');
+	}
+
+	public function week_completed(){
+		return $this->belongsTo('Week', 'week_completed_id');
+	}
+
 	/**
 	 * Generate the url to the ticket's home page
 	 *
 	 * @return string The url to the tickets home page
 	 */
 	public function getUrl(){
-		return URL::to("project/" . $this->project->title . "/ticket/" . $this->id);
+		return URL::to("project/" . $this->project->name . "/ticket/" . $this->id);
 	}
+
+	/**
+	 * Generates a safe, description string containing html from the parsed markdown
+	 *
+	 * @return The description as whitelisted html
+	 */
+	public function parsedDescription(){
+		$purifier_config = HTMLPurifier_Config::createDefault();
+		$parser = new \Michelf\MarkdownExtra;
+
+		$purifier_config->set('Core.Encoding', 'UTF-8');
+		$purifier_config->set('HTML.Doctype', 'XHTML 1.0 Transitional');
+		$purifier_config->set('Cache.DefinitionImpl', null);
+		$purifier_config->set('HTML.Allowed', 'em,strong,ol,ul,li, h1,h2,h3,h4,h5,h6,pre,code[class],a[href|title],blockquote[cite]');
+		$purifier = new HTMLPurifier($purifier_config);
+		return $purifier->purify($parser->transform($this->description));
+	}
+
+	/**
+	 * Generates a description with markdown syntax removed. Used for description previes
+	 *
+	 * @return The html/markdown-free description
+	 */
+	public function strippedDescription(){
+
+		$purifier_config = HTMLPurifier_Config::createDefault();
+		$parser = new \Michelf\MarkdownExtra;
+		$purifier_config->set('Core.Encoding', 'UTF-8');
+		$purifier_config->set('HTML.Doctype', 'XHTML 1.0 Transitional');
+		$purifier_config->set('Cache.DefinitionImpl', null);
+		$purifier = new HTMLPurifier($purifier_config);
+		return $purifier->purify(strip_tags($parser->transform($this->description)));
+	}
+        
+        public function ticketsOwned(){
+            
+                return $this->hasMany('Ticket', 'owner_id');
+        }
 
 }

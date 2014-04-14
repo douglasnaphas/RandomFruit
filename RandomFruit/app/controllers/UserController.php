@@ -27,4 +27,5 @@ class UserController extends BaseController{
 		return View::make('login')->with('error_message', $error_message);
 
 	}
+
 }

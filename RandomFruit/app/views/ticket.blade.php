@@ -43,22 +43,43 @@ Ticket #{{{ $ticket->number }}}
         <span class="icon-description glyphicon-none"></span>
     </div>
 </div> <br class="clearBoth">
-<div class="edit-description">{{{ $ticket->description }}}</div>
+<div class="panel panel-default"><div class="edit-description panel-body">{{ $ticket->parsedDescription() }}</div></div>
+
+<div>
+    <div class="header-container">
+        <h3>Comments</h3>
+    </div>
+</div> <br class="clearBoth">
+<div id="comments">
+	Loading comments...
+</div>
 
 <script>
+$.get( {{'"' . URL::route('getComments', array("project_name" => $project->name, "ticket_number" => $ticket->number)) . '"'}}, function( data ) {
+		  $( "#comments" ).html( data );
+			});
 function text_handle(element, value, settings){
 	if(value.status == 'success'){
 		$(element).html(value.data[settings.name]);
-	}else{
-		$(element).html(value.messages[settings.name]);
+	}else if (value.status == 'fail'){
+		alert(value.messages[settings.name][0]);
+		$(element).html(value.data[settings.name]);
 	}
 }
 
 var edit_url = {{'"' . URL::to("api/edit_ticket/$project->name/$ticket->number") . '"'}};
-    $('.edit-owner').editable("", {
+var assign_owner_url = {{'"' . URL::route("ownerAssign", array("project_name" => $project->name, "ticket_number" => $ticket->number)) . '"'}};
+    $('.edit-owner').editable(assign_owner_url, {
+		type: 'select',
+		loadurl: '{{URL::action("TicketController@getOwnerSelectedInList", array('project_name' => $project->name, "ticket_number" => $ticket->number))}}',
         width: '100%',
         height: '25px',
-        name: 'owner_id'
+        name: 'owner_id',
+		submit: 'OK',
+        indicator: 'Saving...',
+		callback: function(value, settings){
+			text_handle(this, value, settings);
+		},
     });
     $('.edit-planned').editable(edit_url, {
         width: '100%',
@@ -66,8 +87,9 @@ var edit_url = {{'"' . URL::to("api/edit_ticket/$project->name/$ticket->number")
         name: 'planned_hours',
 		callback: function(value, settings){
 			text_handle(this, value, settings);
-		}
+		},
 		
+        indicator: 'Saving...'
     });
     $('.edit-actual').editable(edit_url , {
         width: '100%',
@@ -75,13 +97,20 @@ var edit_url = {{'"' . URL::to("api/edit_ticket/$project->name/$ticket->number")
         name: 'actual_hours',
 		callback: function(value, settings){
 			text_handle(this, value, settings);
-		}
+		},
+        indicator: 'Saving...'
     });
-    $('.edit-description').editable("", {
+    $('.edit-description').editable(edit_url, {
         type: 'textarea',
         rows: 8,
         width: '30%',
-        name: 'description'
+        name: 'description',
+		callback: function(value, settings){
+			text_handle(this, value, settings);
+		},
+		submit: "OK",
+		loadurl: {{ '"' . URL::route("getDescription", array( "project_name" => $project->name, "ticket_number" => $ticket->number)) . '"'}},
+        indicator: 'Saving...'
     });
 
     $('.edit-owner').mouseover(function () {
@@ -117,6 +146,7 @@ var edit_url = {{'"' . URL::to("api/edit_ticket/$project->name/$ticket->number")
         $('.icon-description').addClass('glyphicon-none');
     });
 </script>
+@include('dash/modals/createcomment')
 
 
 @stop

@@ -91,3 +91,4 @@ cd /vagrant/RandomFruit
 php artisan migrate:reset
 php artisan migrate
 php artisan db:seed
+composer -vvv update

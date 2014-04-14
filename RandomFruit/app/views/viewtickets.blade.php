@@ -51,47 +51,6 @@ View Tickets for {{ $project->name }}
                     </div>
                     </div>
                 </form>
-                <div class="table-responsive">
-                <table class="table table-striped table-hover">
-                <thead>
-                <tr>
-                    <th>Ticket #</th>
-                    <th>Title</th>
-                    <th>Creator</th>
-                    <th>Owner</th>
-                    <th>Description</th>
-                    <th>Planned</th>
-                    <th>Actual</th>
-                </tr>
-                </thead>
-                <tbody>
-                    @foreach($project->tickets as $ticket)
-                    <tr>
-                        <td>
-                            {{{ $ticket->number }}}
-                        </td>
-                        <td>
-				<a href="{{URL::to('project/' . $project->name .'/ticket/'.$ticket->number )}}">{{{ $ticket->title }}}</a>
-                        </td>
-                        <td>
-                            {{{ $ticket->creator->username }}}
-                        </td>    
-                        <td>
-                            {{{ $ticket->owner->username }}}
-                        </td>
-                        <td>
-                            {{{ substr($ticket->description, 0, 50) . "..." }}}
-                        </td>
-                        <td>
-                            {{{ $ticket->planned_hours }}}
-                        </td>
-                        <td>
-                            {{{ $ticket->actual_hours }}}
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>    
-        </div>
+               @include('tickettable', array('tickets' => $project->tickets))
 	 </div>
 @stop

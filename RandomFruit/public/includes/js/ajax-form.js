@@ -16,7 +16,8 @@ jQuery(function ($) {
                 $target.html(data);
             },
 
-            error: function () {
+            error: function (request, status, error) {
+				alert(request.responseText);
                 alert("Please check your submission and try again.");
             }
         });

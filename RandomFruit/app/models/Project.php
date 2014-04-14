@@ -40,4 +40,12 @@ class Project extends Eloquent {
 		return Ticket::where('project_id', '=', $this->id)->where('number', '=', $ticket_number)->get()->first();
 	}
 
+	public function hasMember($user_id){
+		return (Membership::where('project_id', '=', $this->id)->where('user_id', '=', $user_id)->count() == 1);
+	}
+
+	public function weeks(){
+		return $this->hasMany('Week');
+	}
+
 }
