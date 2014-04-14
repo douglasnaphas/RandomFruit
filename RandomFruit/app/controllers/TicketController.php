@@ -198,6 +198,65 @@ class TicketController extends BaseController
 	}
 
 	/**
+	 * given a project_name, ticket number from a url, and an owner id from post data, re-assign a ticket
+	 *
+	 */
+	public function assignWeekDue($project_name, $ticket_number)
+	{
+		$project = Project::fromName($project_name);
+		$ticket = $project->getTicketFromNumber($ticket_number);
+		if($project == null){
+			return Response::JSON(
+				array(
+					"status" => "fail",
+					"message" => "Requested project '$project_name' does not exist"
+				)
+			);
+		}
+		if($ticket == NULL ){
+
+			return Response::JSON(
+				array(
+					"status" => "fail",
+					"message" => "Requested ticket '$ticket_number' does not exist"
+				)
+			);
+
+		}
+		$modified_attribute = "week_due";
+		$validator = Validator::make(array($modified_attribute => Input::get($modified_attribute)), Ticket::$validation_rules);
+		if($validator->fails()){
+			$original = $ticket->getOriginal();
+			$payload = array(
+				'status' => 'fail',
+				'messages' => $validator->messages()->toArray(),
+				'data' => array(
+					$modified_attribute => $original[$modified_attribute]
+				)
+			);
+			return Response::JSON($payload);
+
+		}
+		try{
+			$week_due_id = Input::get($modified_attribute);
+			$ticket->week_due_id = ($week_due_id === 'NULL')? NULL : $week_due_id;
+			$ticket->save();
+			$ticket = Ticket::find($ticket->id);
+			$payload = array( 
+				'status' => 'success',
+				'extra' => $week_due_id,
+				'data' => array( 
+					$modified_attribute => $ticket->week_due_id
+				)
+			);
+			return Response::JSON($payload, 200);
+
+		}catch(Exception $e){
+			return Response::JSON(array( 'error' => 'Unable to process request', 'debug' => $e->getMessage()), 501);
+		}
+	}
+
+	/**
 	 * Gets a list of users for a project as a json response
 	 *
 	 */
@@ -241,6 +300,52 @@ class TicketController extends BaseController
 				);
 			}
 
+		}
+	}
+	/**
+	 * Gets a list of users for a project as a json response
+	 *
+	 */
+	public function getWeekDueSelectedInList($project_name, $ticket_number){
+		$project = Project::fromName($project_name);
+		$ticket = $project->getTicketFromNumber($ticket_number);
+		if($project == null){
+			return Response::JSON(
+				array(
+					"status" => "fail",
+					"message" => "Requested project '$project_name' does not exist"
+				)
+			);
+		}
+		if($ticket == NULL ){
+
+			return Response::JSON(
+				array(
+					"status" => "fail",
+					"message" => "Requested ticket '$ticket_number' does not exist"
+				)
+			);
+
+		}
+		else
+		{
+			try{
+				$payload = array();
+				$week_id = $ticket->week_due_id ? $ticket->week_due_id : 'NULL';
+				$payload['NULL'] = "Unset (Click to assign) $ticket->week_due_id";
+				foreach($project->weeks as $week){
+					$payload[$week->id] = "$week->number ($week->end_date)";
+				}
+				$payload['selected'] = $week_id;
+				return Response::JSON($payload);
+			}catch (Exception $e){
+				return Response::JSON(
+					array(
+						"status"=>"error",
+						"message"=>"An internal server error occurred."
+					)
+				);
+			}
 		}
 	}
 

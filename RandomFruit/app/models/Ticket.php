@@ -52,11 +52,11 @@ class Ticket extends Eloquent {
 		return $this->hasMany('Comment');
 	}
 
-	public function week_due(){
+	public function due(){
 		return $this->belongsTo('Week', 'week_due_id');
 	}
 
-	public function week_completed(){
+	public function completed(){
 		return $this->belongsTo('Week', 'week_completed_id');
 	}
 

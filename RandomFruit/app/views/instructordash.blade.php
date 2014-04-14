@@ -56,9 +56,9 @@ Dashboard
     <h2 class="sub-header">Owned Tickets</h2>
     
    <?php
-   $tickets = Ticket::where('owner_id','=', Auth::user()->id)->get();
+   //$tickets = Ticket::where('owner_id','=', Auth::user()->id)->get();
    
    ?>
-    @include('tickettable', array('tickets' => $tickets))
+   @include('tickettable', array('tickets' => Auth::user()->ticketsOwned))
 @stop
 

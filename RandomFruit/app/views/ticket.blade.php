@@ -35,7 +35,7 @@ Ticket #{{{ $ticket->number }}}
 	</tr>
 	<tr>
 		<td><strong>Week due:</strong></td>
-		<td class="data-cell edit-week_due">{{ $ticket->week_due ? $ticket->week_due->number : "Unset "}} ({{ $ticket->week_due  ? $ticket->week_due->end_date : "Click to assign"}})</td>
+		<td class="data-cell edit-week_due">{{ $ticket->due ? $ticket->due->number : "Unset "}} ({{ $ticket->due  ? $ticket->due->end_date : "Click to assign"}})</td>
 		<td><span class="icon-owner glyphicon-none"></span></td>
 	</tr>
 
@@ -76,12 +76,25 @@ Ticket #{{{ $ticket->number }}}
 
 	var edit_url = {{'"' . URL::to("api/edit_ticket/$project->name/$ticket->number") . '"'}};
 	var assign_owner_url = {{'"' . URL::route("ownerAssign", array("project_name" => $project->name, "ticket_number" => $ticket->number)) . '"'}};
+	var assign_week_due = {{'"' . URL::route("assignWeekDue", array("project_name" => $project->name, "ticket_number" => $ticket->number)) . '"'}};
 	$('.edit-owner').editable(assign_owner_url, {
 		type: 'select',
 		loadurl: '{{URL::action("TicketController@getOwnerSelectedInList", array('project_name' => $project->name, "ticket_number" => $ticket->number))}}',
 		width: '100%',
 		height: '25px',
 		name: 'owner_id',
+		submit: 'OK',
+		indicator: 'Saving...',
+		callback: function(value, settings){
+			text_handle(this, value, settings);
+		},
+	});
+	$('.edit-week_due').editable(assign_week_due, {
+		type: 'select',
+		loadurl: '{{URL::route("weekDueList", array('project_name' => $project->name, "ticket_number" => $ticket->number))}}',
+		width: '100%',
+		height: '25px',
+		name: 'week_due',
 		submit: 'OK',
 		indicator: 'Saving...',
 		callback: function(value, settings){

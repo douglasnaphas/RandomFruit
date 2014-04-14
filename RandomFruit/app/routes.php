@@ -38,6 +38,8 @@ Route::post('api/owner_assign/{project_name}/{ticket_number}', array('as' => 'ow
 Route::get('api/ticket_description/{project_name}/{ticket_number}', array('as' => 'getDescription', 'uses' => 'TicketController@getTicketDescription'));
 Route::get('api/get_comments/{project_name}/{ticket_number}', array('as' => 'getComments', 'uses' => 'TicketController@showCommentsHTML'));
 Route::post('api/create_comment/{project_name}/{ticket_number}', array('as' => 'createComment', 'uses' => 'TicketController@createComment'));
+Route::get('api/week_due_select/{project_name}/{ticket_number}', array('as' => 'weekDueList', 'uses' => 'TicketController@getWeekDueSelectedInList'));
+Route::post('api/week_due_assign/{project_name}/{ticket_number}', array('as' => 'assignWeekDue', 'uses' => 'TicketController@assignWeekDue'));
 
 Route::any('dash', array('as' => 'dash', 'before' => 'user_only', function(){
 	return View::make('instructordash');
@@ -59,3 +61,4 @@ Route::any('project/{project_name}/tickets', function($project_name){
 });
 
 Route::any('logout', array('uses' => 'UserController@logout'));
+

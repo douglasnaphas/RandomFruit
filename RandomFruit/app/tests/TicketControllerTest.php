@@ -214,6 +214,7 @@ class TicketControllerTest extends TestCase{
 	public function testSetWeekDue(){
 		$user = User::fromUserName('admin');
 		$this->be($user);
+		$week_id = Week::where('project_id','=',Project::fromName('RandomFruit')->id)->where('number', '=', 1)->get()->first()->id;
 		$post_input = array(
 			'ticket-title' => 'ThisIsATest',
 			'ticket-description' => 'Fix this test',
@@ -227,6 +228,34 @@ class TicketControllerTest extends TestCase{
 		$response_json = json_decode($response->getcontent());
 		var_dump($response_json);
 		$this->assertResponseOk();
-		$this->assertEquals(1, $response['week_due']);
+		$this->assertEquals($week_id, $response_json->week_due_id);
+	}
+
+	
+	public function testWeekDue(){
+		$user = User::fromUserName('admin');
+		$this->be($user);
+		$post_input = array(
+			'ticket-title' => 'ThisIsATest',
+			'ticket-description' => 'Fix this test',
+			'project' => Project::fromName('RandomFruit')->id,
+			'owner' => $user->id,
+			'planned-hours' => 4.0,
+		);
+		var_dump($post_input);
+		$response = $this->action('POST', 'TicketController@createticketAction', $post_input);
+		$response_json = json_decode($response->getcontent());
+		$ticket_number = Ticket::find($response_json->id)->number;
+		var_dump($response_json);
+		$this->assertResponseOk();
+		$week_id = Week::where('project_id','=',Project::fromName('RandomFruit')->id)->where('number', '=', 1)->get()->first()->id;
+		$post_input = array(
+			'week_due' =>  $week_id
+		);
+		$response = $this->action('POST', 'TicketController@assignWeekDue', array("project_name" => 'RandomFruit', "ticket_number" => $ticket_number),
+		   	$post_input);
+		$response_json = json_decode($response->getcontent());
+		var_dump($response_json);
+		$this->assertEquals($week_id, $response_json->data->week_due);
 	}
 }
