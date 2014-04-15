@@ -257,6 +257,65 @@ class TicketController extends BaseController
 	}
 
 	/**
+	 * given a project_name, ticket number from a url, and an owner id from post data, re-assign a ticket
+	 *
+	 */
+	public function assignWeekCompleted($project_name, $ticket_number)
+	{
+		$project = Project::fromName($project_name);
+		$ticket = $project->getTicketFromNumber($ticket_number);
+		if($project == null){
+			return Response::JSON(
+				array(
+					"status" => "fail",
+					"message" => "Requested project '$project_name' does not exist"
+				)
+			);
+		}
+		if($ticket == NULL ){
+
+			return Response::JSON(
+				array(
+					"status" => "fail",
+					"message" => "Requested ticket '$ticket_number' does not exist"
+				)
+			);
+
+		}
+		$modified_attribute = "week_completed";
+		$validator = Validator::make(array($modified_attribute => Input::get($modified_attribute)), Ticket::$validation_rules);
+		if($validator->fails()){
+			$original = $ticket->getOriginal();
+			$payload = array(
+				'status' => 'fail',
+				'messages' => $validator->messages()->toArray(),
+				'data' => array(
+					$modified_attribute => $original[$modified_attribute]
+				)
+			);
+			return Response::JSON($payload);
+
+		}
+		try{
+			$week_completed_id = Input::get($modified_attribute);
+			$ticket->week_completed_id = ($week_completed_id === 'NULL')? NULL : $week_completed_id;
+			$ticket->save();
+			$ticket = Ticket::find($ticket->id);
+			$payload = array( 
+				'status' => 'success',
+				'extra' => $week_completed_id,
+				'data' => array( 
+					$modified_attribute => $ticket->week_due_id
+				)
+			);
+			return Response::JSON($payload, 200);
+
+		}catch(Exception $e){
+			return Response::JSON(array( 'error' => 'Unable to process request', 'debug' => $e->getMessage()), 501);
+		}
+	}
+
+	/**
 	 * Gets a list of users for a project as a json response
 	 *
 	 */

@@ -38,7 +38,7 @@ Ticket #{{{ $ticket->number }}}
 		<td class="data-cell edit-week_due">{{ $ticket->due ? $ticket->due->number : "Unset "}} ({{ $ticket->due  ? $ticket->due->end_date : "Click to assign"}})</td>
 		<td><span class="icon-owner glyphicon-none"></span></td>
 		<td><strong>Week completed:</strong></td>
-		<td class="data-cell edit-week_completed">{{ $ticket->completed ? $ticket->completed->number : "Not Completed"}} ({{ $ticket->due  ? $ticket->completed->end_date : "Click to mark as done"}})</td>
+		<td class="data-cell edit-week_completed">{{ $ticket->completed ? $ticket->completed->number : "Not Completed"}} ({{ $ticket->completed  ? $ticket->completed->end_date : "Click to mark as done"}})</td>
 		<td><span class="icon-owner glyphicon-none"></span></td>
 	</tr>
 
@@ -80,6 +80,7 @@ Ticket #{{{ $ticket->number }}}
 	var edit_url = {{'"' . URL::to("api/edit_ticket/$project->name/$ticket->number") . '"'}};
 	var assign_owner_url = {{'"' . URL::route("ownerAssign", array("project_name" => $project->name, "ticket_number" => $ticket->number)) . '"'}};
 	var assign_week_due = {{'"' . URL::route("assignWeekDue", array("project_name" => $project->name, "ticket_number" => $ticket->number)) . '"'}};
+	var assign_week_completed = {{'"' . URL::route("assignWeekCompleted", array("project_name" => $project->name, "ticket_number" => $ticket->number)) . '"'}};
 	$('.edit-owner').editable(assign_owner_url, {
 		type: 'select',
 		loadurl: '{{URL::action("TicketController@getOwnerSelectedInList", array('project_name' => $project->name, "ticket_number" => $ticket->number))}}',
@@ -98,6 +99,18 @@ Ticket #{{{ $ticket->number }}}
 		width: '100%',
 		height: '25px',
 		name: 'week_due',
+		submit: 'OK',
+		indicator: 'Saving...',
+		callback: function(value, settings){
+			text_handle(this, value, settings);
+		},
+	});
+	$('.edit-week_completed').editable(assign_week_completed, {
+		type: 'select',
+		loadurl: '{{URL::route("weekCompletedList", array('project_name' => $project->name, "ticket_number" => $ticket->number))}}',
+		width: '100%',
+		height: '25px',
+		name: 'week_completed',
 		submit: 'OK',
 		indicator: 'Saving...',
 		callback: function(value, settings){
