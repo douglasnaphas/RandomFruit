@@ -137,3 +137,8 @@ body {
 .glyphicon-container {
     display: inline-block;
 }
+
+.navbar-pull {
+    width: 20%;
+    float: right;
+}
