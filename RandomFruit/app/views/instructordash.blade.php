@@ -51,8 +51,7 @@ $curDate = date("mdy_His");
         //This should produce a button that allows for the graph to be saved
         var graph = document.getElementById("canvas");
         var cs = new CanvasSaver('./saveme.php');
-        var btn = cs.generateButton("Save Graph", graph, "BurndownChart_<?php echo $curDate; ?>");
-        
+        var btn = cs.generateButton('Save Chart', graph, 'BurndownChart');        
         </script>
 	<div id="saveChartBtn"></div>
 	<script>
@@ -62,7 +61,11 @@ $curDate = date("mdy_His");
     </div>
 
     <h2 class="sub-header">Owned Tickets</h2>
-    
+    <div id="chartSave"></div>
+	<script>
+		var displaybutton = document.getElementById("chartSave");
+		displaybutton.appendChild(btn);
+	</script>
    <?php
    $tickets = Ticket::where('owner_id','=', Auth::user()->id)->get();
    
