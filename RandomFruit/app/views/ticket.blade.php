@@ -51,53 +51,53 @@ Ticket #{{{ $ticket->number }}}
     </div>
 </div> <br class="clearBoth">
 <div id="comments">
-	Loading comments...
+    Loading comments...
 </div>
 
 <script>
-$.get( {{'"' . URL::route('getComments', array("project_name" => $project->name, "ticket_number" => $ticket->number)) . '"'}}, function( data ) {
-		  $( "#comments" ).html( data );
-			});
-function text_handle(element, value, settings){
-	if(value.status == 'success'){
-		$(element).html(value.data[settings.name]);
-	}else if (value.status == 'fail'){
-		alert(value.messages[settings.name][0]);
-		$(element).html(value.data[settings.name]);
-	}
-}
+    $.get( {{'"' . URL::route('getComments', array("project_name" => $project->name, "ticket_number" => $ticket->number)) . '"'}}, function( data ) {
+        $( "#comments" ).html( data );
+    });
+    function text_handle(element, value, settings){
+        if(value.status == 'success'){
+            $(element).html(value.data[settings.name]);
+        }else if (value.status == 'fail'){
+            alert(value.messages[settings.name][0]);
+            $(element).html(value.data[settings.name]);
+        }
+    }
 
-var edit_url = {{'"' . URL::to("api/edit_ticket/$project->name/$ticket->number") . '"'}};
-var assign_owner_url = {{'"' . URL::route("ownerAssign", array("project_name" => $project->name, "ticket_number" => $ticket->number)) . '"'}};
+    var edit_url = {{'"' . URL::to("api/edit_ticket/$project->name/$ticket->number") . '"'}};
+    var assign_owner_url = {{'"' . URL::route("ownerAssign", array("project_name" => $project->name, "ticket_number" => $ticket->number)) . '"'}};
     $('.edit-owner').editable(assign_owner_url, {
-		type: 'select',
-		loadurl: '{{URL::action("TicketController@getOwnerSelectedInList", array('project_name' => $project->name, "ticket_number" => $ticket->number))}}',
+        type: 'select',
+        loadurl: '{{URL::action("TicketController@getOwnerSelectedInList", array('project_name' => $project->name, "ticket_number" => $ticket->number))}}',
         width: '100%',
         height: '25px',
         name: 'owner_id',
-		submit: 'OK',
+        submit: 'OK',
         indicator: 'Saving...',
-		callback: function(value, settings){
-			text_handle(this, value, settings);
-		},
+        callback: function(value, settings){
+            text_handle(this, value, settings);
+        },
     });
     $('.edit-planned').editable(edit_url, {
         width: '100%',
         height: '25px',
         name: 'planned_hours',
-		callback: function(value, settings){
-			text_handle(this, value, settings);
-		},
-		
+        callback: function(value, settings){
+            text_handle(this, value, settings);
+        },
+
         indicator: 'Saving...'
     });
     $('.edit-actual').editable(edit_url , {
         width: '100%',
         height: '25px',
         name: 'actual_hours',
-		callback: function(value, settings){
-			text_handle(this, value, settings);
-		},
+        callback: function(value, settings){
+            text_handle(this, value, settings);
+        },
         indicator: 'Saving...'
     });
     $('.edit-description').editable(edit_url, {
@@ -105,12 +105,12 @@ var assign_owner_url = {{'"' . URL::route("ownerAssign", array("project_name" =>
         rows: 8,
         width: '30%',
         name: 'description',
-		callback: function(value, settings){
-			text_handle(this, value, settings);
-		},
-		submit: "OK",
-		loadurl: {{ '"' . URL::route("getDescription", array( "project_name" => $project->name, "ticket_number" => $ticket->number)) . '"'}},
-        indicator: 'Saving...'
+        callback: function(value, settings){
+            text_handle(this, value, settings);
+        },
+        submit: "OK",
+        loadurl: {{ '"' . URL::route("getDescription", array( "project_name" => $project->name, "ticket_number" => $ticket->number)) . '"'}},
+    indicator: 'Saving...'
     });
 
     $('.edit-owner').mouseover(function () {
