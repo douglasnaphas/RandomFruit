@@ -62,7 +62,8 @@
                         <select id="week_due" name="week_due" class="form-control">
                             <?php $first_project = Auth::user()->projects->first() ?>
                             @foreach($first_project->weeks as $week)
-			    <option value="{{$week->id}}" data-project="{{$first_project->id}}">{{"$week->number ($week->end_date)"}}
+                            <option value="{{$week->id}}" data-project="{{$first_project->id}}">{{"$week->number
+                                ($week->end_date)"}}
                             </option>
                             @endforeach
 

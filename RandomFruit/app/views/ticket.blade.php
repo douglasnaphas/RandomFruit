@@ -36,6 +36,58 @@ Ticket #{{{ $ticket->number }}}
 </table>
 
 <div>
+    <button class="btn btn-primary" data-toggle="modal" data-target="#logWork">Log Work</button>
+</div>
+
+<div class="modal fade" id="logWork" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Log Work</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form">
+                    <div class="form-group">
+                        <label for="hoursworked">Number of Hours Worked</label>
+                        <input type="text" id="hoursworked" name="hoursworked" value="1" class="form-control">
+                        <script>
+                            $(function () {
+                                $("input[name='hoursworked']").TouchSpin({
+                                    min: 0,
+                                    max: 10000,
+                                    step: 0.1,
+                                    decimals: 1,
+                                    boostat: 5,
+                                    maxboostedstep: 10,
+                                    postfix: 'hours'
+                                });
+                            });
+                        </script>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="week_due-input">Week</label>
+                        <select id="week_due" name="week_due" class="form-control">
+                            <?php $first_project = Auth::user()->projects->first() ?>
+                            @foreach($first_project->weeks as $week)
+                            <option value="{{$week->id}}" data-project="{{$first_project->id}}">{{"$week->number
+                                ($week->end_date)"}}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
     <div class="header-container">
         <h3>Description</h3>
     </div>
@@ -43,7 +95,9 @@ Ticket #{{{ $ticket->number }}}
         <span class="icon-description glyphicon-none"></span>
     </div>
 </div> <br class="clearBoth">
-<div class="panel panel-default"><div class="edit-description panel-body">{{ $ticket->parsedDescription() }}</div></div>
+<div class="panel panel-default">
+    <div class="edit-description panel-body">{{ $ticket->parsedDescription() }}</div>
+</div>
 
 <div>
     <div class="header-container">
@@ -55,20 +109,48 @@ Ticket #{{{ $ticket->number }}}
 </div>
 
 <script>
-    $.get( {{'"' . URL::route('getComments', array("project_name" => $project->name, "ticket_number" => $ticket->number)) . '"'}}, function( data ) {
-        $( "#comments" ).html( data );
-    });
-    function text_handle(element, value, settings){
-        if(value.status == 'success'){
+    $.get({
+    {
+        '"'.URL
+    ::
+        route('getComments', array("project_name" = > $project - > name, "ticket_number" = > $ticket - > number
+    )) .
+        '"'
+    }
+    },
+    function (data) {
+        $("#comments").html(data);
+    }
+    )
+    ;
+    function text_handle(element, value, settings) {
+        if (value.status == 'success') {
             $(element).html(value.data[settings.name]);
-        }else if (value.status == 'fail'){
+        } else if (value.status == 'fail') {
             alert(value.messages[settings.name][0]);
             $(element).html(value.data[settings.name]);
         }
     }
 
-    var edit_url = {{'"' . URL::to("api/edit_ticket/$project->name/$ticket->number") . '"'}};
-    var assign_owner_url = {{'"' . URL::route("ownerAssign", array("project_name" => $project->name, "ticket_number" => $ticket->number)) . '"'}};
+    var edit_url = {
+    {
+        '"'.URL
+    ::
+        to("api/edit_ticket/$project->name/$ticket->number").
+        '"'
+    }
+    }
+    ;
+    var assign_owner_url = {
+    {
+        '"'.URL
+    ::
+        route("ownerAssign", array("project_name" = > $project - > name, "ticket_number" = > $ticket - > number
+    )) .
+        '"'
+    }
+    }
+    ;
     $('.edit-owner').editable(assign_owner_url, {
         type: 'select',
         loadurl: '{{URL::action("TicketController@getOwnerSelectedInList", array('project_name' => $project->name, "ticket_number" => $ticket->number))}}',
@@ -77,7 +159,7 @@ Ticket #{{{ $ticket->number }}}
         name: 'owner_id',
         submit: 'OK',
         indicator: 'Saving...',
-        callback: function(value, settings){
+        callback: function (value, settings) {
             text_handle(this, value, settings);
         },
     });
@@ -85,17 +167,17 @@ Ticket #{{{ $ticket->number }}}
         width: '100%',
         height: '25px',
         name: 'planned_hours',
-        callback: function(value, settings){
+        callback: function (value, settings) {
             text_handle(this, value, settings);
         },
 
         indicator: 'Saving...'
     });
-    $('.edit-actual').editable(edit_url , {
+    $('.edit-actual').editable(edit_url, {
         width: '100%',
         height: '25px',
         name: 'actual_hours',
-        callback: function(value, settings){
+        callback: function (value, settings) {
             text_handle(this, value, settings);
         },
         indicator: 'Saving...'
@@ -105,13 +187,22 @@ Ticket #{{{ $ticket->number }}}
         rows: 8,
         width: '30%',
         name: 'description',
-        callback: function(value, settings){
+        callback: function (value, settings) {
             text_handle(this, value, settings);
         },
         submit: "OK",
-        loadurl: {{ '"' . URL::route("getDescription", array( "project_name" => $project->name, "ticket_number" => $ticket->number)) . '"'}},
+        loadurl: {
+    {
+        '"'.URL
+    ::
+        route("getDescription", array("project_name" = > $project - > name, "ticket_number" = > $ticket - > number
+    )) .
+        '"'
+    }
+    },
     indicator: 'Saving...'
-    });
+    })
+    ;
 
     $('.edit-owner').mouseover(function () {
         $('.icon-owner').removeClass('glyphicon-none');
