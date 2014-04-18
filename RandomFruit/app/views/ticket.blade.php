@@ -60,15 +60,7 @@ Ticket #{{{ $ticket->number }}}
 </div>
 
 <script>
-    $.get({
-    {
-        '"'.URL
-    ::
-        route('getComments', array("project_name" = > $project - > name, "ticket_number" = > $ticket - > number
-    )) .
-        '"'
-    }
-    },
+    $.get({{'"'.URL::route('getComments', array("project_name" => $project->name, "ticket_number" => $ticket->number)) .'"'}},
     function (data) {
         $("#comments").html(data);
     }
@@ -83,25 +75,8 @@ Ticket #{{{ $ticket->number }}}
         }
     }
 
-    var edit_url = {
-    {
-        '"'.URL
-    ::
-        to("api/edit_ticket/$project->name/$ticket->number").
-        '"'
-    }
-    }
-    ;
-    var assign_owner_url = {
-    {
-        '"'.URL
-    ::
-        route("ownerAssign", array("project_name" = > $project - > name, "ticket_number" = > $ticket - > number
-    )) .
-        '"'
-    }
-    }
-    ;
+    var edit_url = {{'"'.URL::to("api/edit_ticket/$project->name/$ticket->number").'"'}} ;
+    var assign_owner_url = {{'"'.URL::route("ownerAssign", array("project_name" => $project -> name, "ticket_number"=>$ticket->number)) .'"'}};
     $('.edit-owner').editable(assign_owner_url, {
         type: 'select',
         loadurl: '{{URL::action("TicketController@getOwnerSelectedInList", array('project_name' => $project->name, "ticket_number" => $ticket->number))}}',
@@ -142,18 +117,7 @@ Ticket #{{{ $ticket->number }}}
             text_handle(this, value, settings);
         },
         submit: "OK",
-        loadurl: {
-    {
-        '"'.URL
-    ::
-        route("getDescription", array("project_name" = > $project - > name, "ticket_number" = > $ticket - > number
-    )) .
-        '"'
-    }
-    },
-    indicator: 'Saving...'
-    })
-    ;
+        loadurl: {{'"'.URL::route("getDescription", array("project_name" => $project->name, "ticket_number" => $ticket->number)) .'"'}}, indicator: 'Saving...'});
 
     $('.edit-owner').mouseover(function () {
         $('.icon-owner').removeClass('glyphicon-none');
