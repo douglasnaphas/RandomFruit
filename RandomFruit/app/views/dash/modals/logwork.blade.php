@@ -7,6 +7,11 @@
             </div>
             <div class="modal-body">
                 <form class="form">
+		    <div class="form-group">
+			 <label for="ticketnum">Ticket #</label>
+			 <input type="text" id="ticketnum" name="ticketnum" value="{{{$ticket->number}}}" class="form-control" disabled>
+		   </div>	
+		
                     <div class="form-group">
                         <label for="hoursworked">Number of Hours Worked</label>
                         <input type="text" id="hoursworked" name="hoursworked" value="1" class="form-control">
