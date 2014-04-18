@@ -72,21 +72,23 @@
             <strong>TICKETS</strong>
             <ul class="nav nav-sidebar">
                 <li>
-                    <a href="#collapseTicket" data-toggle="collapse" data-parent="#sidebar-links">View tickets</a>
+                    <a href="#collapseTicket" data-toggle="collapse" data-parent="#sidebar-links">View Tickets</a>
                     <div id="collapseTicket" class="collapse">
                         <ul>
                             <li><a href="#">Active Tickets</a></li>
                             <li><a href="#">Completed Tickets</a></li>
                             <li><a href="#">Assigned To Me</a></li>
                             <li><a href="#">My Tickets</a></li>
-                            <li><a href="{{URL::to('project/RandomFruit/tickets')}}">All Tickets</a></li>
+                            @foreach(Auth::user()->projects as $project)
+                            <li><a href="{{URL::to("project/$project->name/tickets")}}">All {{$project->name}} Tickets</a></li>
+                            @endforeach
                         </ul>
                     </div>
                 </li>
             </ul>
-            <strong>REPORTS</strong>
+            <strong>COURSE</strong>
             <ul class="nav nav-sidebar">
-                <li><a href="">Generate Burndown Chart</a></li>
+                <li><a href="{{URL::to('courses')}}">View Course</a></li>
             </ul>
             <ul class="nav nav-sidebar">
                 <li><a href="">Nav item again</a></li>
