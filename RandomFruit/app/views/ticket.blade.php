@@ -11,7 +11,7 @@ Ticket #{{{ $ticket->number }}}
 @stop
 
 @section('page_header')
-#{{{ $ticket->number }}} - {{{ $ticket->title }}}
+#{{{ $ticket->number }}} - {{{ $ticket->title }}} 
 @stop
 
 @section('content')
