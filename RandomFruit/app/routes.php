@@ -49,7 +49,7 @@ Route::any('dash', array('as' => 'dash', 'before' => 'user_only', function(){
 
 Route::any('project/{project_name}/ticket/{ticket_number}', function($project_name, $ticket_number){
 	//$project = Project::where('name', '=', $project_name)->with('tickets')->get()->first();
-        $project = Project::find(1);
+        $project = Project::fromName($project_name);
 	$ticket = Ticket::where('project_id', '=', $project->id)->where('number', '=', $ticket_number)->with('owner')->with('creator')->get()->first();
 	return View::make('ticket')->with('project', $project)->with('ticket', $ticket);
         //echo "Ticket name: " . $ticket->title . "    Creator: " . $ticket->creator->username; 
@@ -60,6 +60,10 @@ Route::any('project/{project_name}/ticket/{ticket_number}', function($project_na
 Route::any('project/{project_name}/tickets', function($project_name){
 	$project = Project::where('name', '=', $project_name)->with('tickets')->get()->first();
 	return View::make('viewtickets')->with('project', $project);
+});
+
+Route::any('courses', function(){
+    return View::make('viewcourse');
 });
 
 Route::any('logout', array('uses' => 'UserController@logout'));

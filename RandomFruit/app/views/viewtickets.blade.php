@@ -2,7 +2,7 @@
 {{-- app/views/viewtickets.blade.php shows tickets for a given project --}}
 
 @section('title')
-{{ $project->name }} -- View Tickets
+View Tickets - {{ $project->name }}
 @stop
 
 @section('css')

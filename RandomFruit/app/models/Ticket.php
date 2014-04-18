@@ -66,7 +66,7 @@ class Ticket extends Eloquent {
 	 * @return string The url to the tickets home page
 	 */
 	public function getUrl(){
-		return URL::to("project/" . $this->project->name . "/ticket/" . $this->id);
+		return URL::to("project/" . $this->project->name . "/ticket/" . $this->number);
 	}
 
 	/**
