@@ -70,7 +70,6 @@ Ticket #{{{ $ticket->number }}}
 </div>
 
 <script>
-<<<<<<< HEAD
 	$.get( {{'"' . URL::route('getComments', array("project_name" => $project->name, "ticket_number" => $ticket->number)) . '"'}}, function( data ) {
 		$( "#comments" ).html( data );
 	});
