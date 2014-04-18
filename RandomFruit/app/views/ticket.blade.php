@@ -11,7 +11,7 @@ Ticket #{{{ $ticket->number }}}
 @stop
 
 @section('page_header')
-#{{{ $ticket->number }}} - {{{ $ticket->title }}}
+#{{{ $ticket->number }}} - {{{ $ticket->title }}} 
 @stop
 
 @section('content')
@@ -45,6 +45,9 @@ Ticket #{{{ $ticket->number }}}
 
 </table>
 
+<!-- Include logwork modal -->
+@include('dash/modals/logwork')
+
 <div>
 	<div class="header-container">
 		<h3>Description</h3>
@@ -53,7 +56,9 @@ Ticket #{{{ $ticket->number }}}
 		<span class="icon-description glyphicon-none"></span>
 	</div>
 </div> <br class="clearBoth">
-<div class="panel panel-default"><div class="edit-description panel-body">{{ $ticket->parsedDescription() }}</div></div>
+<div class="panel panel-default">
+    <div class="edit-description panel-body">{{ $ticket->parsedDescription() }}</div>
+</div>
 
 <div>
 	<div class="header-container">
@@ -61,10 +66,11 @@ Ticket #{{{ $ticket->number }}}
 	</div>
 </div> <br class="clearBoth">
 <div id="comments">
-	Loading comments...
+    Loading comments...
 </div>
 
 <script>
+<<<<<<< HEAD
 	$.get( {{'"' . URL::route('getComments', array("project_name" => $project->name, "ticket_number" => $ticket->number)) . '"'}}, function( data ) {
 		$( "#comments" ).html( data );
 	});

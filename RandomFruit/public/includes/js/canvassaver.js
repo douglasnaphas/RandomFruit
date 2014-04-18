@@ -32,7 +32,7 @@ function CanvasSaver(url) {
 	this.generateButton = function (label, cnvs, fname) {
 		var btn = document.createElement('button'), scope = this;
 		btn.innerHTML = label;
-		btn.className = 'btn btn-default';
+		btn.className = ('btn btn-default');
 		btn.addEventListener('click', function(){scope.savePNG(cnvs, fname);}, false);
 		
 		return btn;
