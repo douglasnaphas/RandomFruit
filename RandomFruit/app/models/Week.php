@@ -15,11 +15,16 @@ class Week extends Eloquent {
 		return $this->belongsTo('Project');
 	}
 
-	public function tickets_due(){
+	public function ticketsDue(){
 		return $this->hasMany('Ticket', 'week_due_id');
 	}
-	public function tickets_completed(){
+
+	public function ticketsCompleted(){
 		return $this->hasMany('Ticket', 'week_completed_id');
+	}
+
+	public function workLogs(){
+		return $this->hasMany('WorkLog');
 	}
 
 }

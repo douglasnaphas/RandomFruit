@@ -15,6 +15,10 @@ class Ticket extends Eloquent {
 		return $this->belongsTo('User', 'creator_id');
 	}
 
+	public function workLogs(){
+		return $this->hasMany('WorkLog');
+	}
+
 	/**
 	 * @var array Array of rules used to validate form input prior to submitting
 	 */
