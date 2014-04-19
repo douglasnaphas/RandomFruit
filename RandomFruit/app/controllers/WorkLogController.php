@@ -7,10 +7,10 @@ class WorkLogController extends BaseController
 		$ticket;
 		$successArray = array("status" => "success");
 		$failureArray = array("status" => "fail");
-		if(!($project = Project::fromName($project_name)){
+		if(!($project = Project::fromName($project_name))){
 			return new Response("The selected project does not exist", 404); 
 		}
-		else if(!($ticket = $project->getTicketFromNumber($ticket_number)){
+		else if(!($ticket = $project->getTicketFromNumber($ticket_number))){
 			return new Response("The selected ticket does not exist", 404); 
 		}
 
@@ -18,6 +18,7 @@ class WorkLogController extends BaseController
 			$work_log = new WorkLog();
 			$work_log->week_id = Input::get('week');
 			$work_log->value = Input::get('hours_worked');
+			$work_log->user_id = Auth::user()->id;
 			$ticket->workLogs()->save($work_log);
 			$payload = array("status" => "success", 
 				"data" => array(
@@ -26,13 +27,11 @@ class WorkLogController extends BaseController
 				)
 			);
 
-			return new Response::JSON($payload, 200);
+			return Response::JSON($payload, 200);
 		}catch(Exception $e){
 			$failureArray['message'] = "A server side error occurred";
 			$failureArray['debug'] = $e->getMessage();
-			return new Response::JSON($failureArray, 504);
+			return Response::JSON($failureArray, 504);
 		}
-
-
 	}
 }

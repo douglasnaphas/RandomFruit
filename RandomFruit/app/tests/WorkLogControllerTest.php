@@ -1,6 +1,6 @@
 <?php
 
-class WorkLogController extends TestCase{
+class WorkLogControllerTest extends TestCase{
 	public function setUp(){
 		parent::setUp();
 		Artisan::call('migrate:reset');
@@ -28,27 +28,28 @@ class WorkLogController extends TestCase{
 
 		//Post to the ticket controller a work log entry for 4 hours
 		$post_data = array(
-			"week" => $project->weeks()->get()->first(),
-			"actual_hours" => "4.0"
+			"week" => $project->weeks()->get()->first()->id,
+			"hours_worked" => "4.0"
 		);
 
-		$response = $this->route(
+		$response = $this->action(
 			"POST",
-			"addWorkLog", //route alias
+			"WorkLogController@addWorkLog", //controller method
 			array("project_name" => $project->name, "ticket_number" => $ticket->number), //url parameters,
 			$post_data //well, post data
 		);
 			
 		//Ensure that the response succeeds
+		$response_json = json_decode($response->getContent());
+		var_dump($response_json);
 		$this->assertResponseOk();
 
 		//Assert that the actual hours == 4.0 hours
-		$response_json = json_decode($response->getContent());
-		AssertEquals($response_json->data->actual_hours == 4.0);
+		$this->AssertEquals($response_json->data->actual_hours,  4.0);
 
 
 		//Assert that the work log has the same user_id as jeff
-		AssertEquals($response_json->work_log->user_id == $jeff->id);
+		$this->AssertEquals($response_json->data->work_log->user_id, $jeff->id);
 	}
 
 	/*

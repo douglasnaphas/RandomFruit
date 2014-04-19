@@ -24,10 +24,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		'password' => 'required'
 	);
 
-	public function workLogs(){
-		return $this->hasMany('WorkLog');
-	}
-
 	/**
 	 * Get the unique identifier for the user.
 	 *
@@ -64,13 +60,13 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->belongsToMany('Project', 'memberships');
 	}
 
-	public function ticketsCreated()
+	public function tickets_created()
 	{
 		return $this->hasMany('Ticket', 'creator_id');
 	}
 
 
-	public function ticketsOwned()
+	public function tickets_owned()
 	{
 		return $this->hasMany('Ticket', 'owner_id');
 	}
@@ -85,7 +81,18 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return self::where('username', '=', $user_name)->first();
 	}
 
-	public function comments(){
-		return $this->hasMany('Comment');
+	public function getRememberToken()
+	{
+		    return $this->remember_token;
+	}
+
+	public function setRememberToken($value)
+	{
+		    $this->remember_token = $value;
+	}
+
+	public function getRememberTokenName()
+	{
+		    return 'remember_token';
 	}
 }
