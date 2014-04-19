@@ -10,17 +10,17 @@ class WorkLogController extends TestCase{
 
 	public function testUpdateWorkLogOnce(){
 		//Log in as jeff
-		$jeff = User::fromName('jeff');
+		$jeff = User::fromUserName('jeff');
 		$project = Project::fromName('RandomFruit');
 		$this->be($jeff);
 		//Create a ticket (not from the frontend)
 		$ticket = new Ticket();
 		$ticket->title = "Work log test";
-		$title->description = "";
-		$title->owner_id = $jeff->id;
+		$ticket->description = "";
+		$ticket->owner_id = $jeff->id;
 		$ticket->creator_id = $jeff->id;
 		$ticket->planned_hours = 4.0;
-		$ticket->project = $project->id;
+		$ticket->project_id = $project->id;
 		$ticket->save();
 
 		//update ticket to get ticket number
@@ -33,8 +33,9 @@ class WorkLogController extends TestCase{
 		);
 
 		$response = $this->route(
+			"POST",
 			"addWorkLog", //route alias
-			array("project_name", => $project->name, "ticket_number" => $ticket->number), //url parameters,
+			array("project_name" => $project->name, "ticket_number" => $ticket->number), //url parameters,
 			$post_data //well, post data
 		);
 			
