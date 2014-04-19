@@ -30,8 +30,7 @@ Ticket #{{{ $ticket->number }}}
 		<td class="data-cell edit-owner">{{{ $ticket->owner->username }}}</td>
 		<td><span class="icon-owner glyphicon-none"></span></td>
 		<td><strong>Actual Hours:</strong></td>
-		<td class="data-cell edit-actual">{{{ $ticket->actual_hours }}}</td>
-		<td><span class="icon-actual glyphicon-none"></span></td>
+		<td class="data-cell ">{{{ $ticket->computeActualHours() }}}</td>
 	</tr>
 	<tr>
 		<td><strong>Week due:</strong></td>
@@ -130,15 +129,6 @@ Ticket #{{{ $ticket->number }}}
 			text_handle(this, value, settings);
 		},
 
-		indicator: 'Saving...'
-	});
-	$('.edit-actual').editable(edit_url , {
-		width: '100%',
-		height: '25px',
-		name: 'actual_hours',
-		callback: function(value, settings){
-			text_handle(this, value, settings);
-		},
 		indicator: 'Saving...'
 	});
 	$('.edit-description').editable(edit_url, {

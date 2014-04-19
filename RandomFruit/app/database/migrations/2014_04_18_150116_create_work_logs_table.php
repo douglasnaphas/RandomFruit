@@ -22,7 +22,7 @@ class CreateWorkLogsTable extends Migration {
 			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 			$table->integer('week_id')->unsigned();
 			$table->foreign('week_id')->references('id')->on('weeks')->onDelete('cascade');
-			$table->integer('value');
+			$table->decimal('value', 6, 1);
 			$table->timestamps();
 		});
 	}

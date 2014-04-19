@@ -109,6 +109,10 @@ class Ticket extends Eloquent {
         public function ticketsOwned(){
             
                 return $this->hasMany('Ticket', 'owner_id');
-        }
+		}
+
+	public function computeActualHours(){
+		return $this->workLogs()->sum('value');
+	}
 
 }

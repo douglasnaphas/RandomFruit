@@ -499,5 +499,4 @@ class TicketController extends BaseController
 			return new Response('A server side error occurred', 506);
 		}
 	}
-
 }

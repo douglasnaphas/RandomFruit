@@ -19,7 +19,7 @@ class WorkLog extends Eloquent {
 	}
 
 	public function week(){
-		return $this->belongsTo('Week);
+		return $this->belongsTo('Week');
 	}
 
 }
