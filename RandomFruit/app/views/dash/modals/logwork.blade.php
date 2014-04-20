@@ -6,18 +6,20 @@
                 <h4 class="modal-title" id="myModalLabel">Log Work</h4>
             </div>
             <div class="modal-body">
-                <form class="form">
+                <form class="form" role="form" data-async data-target="logWork" data-modal-id="logWork"
+                    action="{{URL::route('addWorkLog', array("ticket_number" => $ticket->number, "project_name" => $ticket->project->name))}}"
+                    method="post">
 		    <div class="form-group">
 			 <label for="ticketnum">Ticket #</label>
-			 <input type="text" id="ticketnum" name="ticketnum" value="{{{$ticket->number}}}" class="form-control" disabled>
+			 <input type="text" id="ticket_number" name="ticket_number" value="{{{$ticket->number}}}" class="form-control" disabled>
 		   </div>	
 		
                     <div class="form-group">
                         <label for="hoursworked">Number of Hours Worked</label>
-                        <input type="text" id="hoursworked" name="hoursworked" value="1" class="form-control">
+                        <input type="text" id="hours_worked" name="hours_worked" value="1" class="form-control">
                         <script>
                             $(function () {
-                                $("input[name='hoursworked']").TouchSpin({
+                                $("input[name='hours_worked']").TouchSpin({
                                     min: 0,
                                     max: 10000,
                                     step: 0.1,
@@ -31,21 +33,20 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="week_due-input">Week</label>
-                        <select id="week_due" name="week_due" class="form-control">
-                            <?php $first_project = Auth::user()->projects->first() ?>
-                            @foreach($first_project->weeks as $week)
-                            <option value="{{$week->id}}" data-project="{{$first_project->id}}">{{"$week->number
-                                ($week->end_date)"}}
+                        <label for="week">Week</label>
+                        <select id="week" name="week" class="form-control">
+                            @foreach($ticket->project->weeks as $week)
+                            <option value="{{$week->id}}">
+                                {{"$week->number ($week->end_date)"}}
                             </option>
                             @endforeach
                         </select>
                     </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" value="Save Changes"/>
+                    </div>
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
             </div>
         </div>
     </div>
