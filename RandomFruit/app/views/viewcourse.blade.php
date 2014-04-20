@@ -18,40 +18,31 @@ View Courses
 <div class="ccontain">
     @foreach(Course::all() as $course)
     <h3>  {{  $course->code  }}  </h3>
-    <div class="table-responsive">
-        <table class="table table-striped table-hover">
-            <thead>
+        <table class="table-nonfluid">
             <tr>
-                <th>Projects</th>
+                <td><strong>Projects</strong></td>
+                <td width="100"><input type="checkbox" id="activecheck" value="courseactive"> Active</td>
+                <td width="100"><input type="checkbox" id="plancheck" value="courseplanning"> Planning</td>
             </tr>
-            </thead>
-            <tbody>
+            <tr>
                 @foreach($course->projects as $project)
                 <tr>
                     <td>
                         {{ $project->name }} 
-                    </td>
-                    <td>
-                    </td>
-                    <td>
-                    </td>
-                    <td>
                     </td>
                 </tr>
                 <tr> 
                     <td>
                         <strong> Team Members: </strong>
                     </td>
-                    <td>Jeff</td>
-                    <td>Doug</td>
-                    <td>Alex</td>
-                    <td>Greg</td>
-                    <td>Wolfgang</td>
+                    <td width="100">Jeff</td>
+                    <td width="100">Doug</td>
+                    <td width="100">Alex</td>
+                    <td width="100">Greg</td>
+                    <td width="100">Dave</td>
                 </tr>
                 @endforeach
-            </tbody>
         </table>    
-    </div>
     @endforeach
 </div>
 
