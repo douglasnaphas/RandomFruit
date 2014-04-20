@@ -8,7 +8,7 @@ class WorkLog extends Eloquent {
 	 *
 	 * @var string
 	 */
-	protected $table ='work_logs';
+    protected $table ='work_logs';
 	
 	public function ticket(){
 		return $this->belongsTo('Ticket');
