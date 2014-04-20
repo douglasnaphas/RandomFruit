@@ -49,20 +49,65 @@ class Project extends Eloquent {
     }
 
     public function getEarnedValueData(){
-        return DB::table('projects')->join('tickets', 'tickets.project_id', '=', 'projects.id')->join('weeks', 'weeks.id', '=', 'tickets.week_completed_id')->groupBy('weeks.number')->select(DB::raw("weeks.number, sum(tickets.planned_hours) as hours"))->get();
+        $results = DB::table('projects')
+            ->join('tickets', 'tickets.project_id', '=', 'projects.id')
+            ->join('weeks', 'weeks.id', '=', 'tickets.week_completed_id')
+            ->groupBy('weeks.number')
+            ->select(DB::raw("weeks.number, sum(tickets.planned_hours) as hours"))
+            ->get();
+        $returnArray = array();
+        foreach($results as $result){
+            $offset = intval($result->number - count($returnArray));
+            $current_sum = count($returnArray) ? max($returnArray) : 0;
+            while($offset > 1){
+                $returnArray[] = $current_sum;
+                $offset -= 1;
+            }
+            $returnArray[] = $current_sum + floatval($result->hours);
+        }
+        return $returnArray;
 
     }
 
     public function getActualValueData(){
-        return DB::table('projects')->join('tickets', 'tickets.project_id', '=', 'projects.id')
+        $results =  DB::table('projects')->join('tickets', 'tickets.project_id', '=', 'projects.id')
             ->join('work_logs', 'work_logs.ticket_id', '=', 'tickets.id')
             ->join('weeks', 'weeks.id', '=', 'work_logs.week_id')
+            ->orderBy('weeks.number')
             ->groupBy('weeks.number')
             ->select(DB::raw("weeks.number, sum(work_logs.value) as hours"))
             ->get();
+        $returnArray = array();
+        foreach($results as $result){
+            $offset = intval($result->number - count($returnArray));
+            $current_sum = count($returnArray) ? max($returnArray) : 0;
+            while($offset > 1){
+                $returnArray[] = $current_sum;
+                $offset -= 1;
+            }
+            $returnArray[] = $current_sum + floatval($result->hours);
+        }
+        return $returnArray;
     }
 
     public function getPlannedValueData(){
-        return DB::table('projects')->join('tickets', 'tickets.project_id', '=', 'projects.id')->join('weeks', 'weeks.id', '=', 'tickets.week_due_id')->groupBy('weeks.number')->select(DB::raw("weeks.number, sum(tickets.planned_hours) as hours"))->get();
+        $results = DB::table('projects')
+            ->join('tickets', 'tickets.project_id', '=', 'projects.id')
+            ->join('weeks', 'weeks.id', '=', 'tickets.week_due_id')
+            ->groupBy('weeks.number')
+            ->select(DB::raw("weeks.number, sum(tickets.planned_hours) as hours"))
+            ->get();
+
+        $returnArray = array();
+        foreach($results as $result){
+            $offset = intval($result->number - count($returnArray));
+            $current_sum = count($returnArray) ? max($returnArray) : 0;
+            while($offset > 1){
+                $returnArray[] = $current_sum;
+                $offset -= 1;
+            }
+            $returnArray[] = $current_sum + floatval($result->hours);
+        }
+        return $returnArray;
     }
 }

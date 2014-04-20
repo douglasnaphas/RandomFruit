@@ -24,7 +24,7 @@ $curDate = date("mdy_His");
                     strokeColor: "rgba(5,162,5,1)",
                     pointColor: "rgba(5,162,5,1)",
                     pointStrokeColor: "#fff",
-                    data: [65, 67, 75, 81, 85, 90, 95],
+                    data: {{json_encode(Project::fromName('RandomFruit')->getPlannedValueData())}},
                     title: "Planned"
                 },
                 {
@@ -32,7 +32,7 @@ $curDate = date("mdy_His");
                     strokeColor: "rgba(77,50,205,1)",
                     pointColor: "rgba(77,50,205,1)",
                     pointStrokeColor: "#fff",
-                    data: [60, 69, 74, 81, 90, 95, 110],
+                    data: {{json_encode(Project::fromName('RandomFruit')->getActualValueData())}},
                     title: "Actual"
                 },
                 {
@@ -40,7 +40,7 @@ $curDate = date("mdy_His");
                     strokeColor: "rgba(220,5,5,1)",
                     pointColor: "rgba(220,5,5,1)",
                     pointStrokeColor: "#fff",
-                    data: [67, 69, 77, 83, 87, 92, 97],
+                    data: {{json_encode(Project::fromName('RandomFruit')->getEarnedValueData())}},
                     title: "Earned"
                 }
             ]
