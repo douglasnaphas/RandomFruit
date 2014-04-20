@@ -46,6 +46,23 @@ class Project extends Eloquent {
 
 	public function weeks(){
 		return $this->hasMany('Week');
-	}
+    }
 
+    public function getEarnedValueData(){
+        return DB::table('projects')->join('tickets', 'tickets.project_id', '=', 'projects.id')->join('weeks', 'weeks.id', '=', 'tickets.week_completed_id')->groupBy('weeks.number')->select(DB::raw("weeks.number, sum(tickets.planned_hours) as hours"))->get();
+
+    }
+
+    public function getActualValueData(){
+        return DB::table('projects')->join('tickets', 'tickets.project_id', '=', 'projects.id')
+            ->join('work_logs', 'work_logs.ticket_id', '=', 'tickets.id')
+            ->join('weeks', 'weeks.id', '=', 'work_logs.week_id')
+            ->groupBy('weeks.number')
+            ->select(DB::raw("weeks.number, sum(work_logs.value) as hours"))
+            ->get();
+    }
+
+    public function getPlannedValueData(){
+        return DB::table('projects')->join('tickets', 'tickets.project_id', '=', 'projects.id')->join('weeks', 'weeks.id', '=', 'tickets.week_due_id')->groupBy('weeks.number')->select(DB::raw("weeks.number, sum(tickets.planned_hours) as hours"))->get();
+    }
 }

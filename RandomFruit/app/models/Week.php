@@ -25,6 +25,19 @@ class Week extends Eloquent {
 
 	public function workLogs(){
 		return $this->hasMany('WorkLog');
-	}
+    }
+
+    public function computePlannedValue(){
+        return $this->ticketsDue()->sum('tickets.planned_hours')->get();
+    }
+
+    public function computeEarnedValue(){
+        return $this->ticketsCompleted->sum('tickets.planned_hours')->get();
+    }
+
+    public function computeActualValue(){
+        return $this->workLogs()->sum('work_logs.value')->get();
+
+    }
 
 }
