@@ -30,7 +30,7 @@ Ticket #{{{ $ticket->number }}}
 		<td class="data-cell edit-owner">{{{ $ticket->owner->username }}}</td>
 		<td><span class="icon-owner glyphicon-none"></span></td>
 		<td><strong>Actual Hours:</strong></td>
-		<td class="data-cell ">{{{ $ticket->computeActualHours() }}}</td>
+		<td class="data-cell " id="actual-value">{{{ $ticket->computeActualHours() }}}</td>
 	</tr>
 	<tr>
 		<td><strong>Week due:</strong></td>
