@@ -63,6 +63,6 @@ $curDate = date("mdy_His");
 
 <h2 class="sub-header">Owned Tickets</h2>
 
-@include('tickettable', array('tickets' => Auth::user()->ticketsOwned))
+@include('tickettable', array('tickets' => Auth::user()->tickets_owned))
 @stop
 
