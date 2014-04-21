@@ -129,11 +129,11 @@
 
                     </script>
 
-                    <!-- TODO: add this to ticket model
+                    <!-- TODO: add this to ticket model -->
                     <label for="ticket-priority">Priority</label><br/>
 
                     <div class="btn-group" data-toggle="buttons">
-                        <label class="btn btn-primary">
+                        <label class="active btn btn-primary">
                             <input type="radio" name="ticket-priority" id="blocker">Blocker
                         </label>
                         <label class="btn btn-primary">
@@ -149,7 +149,7 @@
                             <input type="radio" name="ticket-priority" id="trivial">Trivial
                         </label>
                     </div>
-                    -->
+                    
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
