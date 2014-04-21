@@ -20,7 +20,7 @@ View Courses
     <h3>  {{  $course->code  }}  </h3>
         <table class="table-nonfluid">
             <tr>
-                <td><strong>Projects</strong></td>
+                <td><strong>Project Name</strong></td>
                 <td width="100"><input type="checkbox" id="activecheck" value="courseactive"> Active</td>
                 <td width="100"><input type="checkbox" id="plancheck" value="courseplanning"> Planning</td>
             </tr>
@@ -28,7 +28,7 @@ View Courses
                 @foreach($course->projects as $project)
                 <tr>
                     <td>
-                        {{ $project->name }} 
+                        <strong> <a href="{{URL::to("project/$project->name/tickets")}}"> {{ $project->name }} </a> </strong>
                     </td>
                 </tr>
                 <tr> 
