@@ -34,12 +34,10 @@ View Courses
                 <tr> 
                     <td>
                         <strong> Team Members: </strong>
-                    </td>
-                    <td width="100">Jeff</td>
-                    <td width="100">Doug</td>
-                    <td width="100">Alex</td>
-                    <td width="100">Greg</td>
-                    <td width="100">Dave</td>
+					</td>
+					@foreach($project->users as $user)
+					<td width="100">{{$user->username}}</td>
+					@endforeach
                 </tr>
                 @endforeach
         </table>    
