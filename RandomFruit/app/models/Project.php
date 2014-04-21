@@ -55,11 +55,11 @@ class Project extends Eloquent {
             ->groupBy('weeks.number')
             ->select(DB::raw("weeks.number, sum(tickets.planned_hours) as hours"))
             ->get();
-        $returnArray = array();
+        $returnArray = array(0);
         foreach($results as $result){
             $offset = intval($result->number - count($returnArray));
             $current_sum = count($returnArray) ? max($returnArray) : 0;
-            while($offset > 1){
+            while($offset >= 1){
                 $returnArray[] = $current_sum;
                 $offset -= 1;
             }
@@ -77,11 +77,11 @@ class Project extends Eloquent {
             ->groupBy('weeks.number')
             ->select(DB::raw("weeks.number, sum(work_logs.value) as hours"))
             ->get();
-        $returnArray = array();
+        $returnArray = array(0);
         foreach($results as $result){
             $offset = intval($result->number - count($returnArray));
             $current_sum = count($returnArray) ? max($returnArray) : 0;
-            while($offset > 1){
+            while($offset >= 1){
                 $returnArray[] = $current_sum;
                 $offset -= 1;
             }
@@ -98,11 +98,11 @@ class Project extends Eloquent {
             ->select(DB::raw("weeks.number, sum(tickets.planned_hours) as hours"))
             ->get();
 
-        $returnArray = array();
+        $returnArray = array(0);
         foreach($results as $result){
             $offset = intval($result->number - count($returnArray));
             $current_sum = count($returnArray) ? max($returnArray) : 0;
-            while($offset > 1){
+            while($offset >= 1){
                 $returnArray[] = $current_sum;
                 $offset -= 1;
             }
@@ -110,14 +110,14 @@ class Project extends Eloquent {
 		}
 		$weeksCount = count($this->weeks);
 		$current_sum = count($returnArray) ? max($returnArray) : 0;
-		while(count($returnArray) < $weeksCount){
+		while(count($returnArray) <= $weeksCount){
 			$returnArray[] = $current_sum;
 		}
         return $returnArray;
 	}
 
 	public function weeksLegendArray(){
-		$legendArray = array();
+		$legendArray = array("Week 0");
 		foreach($this->weeks()->orderBy('weeks.number')->get() as $week){
 			$legendArray[] = "Week $week->number";
 		}
