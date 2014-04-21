@@ -17,7 +17,7 @@ $curDate = date("mdy_His");
     <canvas id="canvas" height="500" width="1000"></canvas>
     <script>
         var lineChartData = {
-            labels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6", "Week 7", "Week 8", "Week 9", "Week 10"],
+			labels: {{json_encode(Project::fromName('RandomFruit')->weeksLegendArray())}},
             datasets: [
                 {
                     fillColor: "rgba(0,0,0,0)",

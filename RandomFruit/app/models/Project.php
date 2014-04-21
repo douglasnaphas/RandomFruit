@@ -107,7 +107,20 @@ class Project extends Eloquent {
                 $offset -= 1;
             }
             $returnArray[] = $current_sum + floatval($result->hours);
-        }
+		}
+		$weeksCount = count($this->weeks);
+		$current_sum = count($returnArray) ? max($returnArray) : 0;
+		while(count($returnArray) < $weeksCount){
+			$returnArray[] = $current_sum;
+		}
         return $returnArray;
-    }
+	}
+
+	public function weeksLegendArray(){
+		$legendArray = array();
+		foreach($this->weeks()->orderBy('weeks.number')->get() as $week){
+			$legendArray[] = "Week $week->number";
+		}
+		return $legendArray;
+	}
 }
