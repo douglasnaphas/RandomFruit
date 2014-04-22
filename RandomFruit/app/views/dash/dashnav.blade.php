@@ -88,12 +88,11 @@
             </ul>
             <strong>COURSE</strong>
             <ul class="nav nav-sidebar">
-                <li><a href="{{URL::to('courses')}}">View Course</a></li>
-            </ul>
-            <ul class="nav nav-sidebar">
-                <li><a href="">Nav item again</a></li>
-                <li><a href="">One more nav</a></li>
-                <li><a href="">Another nav item</a></li>
+                <li> <a href="#" data-toggle="modal" data-target="#createCourse">Create Course</a> </li> 
+                <li><a href="{{URL::to('courses')}}">View Courses</a></li>
             </ul>
         </div>
         <!-- End sidebar -->
+
+        <!-- Create a Course Modal -->
+        @include('dash/modals/createcourse');

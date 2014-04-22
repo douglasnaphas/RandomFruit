@@ -42,6 +42,14 @@ View Courses
                 @endforeach
         </table>    
     @endforeach
+    <br>
+    <br>
+    <div>
+        <button class="btn btn-primary" data-toggle="modal" data-target="#">Create Project</button> &nbsp;&nbsp;&nbsp;
+        <button class="btn btn-primary" data-toggle="modal" data-target="#">Add User</button>
+        
+    </div>
+
 </div>
 
 @stop
