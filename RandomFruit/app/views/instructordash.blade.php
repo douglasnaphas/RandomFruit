@@ -17,7 +17,7 @@ $curDate = date("mdy_His");
     <canvas id="canvas" height="500" width="1000"></canvas>
     <script>
         var lineChartData = {
-            labels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6", "Week 7", "Week 8", "Week 9", "Week 10"],
+            labels: ["2/17", "2/24", "3/10", "3/17", "3/24", "3/31", "4/7", "4/14", "4/21", "4/28", "5/5", "5/9"],
             datasets: [
                 {
                     fillColor: "rgba(0,0,0,0)",
