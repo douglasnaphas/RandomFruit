@@ -45,11 +45,16 @@ View Courses
     <br>
     <br>
     <div>
-        <button class="btn btn-primary" data-toggle="modal" data-target="#">Create Project</button> &nbsp;&nbsp;&nbsp;
-        <button class="btn btn-primary" data-toggle="modal" data-target="#">Add User</button>
-        
+        <button class="btn btn-primary" data-toggle="modal" data-target="#addProject">Add Project</button> &nbsp;&nbsp;&nbsp;
+        <button class="btn btn-primary" data-toggle="modal" data-target="#addUser">Add User</button>
     </div>
 
 </div>
+
+<!-- Include Add Project Modal -->
+@include('dash/modals/addproject')
+
+<!-- Include Add User Modal -->
+@include('dash/modals/adduser')
 
 @stop
