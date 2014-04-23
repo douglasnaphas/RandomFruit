@@ -29,16 +29,16 @@ $curDate = date("mdy_His");
                 },
                 {
                     fillColor: "rgba(0,0,0,0)",
-                    strokeColor: "rgba(77,50,205,1)",
+                    strokeColor: "rgba(77,50,205,.55)",
                     pointColor: "rgba(77,50,205,1)",
-                    pointStrokeColor: "#fff",
+                    pointStrokeColor: "#000",
                     data: {{json_encode(Project::fromName('RandomFruit')->getActualValueData())}},
                     title: "Actual"
                 },
                 {
-                    fillColor: "rgba(0,0,0,0)",
-                    strokeColor: "rgba(220,5,5,1)",
-                    pointColor: "rgba(220,5,5,1)",
+                    fillColor: "rgba(220,5,5,.3)",
+                    strokeColor: "rgba(220,5,5,0)",
+                    pointColor: "rgba(220,5,5,.7)",
                     pointStrokeColor: "#fff",
                     data: {{json_encode(Project::fromName('RandomFruit')->getEarnedValueData())}},
                     title: "Earned"
