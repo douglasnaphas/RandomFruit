@@ -55,6 +55,9 @@ Route::post('api/create_course', array('as' => 'createCourse', 'uses' => 'Course
 //Creating users
 Route::post('api/create_user', array('as' => 'createUser', 'uses' => 'UserController@createUser'));
 
+//Adding users to projects
+Route::post('api/add_user_to_project', array('as' => 'addUser', 'uses' => 'ProjectController@addUser'));
+
 Route::any('dash', array('as' => 'dash', 'before' => 'user_only', function(){
 	return View::make('instructordash');
 }));
