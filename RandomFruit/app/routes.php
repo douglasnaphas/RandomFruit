@@ -52,6 +52,9 @@ Route::post('api/add_work_log/{project_name}/{ticket_number}', array('as' => 'ad
 //Modifying courses
 Route::post('api/create_course', array('as' => 'createCourse', 'uses' => 'CourseController@createCourse'));
 
+//Adding projects to courses
+Route::post('api/create_project', array('as' => 'createProject', 'uses' => 'ProjectController@createProject'));
+
 //Creating users
 Route::post('api/create_user', array('as' => 'createUser', 'uses' => 'UserController@createUser'));
 

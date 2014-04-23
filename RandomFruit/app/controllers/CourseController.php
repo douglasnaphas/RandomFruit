@@ -3,6 +3,10 @@
 class CourseController extends BaseController{
 
 
+	/**
+	 * Creates a course given code and description from post data
+	 *
+	 */
 	public function createCourse(){
 		$input_array = array(
 			'code' => Input::get('code'),
@@ -24,6 +28,48 @@ class CourseController extends BaseController{
 		}else{
 			return Response::json(array('status' => 'fail', 'messages' => $validator->messages->all()));
 		}
+
+	}
+
+	/**
+	 * Adds an existing project to a course from post data
+	 */
+	public function addProject(){
+
+		$input_array = array(
+
+			'name' => Input::get('project_name'),
+			'description' => Input::get('project_description'),
+			'course_id' => Input::get('course_id')
+
+		);
+		$validator = Validator::make($input_array, Project::$validation_rules);
+
+		if($validator->passes()){
+			try{
+				$course = Course::find($course_id);
+				$project = new Project();
+				$project->name = $input_array['name'];
+				$project->description = $input_array['description'];
+				$course->projects()->save($project);
+
+				return Response::json(
+					array(
+						'status' => 'success',
+						'data' => array(
+							'project' => $project->toArray(),
+						)
+					)
+				);
+			}
+			catch(Exception $e){
+				return Response::json(array('status' => 'fail', 'message' => $e->getMessage()));
+			}
+		}
+		else{
+			return Response::json(array('status' => 'fail', 'messages' => $validator->messages->all()));
+		}
+
 
 	}
 
