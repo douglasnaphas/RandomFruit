@@ -9,6 +9,11 @@ class Course extends Eloquent {
 	 * @var string
 	 */
 	protected $table ='courses';
+
+	public static $validation_rules = array(
+		'code' => 'required',
+		'description' => 'required'
+	);
 	
 	public static function fromCode($code){
 		return self::where('code','=', $code)->get()->first();
