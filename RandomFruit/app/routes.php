@@ -52,6 +52,9 @@ Route::post('api/add_work_log/{project_name}/{ticket_number}', array('as' => 'ad
 //Modifying courses
 Route::post('api/create_course', array('as' => 'createCourse', 'uses' => 'CourseController@createCourse'));
 
+//Creating users
+Route::post('api/create_user', array('as' => 'createUser', 'uses' => 'UserController@createUser'));
+
 Route::any('dash', array('as' => 'dash', 'before' => 'user_only', function(){
 	return View::make('instructordash');
 }));
