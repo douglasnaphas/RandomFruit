@@ -13,7 +13,7 @@ Burndown Chart
 <?php
 $curDate = date("mdy_His");
     echo "<div> \n";
-    foreach(Auth::user()->projects as $project){
+   foreach(Auth::user()->projects as $project){
         echo " <canvas id='".$project->id."canvas' height='500' width='1000'></canvas> \n";
         echo "<script> \n";
         echo "var lineChartData = {
@@ -55,12 +55,14 @@ $curDate = date("mdy_His");
             var saveBtnDiv = document.getElementById('saveChartBtn');
             saveBtnDiv.appendChild(btn);
             </script>\n";
-        echo"</div>\n";
+        echo "<br>\n";
+        
 }
 ?>  
 
 <h2 class="sub-header">Owned Tickets</h2>
 
 @include('tickettable', array('tickets' => Auth::user()->tickets_owned))
+</div>
 @stop
 
