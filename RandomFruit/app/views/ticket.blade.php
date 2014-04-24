@@ -11,7 +11,7 @@ Ticket #{{{ $ticket->number }}}
 @stop
 
 @section('page_header')
-#{{{ $ticket->number }}} - {{{ $ticket->title }}} 
+#{{{ $ticket->number }}} - <span class="edit-title">{{{ $ticket->title }}}</span>
 @stop
 
 @section('content')
@@ -34,11 +34,11 @@ Ticket #{{{ $ticket->number }}}
 	</tr>
 	<tr>
 		<td><strong>Week due:</strong></td>
-		<td class="data-cell edit-week_due">{{ $ticket->due ? $ticket->due->number : "Unset "}} ({{ $ticket->due  ? $ticket->due->end_date : "Click to assign"}})</td>
-		<td><span class="icon-owner glyphicon-none"></span></td>
+		<td class="data-cell edit-week-due">{{ $ticket->due ? $ticket->due->number : "Unset "}} ({{ $ticket->due  ? $ticket->due->end_date : "Click to assign"}})</td>
+		<td><span class="icon-week-due glyphicon-none"></span></td>
 		<td><strong>Week completed:</strong></td>
-		<td class="data-cell edit-week_completed">{{ $ticket->completed ? $ticket->completed->number : "Not Completed"}} ({{ $ticket->completed  ? $ticket->completed->end_date : "Click to mark as done"}})</td>
-		<td><span class="icon-owner glyphicon-none"></span></td>
+		<td class="data-cell edit-week-completed">{{ $ticket->completed ? $ticket->completed->number : "Not Completed"}} ({{ $ticket->completed  ? $ticket->completed->end_date : "Click to mark as done"}})</td>
+		<td><span class="icon-week-completed glyphicon-none"></span></td>
 	</tr>
 
 
@@ -85,6 +85,16 @@ Ticket #{{{ $ticket->number }}}
 	var assign_owner_url = {{'"' . URL::route("ownerAssign", array("project_name" => $project->name, "ticket_number" => $ticket->number)) . '"'}};
 	var assign_week_due = {{'"' . URL::route("assignWeekDue", array("project_name" => $project->name, "ticket_number" => $ticket->number)) . '"'}};
 	var assign_week_completed = {{'"' . URL::route("assignWeekCompleted", array("project_name" => $project->name, "ticket_number" => $ticket->number)) . '"'}};
+    $('.edit-title').editable(edit_url, {
+        width: '75%',
+        name: 'title',
+        callback: function(value, settings){
+            text_handle(this, value, settings);
+        },
+        submit: "OK",
+        loadurl: {{ '"' . URL::route("getTitle", array( "project_name" => $project->name, "ticket_number" => $ticket->number)) . '"'}},
+    indicator: 'Saving...'
+    });
 	$('.edit-owner').editable(assign_owner_url, {
 		type: 'select',
 		loadurl: '{{URL::action("TicketController@getOwnerSelectedInList", array('project_name' => $project->name, "ticket_number" => $ticket->number))}}',
@@ -95,9 +105,9 @@ Ticket #{{{ $ticket->number }}}
 		indicator: 'Saving...',
 		callback: function(value, settings){
 			text_handle(this, value, settings);
-		},
+		}
 	});
-	$('.edit-week_due').editable(assign_week_due, {
+	$('.edit-week-due').editable(assign_week_due, {
 		type: 'select',
 		loadurl: '{{URL::route("weekDueList", array('project_name' => $project->name, "ticket_number" => $ticket->number))}}',
 		width: '100%',
@@ -107,9 +117,9 @@ Ticket #{{{ $ticket->number }}}
 		indicator: 'Saving...',
 		callback: function(value, settings){
 			text_handle(this, value, settings);
-		},
+		}
 	});
-	$('.edit-week_completed').editable(assign_week_completed, {
+	$('.edit-week-completed').editable(assign_week_completed, {
 		type: 'select',
 		loadurl: '{{URL::route("weekCompletedList", array('project_name' => $project->name, "ticket_number" => $ticket->number))}}',
 		width: '100%',
@@ -176,6 +186,22 @@ Ticket #{{{ $ticket->number }}}
 		$('.icon-description').removeClass('glyphicon glyphicon-pencil');
 		$('.icon-description').addClass('glyphicon-none');
 	});
+    $('.edit-due').mouseover(function () {
+        $('.icon-week-due').removeClass('glyphicon-none');
+        $('.icon-week-due').addClass('glyphicon glyphicon-pencil');
+    });
+    $('.edit-due').mouseout(function () {
+        $('.icon-week-due').removeClass('glyphicon glyphicon-pencil');
+        $('.icon-week-due').addClass('glyphicon-none');
+    });
+    $('.edit-week-completed').mouseover(function () {
+        $('.icon-week-completed').removeClass('glyphicon-none');
+        $('.icon-week-completed').addClass('glyphicon glyphicon-pencil');
+    });
+    $('.edit-week-completed').mouseout(function () {
+        $('.icon-week-completed').removeClass('glyphicon glyphicon-pencil');
+        $('.icon-week-completed').addClass('glyphicon-none');
+    });
 </script>
 @include('dash/modals/createcomment')
 
