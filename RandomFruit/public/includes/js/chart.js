@@ -312,7 +312,7 @@ window.Chart = function(context){
 			animationSteps : 60,
 			animationEasing : "easeOutQuart",
 			onAnimationComplete : null,
-			showLegend: false
+			showLegend: true
 		};		
 		var config = (options) ? mergeChartConfig(chart.Line.defaults,options) : chart.Line.defaults;
 		

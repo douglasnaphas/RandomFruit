@@ -103,6 +103,10 @@ class TicketController extends BaseController
 			$modified_attribute = 'description';
 			$selected_ticket->description = Input::get('description');
 		}
+        if(Input::has('title')){
+            $modified_attribute = 'title';
+            $selected_ticket->title = Input::get('title');
+        }
 		if(Input::has('owner_id')){
 			$modified_attribute = 'owner_id';
 			$selected_ticket->owner_id = Input::get('owner_id');
@@ -458,6 +462,14 @@ class TicketController extends BaseController
 	 * Returns, in plain text(markdown) the description of a ticket.
 	 *
 	 */
+    public function getTicketTitle($project_name, $ticket_number){
+        $selected_ticket;
+        if(!($selected_ticket = Project::fromName($project_name)->getTicketFromNumber($ticket_number))){
+            return "Could not load title"; //error
+        }
+        return $selected_ticket->title;
+    }
+
 	public function getTicketDescription($project_name, $ticket_number){
 		$selected_ticket;
 		if(!($selected_ticket = Project::fromName($project_name)->getTicketFromNumber($ticket_number))){

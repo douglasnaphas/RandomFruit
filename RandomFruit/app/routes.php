@@ -36,6 +36,7 @@ Route::post('api/owner_assign/{project_name}/{ticket_number}', array('as' => 'ow
 
 //Getting ticket info
 Route::get('api/owner_select/{project_name}/{ticket_number}', array('as' => 'ownerList', 'uses' => 'TicketController@getOwnerSelectedInList'));
+Route::get('api/ticket_title/{project_name}/{ticket_number}', array('as' => 'getTitle', 'uses' => 'TicketController@getTicketTitle'));
 Route::get('api/ticket_description/{project_name}/{ticket_number}', array('as' => 'getDescription', 'uses' => 'TicketController@getTicketDescription'));
 Route::get('api/week_due_select/{project_name}/{ticket_number}', array('as' => 'weekDueList', 'uses' => 'TicketController@getWeekDueSelectedInList'));
 Route::get('api/week_completed_select/{project_name}/{ticket_number}', array('as' => 'weekCompletedList', 'uses' => 'TicketController@getWeekCompletedSelectedInList'));
