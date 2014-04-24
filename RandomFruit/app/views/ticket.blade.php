@@ -11,7 +11,14 @@ Ticket #{{{ $ticket->number }}}
 @stop
 
 @section('page_header')
-#{{{ $ticket->number }}} - <span class="edit-title">{{{ $ticket->title }}}</span>
+<div>
+    <div class="header-container title-hover">
+        #{{{ $ticket->number }}} - <span class="edit-title">{{{ $ticket->title }}}</span>
+    </div>
+    <div class="glyphicon-container" style="font-size: 16px;">
+        <span class="icon-title glyphicon-none"></span>
+    </div>
+</div>
 @stop
 
 @section('content')
@@ -86,7 +93,7 @@ Ticket #{{{ $ticket->number }}}
 	var assign_week_due = {{'"' . URL::route("assignWeekDue", array("project_name" => $project->name, "ticket_number" => $ticket->number)) . '"'}};
 	var assign_week_completed = {{'"' . URL::route("assignWeekCompleted", array("project_name" => $project->name, "ticket_number" => $ticket->number)) . '"'}};
     $('.edit-title').editable(edit_url, {
-        width: '75%',
+        width: '100%',
         name: 'title',
         callback: function(value, settings){
             text_handle(this, value, settings);
@@ -154,7 +161,15 @@ Ticket #{{{ $ticket->number }}}
 		indicator: 'Saving...'
 	});
 
-	$('.edit-owner').mouseover(function () {
+    $('.title-hover').mouseover(function () {
+        $('.icon-title').removeClass('glyphicon-none');
+        $('.icon-title').addClass('glyphicon glyphicon-pencil');
+    });
+    $('.title-hover').mouseout(function () {
+        $('.icon-title').removeClass('glyphicon glyphicon-pencil');
+        $('.icon-title').addClass('glyphicon-none');
+    });
+    $('.edit-owner').mouseover(function () {
 		$('.icon-owner').removeClass('glyphicon-none');
 		$('.icon-owner').addClass('glyphicon glyphicon-pencil');
 	});
@@ -186,11 +201,11 @@ Ticket #{{{ $ticket->number }}}
 		$('.icon-description').removeClass('glyphicon glyphicon-pencil');
 		$('.icon-description').addClass('glyphicon-none');
 	});
-    $('.edit-due').mouseover(function () {
+    $('.edit-week-due').mouseover(function () {
         $('.icon-week-due').removeClass('glyphicon-none');
         $('.icon-week-due').addClass('glyphicon glyphicon-pencil');
     });
-    $('.edit-due').mouseout(function () {
+    $('.edit-week-due').mouseout(function () {
         $('.icon-week-due').removeClass('glyphicon glyphicon-pencil');
         $('.icon-week-due').addClass('glyphicon-none');
     });
