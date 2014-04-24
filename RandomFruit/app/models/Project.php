@@ -9,6 +9,13 @@ class Project extends Eloquent {
 	 * @var string
 	 */
 	protected $table = 'projects';
+
+	public static $validation_rules =
+		array(
+			'name' => 'sometimes',
+			'description' => 'sometimes',
+			'course_id' => 'sometimes|exists:courses,id'
+		);
 	
 
 	public function users(){
@@ -73,6 +80,7 @@ class Project extends Eloquent {
         $results =  DB::table('projects')->join('tickets', 'tickets.project_id', '=', 'projects.id')
             ->join('work_logs', 'work_logs.ticket_id', '=', 'tickets.id')
             ->join('weeks', 'weeks.id', '=', 'work_logs.week_id')
+            ->where('projects.id', '=', $this->id)
             ->orderBy('weeks.number')
             ->groupBy('weeks.number')
             ->select(DB::raw("weeks.number, sum(work_logs.value) as hours"))

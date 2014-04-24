@@ -28,6 +28,35 @@ class UserController extends BaseController{
 
 	}
 
+	public function createUser(){
+		$post_input = array(
+			'email' => Input::get('email'),
+			'username' => Input::get('username'),
+			'password' => Hash::make(Input::get('password'))
+		);
+
+		$validator = Validator::make($post_input, User::$validation_rules);
+
+		if($validator->passes()){
+			try{
+				$newUser = new User();
+				$newUser->email = $post_input['email'];
+				$newUser->username = $post_input['username'];
+				$newUser->password = $post_input['password'];
+				$newUser->save();
+				return Response::json(array('status' => 'success', 'data' => $newUser->toArray()));
+			}
+			catch(Exception $e)
+			{
+				return Response::json(array('status' => 'fail', 'error' => $e->getMessage()));
+			}
+
+		}else{
+			return Response::json(array('status' => 'success', 'messages' => $validator->messages()->toArray()));
+		}
+
+	}
+
 	public function getRememberToken()
 	{
 		    return $this->remember_token;

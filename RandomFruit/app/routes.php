@@ -49,6 +49,18 @@ Route::post('api/create_comment/{project_name}/{ticket_number}', array('as' => '
 //Logging work
 Route::post('api/add_work_log/{project_name}/{ticket_number}', array('as' => 'addWorkLog', 'uses' => 'WorkLogController@addWorkLog'));
 
+//Modifying courses
+Route::post('api/create_course', array('as' => 'createCourse', 'uses' => 'CourseController@createCourse'));
+
+//Adding projects to courses
+Route::post('api/create_project', array('as' => 'createProject', 'uses' => 'ProjectController@createProject'));
+
+//Creating users
+Route::post('api/create_user', array('as' => 'createUser', 'uses' => 'UserController@createUser'));
+
+//Adding users to projects
+Route::post('api/add_user_to_project', array('as' => 'addUser', 'uses' => 'ProjectController@addUser'));
+
 Route::any('dash', array('as' => 'dash', 'before' => 'user_only', function(){
 	return View::make('instructordash');
 }));
