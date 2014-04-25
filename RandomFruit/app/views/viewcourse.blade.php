@@ -21,8 +21,8 @@ View Courses
         <table class="table-nonfluid">
             <tr>
                 <td><strong>Project Name</strong></td>
-                <td width="100"><input type="checkbox" id="activecheck" value="courseactive"> Active</td>
-                <td width="100"><input type="checkbox" id="plancheck" value="courseplanning"> Planning</td>
+                <td width="100"><input type="checkbox" class="course-toggle" id="activecheck" value="courseactive" data-target="link to active toggle for {{$course->id}}"> Active</td>
+                <td width="100"><input type="checkbox" id="course-toogle" value="courseplanning" data-target="link to planning toggle for {{$course->id}}"> Planning</td>
             </tr>
             <tr>
                 @foreach($course->projects as $project)
@@ -42,6 +42,19 @@ View Courses
                 @endforeach
         </table>    
     @endforeach
+<script language="text/javascript">
+	$(function(){
+		$('.course-toggle').change(function(){
+			var url = $(this).getAttribute('data-target');
+			//make ajax call to url
+		}
+
+		);
+
+
+});
+
+</script>
     <br>
     <br>
     <div>
