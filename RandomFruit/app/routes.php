@@ -22,6 +22,13 @@ Route::filter('guest_only', function(){
 		return Redirect::to('dash');
 });
 
+Route::filter('admin_only', function(){
+	if(!Auth::check())
+		return Redirect::to('login');
+	else if(!Auth::user()->is_admin)
+		return Response::make("You must be an admin to do that", 401);
+});
+
 
 Route::any('/', array('before' => 'user_only', function(){
 	return Redirect::route('dash');
@@ -33,7 +40,6 @@ Route::any('login', array('as' => 'login', 'uses' => 'UserController@loginAction
 Route::post('api/create_ticket', array('as' => 'createTicket', 'uses' => 'TicketController@createticketAction'));
 Route::post('api/edit_ticket/{project_name}/{ticket_number}', array('as' => 'createTicket', 'uses' => 'TicketController@editTicketAction'));
 Route::post('api/owner_assign/{project_name}/{ticket_number}', array('as' => 'ownerAssign', 'uses' => 'TicketController@assignTicketOwner'));
-
 //Getting ticket info
 Route::get('api/owner_select/{project_name}/{ticket_number}', array('as' => 'ownerList', 'uses' => 'TicketController@getOwnerSelectedInList'));
 Route::get('api/ticket_title/{project_name}/{ticket_number}', array('as' => 'getTitle', 'uses' => 'TicketController@getTicketTitle'));
@@ -50,17 +56,23 @@ Route::post('api/create_comment/{project_name}/{ticket_number}', array('as' => '
 //Logging work
 Route::post('api/add_work_log/{project_name}/{ticket_number}', array('as' => 'addWorkLog', 'uses' => 'WorkLogController@addWorkLog'));
 
-//Modifying courses
-Route::post('api/create_course', array('as' => 'createCourse', 'uses' => 'CourseController@createCourse'));
+Route::group(array('before' => 'admin_only'), function(){
+	//Creating courses
+	Route::post('api/create_course', array('as' => 'createCourse', 'uses' => 'CourseController@createCourse'));
 
-//Adding projects to courses
-Route::post('api/create_project', array('as' => 'createProject', 'uses' => 'ProjectController@createProject'));
+	//Adding projects to courses
+	Route::post('api/create_project', array('as' => 'createProject', 'uses' => 'ProjectController@createProject'));
 
-//Creating users
-Route::post('api/create_user', array('as' => 'createUser', 'uses' => 'UserController@createUser'));
+	//Creating users
+	Route::post('api/create_user', array('as' => 'createUser', 'uses' => 'UserController@createUser'));
 
-//Adding users to projects
-Route::post('api/add_user_to_project', array('as' => 'addUser', 'uses' => 'ProjectController@addUser'));
+	//Adding users to projects
+	Route::post('api/add_user_to_project', array('as' => 'addUser', 'uses' => 'ProjectController@addUser'));
+	
+	Route::any('courses', function(){
+		return View::make('viewcourse');
+	});
+});
 
 Route::any('dash', array('as' => 'dash', 'before' => 'user_only', function(){
 	return View::make('instructordash');
@@ -81,9 +93,6 @@ Route::any('project/{project_name}/tickets', function($project_name){
 	return View::make('viewtickets')->with('project', $project);
 });
 
-Route::any('courses', function(){
-    return View::make('viewcourse');
-});
 
 Route::any('logout', array('uses' => 'UserController@logout'));
 
