@@ -42,7 +42,7 @@ class UserTableSeeder extends Seeder {
 				'username' => 'greg',
 				'password' => Hash::make('gerg'),
 				'email' => 'greg@localhost',
-				'is_admin' => 1
+				'is_admin' => 0
 			)
 		);
 		User::create(
@@ -50,7 +50,7 @@ class UserTableSeeder extends Seeder {
 				'username' => 'alex',
 				'password' => Hash::make('xela'),
 				'email' => 'greg@localhost',
-				'is_admin' => 1
+				'is_admin' => 0
 			)
 		);
 		User::create(
@@ -58,7 +58,7 @@ class UserTableSeeder extends Seeder {
 				'username' => 'jeff',
 				'password' => Hash::make('ffej'),
 				'email' => 'greg@localhost',
-				'is_admin' => 1
+				'is_admin' => 0
 			)
 		);
 		User::create(
@@ -66,7 +66,7 @@ class UserTableSeeder extends Seeder {
 				'username' => 'doug',
 				'password' => Hash::make('guod'),
 				'email' => 'doug@localhost',
-				'is_admin' => 1
+				'is_admin' => 0
 			)
 		);
 		User::create(
@@ -74,7 +74,7 @@ class UserTableSeeder extends Seeder {
 				'username' => 'dave',
 				'password' => Hash::make('evad'),
 				'email' => 'dave@localhost',
-				'is_admin' => 1
+				'is_admin' => 0
 			)
 		);
 		User::create(
@@ -82,7 +82,7 @@ class UserTableSeeder extends Seeder {
 				'username' => 'bob',
 				'password' => Hash::make('bob'),
 				'email' => 'bob@localhost',
-				'is_admin' => 1
+				'is_admin' => 0
 			)
 		);
 		User::create(
@@ -90,7 +90,7 @@ class UserTableSeeder extends Seeder {
 				'username' => 'ayo',
 				'password' => Hash::make('oya'),
 				'email' => 'ayo@localhost',
-				'is_admin' => 1
+				'is_admin' => 0
 			)
 		);
 	}
