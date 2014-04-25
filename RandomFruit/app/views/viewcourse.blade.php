@@ -21,8 +21,16 @@ View Courses
         <table class="table-nonfluid">
             <tr>
                 <td><strong>Project Name</strong></td>
-                <td width="100"><input type="checkbox" class="course-toggle" id="activecheck" value="courseactive" data-target="link to active toggle for {{$course->id}}"> Active</td>
-                <td width="100"><input type="checkbox" id="course-toogle" value="courseplanning" data-target="link to planning toggle for {{$course->id}}"> Planning</td>
+				<td width="100"><input type="checkbox" class="course-toggle" id="active-{{$course->id}}"
+					value="courseactive" {{$course->active ? 'checked' : ''}}
+					data-target="{{URL::route('toggleActive', array('course_id' => $course->id))}}">
+					Active
+				</td>
+				<td width="100"><input type="checkbox" id="planning->{{$course->id}}"
+					value="courseplanning" {{$course->planning ? 'checked' : ''}}
+					data-target="placeholder">
+					Planning
+				</td>
             </tr>
             <tr>
                 @foreach($course->projects as $project)
@@ -42,19 +50,29 @@ View Courses
                 @endforeach
         </table>    
     @endforeach
-<script language="text/javascript">
-	$(function(){
-		$('.course-toggle').change(function(){
-			var url = $(this).getAttribute('data-target');
-			//make ajax call to url
-		}
+	<script>
+		$(function(){
+			$('.course-toggle').change(function(){
+				$checkElement = $(this);
+				ajax_data = {
+					url:  $checkElement.attr('data-target'),
+					method: 'GET',
+					type: 'json',
+					success: function (data, status){
+						if (data.status != 'success'){
+							alert(data.message);
+						}
+					},
+					error: function(request, status, error){
+						alert(request.responseText);
+					}
+					
+				}
+				$.ajax(ajax_data);
+			});
+		});
 
-		);
-
-
-});
-
-</script>
+	</script>
     <br>
     <br>
     <div>
