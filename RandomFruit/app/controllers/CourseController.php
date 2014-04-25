@@ -70,7 +70,34 @@ class CourseController extends BaseController{
 			return Response::json(array('status' => 'fail', 'messages' => $validator->messages->all()));
 		}
 
+	}
 
+	public function toggleActive($course_id){
+		if(!($course = Course::find($course_id))){
+			return Response::json(
+				array(
+					'status' => 'fail',
+					'message' => "The course $course_id does not exist"
+				), 404);
+		}
+		try{
+			$course->active = !($course->active);
+			$course->save();
+			return Response::json(
+				array(
+					'status' => 'success',
+					'data' => $course->active
+				)
+			);
+
+		}
+		catch(Exception $e){
+			return Response::json(
+				array(
+					'status' => 'fail',
+					'message' => $e->getMessage() 
+				), 404);
+		}
 	}
 
 
