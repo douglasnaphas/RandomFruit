@@ -111,7 +111,11 @@ class Ticket extends Eloquent {
     }
 
     public function computeActualHours(){
-        return $this->workLogs()->sum('value');
+		$sum =  $this->workLogs()->sum('value');
+		if($sum){
+			return $sum;
+		}
+		return '0.0';
     }
 
 }

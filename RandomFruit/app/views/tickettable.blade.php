@@ -33,7 +33,7 @@
                             {{{ $ticket->planned_hours }}}
                         </td>
                         <td>
-                            {{{ $ticket->actual_hours }}}
+                            {{{ $ticket->computeActualHours() }}}
                         </td>
                     </tr>
                     @endforeach
