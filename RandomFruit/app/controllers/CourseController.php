@@ -100,5 +100,33 @@ class CourseController extends BaseController{
 		}
 	}
 
+	public function togglePlanning($course_id){
+		if(!($course = Course::find($course_id))){
+			return Response::json(
+				array(
+					'status' => 'fail',
+					'message' => "The course $course_id does not exist"
+				), 404);
+		}
+		try{
+			$course->planning = !($course->planning);
+			$course->save();
+			return Response::json(
+				array(
+					'status' => 'success',
+					'data' => $course->planning
+				)
+			);
+
+		}
+		catch(Exception $e){
+			return Response::json(
+				array(
+					'status' => 'fail',
+					'message' => $e->getMessage() 
+				), 404);
+		}
+	}
+
 
 }

@@ -26,9 +26,9 @@ View Courses
 					data-target="{{URL::route('toggleActive', array('course_id' => $course->id))}}">
 					Active
 				</td>
-				<td width="100"><input type="checkbox" id="planning->{{$course->id}}"
+				<td width="100"><input type="checkbox" class="course-toggle" id="planning->{{$course->id}}"
 					value="courseplanning" {{$course->planning ? 'checked' : ''}}
-					data-target="placeholder">
+					data-target="{{URL::route('togglePlanning', array('course_id' => $course->id))}}">
 					Planning
 				</td>
             </tr>
