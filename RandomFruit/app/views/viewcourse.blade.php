@@ -31,6 +31,7 @@ View Courses
 					data-target="{{URL::route('togglePlanning', array('course_id' => $course->id))}}">
 					Planning
 				</td>
+                                
             </tr>
             <tr>
                 @foreach($course->projects as $project)
