@@ -59,6 +59,7 @@ class Project extends Eloquent {
         $results = DB::table('projects')
             ->join('tickets', 'tickets.project_id', '=', 'projects.id')
             ->join('weeks', 'weeks.id', '=', 'tickets.week_completed_id')
+            ->where('projects.id', '=', $this->id)
             ->groupBy('weeks.number')
             ->select(DB::raw("weeks.number, sum(tickets.planned_hours) as hours"))
             ->get();
@@ -102,6 +103,7 @@ class Project extends Eloquent {
         $results = DB::table('projects')
             ->join('tickets', 'tickets.project_id', '=', 'projects.id')
             ->join('weeks', 'weeks.id', '=', 'tickets.week_due_id')
+            ->where('projects.id', '=', $this->id)
             ->groupBy('weeks.number')
             ->select(DB::raw("weeks.number, sum(tickets.planned_hours) as hours"))
             ->get();
