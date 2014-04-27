@@ -34,6 +34,7 @@
     {{HTML::script('includes/js/jeditable.js')}}
     {{HTML::script('includes/js/chart.js')}}
     {{HTML::script('includes/js/canvassaver.js')}}
+    {{HTML::script('includes/js/tablesorter/jquery.tablesorter.min.js')}}
     
     <script src="../../assets/js/docs.min.js"></script>
     @show
@@ -55,6 +56,13 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
+
+<!-- Activate any sortable tables if they exist -->
+<script type="text/javascript">
+	$(function(){
+		$('.tablesorter').tablesorter();
+	});
+</script>
 
 </body>
 </html>
