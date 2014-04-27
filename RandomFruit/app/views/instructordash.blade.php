@@ -46,13 +46,13 @@ $curDate = date("mdy_His");
             ]
         };\n";
         echo "var myLine = new Chart(document.getElementById('".$project->id."canvas').getContext('2d')).Line(lineChartData, {showLegend: true});\n";
-        echo "var graph = document.getElementById('".$project->id."canvas');\n";
-        echo "var cs = new CanvasSaver('./saveme.php');\n";
-        echo "var btn = cs.generateButton('Save Graph', graph, 'BurndownChart_$curDate');\n";
+        echo "var graph = document.getElementById('".$project->id."canvas');\n";//augmented
+        echo "var cs = new CanvasSaver('./saveme.php');\n";//augmented
+        echo "var btn = cs.generateButton('Save Graph', graph, 'Project".$project->id."BurndownChart_$curDate');\n";//augmented
         echo "</script>\n";
-        echo"<div id=\"saveChartBtn\" class=\"button-container\"></div>\n";
+        echo"<div id=\"".$project->id."saveChartBtn\" class=\"button-container\"></div>\n";
         echo"<script>
-            var saveBtnDiv = document.getElementById('saveChartBtn');
+            var saveBtnDiv = document.getElementById('".$project->id."saveChartBtn');
             saveBtnDiv.appendChild(btn);
             </script>\n";
         echo "<br>\n";
