@@ -17,7 +17,7 @@ View Courses
 
 <div class="ccontain">
     @foreach(Course::all() as $course)
-    <h3>  {{  $course->code  }}  </h3>
+    <h3>  {{  $course->code  }} - {{ $course->description }} </h3>
         <table class="table-nonfluid">
             <tr>
                 <td><strong>Project Name</strong></td>

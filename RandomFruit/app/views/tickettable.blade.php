@@ -2,11 +2,11 @@
                 <table class="table table-striped table-hover">
                 <thead>
                 <tr>
+                    <th>Project</th>
                     <th>Ticket #</th>
                     <th>Title</th>
                     <th>Creator</th>
                     <th>Owner</th>
-                    <th>Description</th>
                     <th>Planned</th>
                     <th>Actual</th>
                 </tr>
@@ -14,6 +14,9 @@
                 <tbody>
                     @foreach($tickets as $ticket)
                     <tr>
+                        <td>
+                            {{{ $ticket->project->name }}}
+                        </td>
                         <td>
                             {{{ $ticket->number }}}
                         </td>
@@ -25,9 +28,6 @@
                         </td>    
                         <td>
                             {{{ $ticket->owner->username }}}
-                        </td>
-                        <td>
-                            {{{ substr($ticket->strippedDescription(), 0, 50) . "..." }}}
                         </td>
                         <td>
                             {{{ $ticket->planned_hours }}}
