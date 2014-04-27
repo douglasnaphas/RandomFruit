@@ -22,7 +22,7 @@ Ticket #{{{ $ticket->number }}}
 		<td class="data-cell">{{{ $ticket->creator->username }}}</td>
 		<td><span class="glyphicon-none"></span></td>
 		<td><strong>Planned Hours:</strong></td>
-		<td class="data-cell edit-planned">{{{ $ticket->planned_hours }}}</td>
+		<td class="data-cell {{$ticket->project->course->planning ? "edit-planned" : ""}}">{{{ $ticket->planned_hours }}}</td>
 		<td><span class="icon-planned glyphicon-none"></span></td>
 	</tr>
 	<tr>

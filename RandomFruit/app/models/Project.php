@@ -25,6 +25,10 @@ class Project extends Eloquent {
 	public function tickets(){
 		return $this->hasMany('Ticket');
 	}
+        
+        public function course(){
+            return $this->belongsTo('Course');
+        }
 
 	/**
 	 * Searches for a project with the given name

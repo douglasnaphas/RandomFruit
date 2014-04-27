@@ -14,6 +14,7 @@ Earned Value Chart
 $curDate = date("mdy_His");
     echo "<div> \n";
    foreach(Auth::user()->projects as $project){
+   if($project->course->active){
         echo "<div align=\"center\"><h3><strong>".$project->name."</strong></h3>";
         echo " <canvas id='".$project->id."canvas' height='500' width='1000'></canvas> \n";
         echo "<script> \n";
@@ -58,6 +59,7 @@ $curDate = date("mdy_His");
             saveBtnDiv.appendChild(btn);
             </script>\n";
         echo "<br>\n";
+   }
         
 }
 ?>  
