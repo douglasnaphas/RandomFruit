@@ -50,6 +50,7 @@
                                     success:  function (data, status) {
                                         $('#actual-value').html(data.data.actual_hours);
                                         $('#'+$form.attr('data-modal-id')).modal('hide');
+                                        window.location.reload();
                                     },
 
                                     error:  function (request, status, error) {

@@ -34,7 +34,12 @@
                         </td>
                         <td>
                             {{{ $ticket->computeActualHours() }}}
+                            
                         </td>
+                        <td>
+                            <div class="icon-ticket glyphicon glyphicon-remove"></div>
+                        </td>
+                        
                     </tr>
                     @endforeach
                 </tbody>

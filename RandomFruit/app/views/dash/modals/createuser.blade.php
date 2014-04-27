@@ -20,7 +20,7 @@
                     </div>
                     <div class="form-group" id="email-input">
                         <label for="email">Email</label>
-                        <input type="text" class="form-control" placeholder="Enter password"
+                        <input type="text" class="form-control" placeholder="Enter email"
                                   name="email" id="email">
                     </div>
                 <div class="modal-footer">
@@ -43,16 +43,19 @@
                                     success:  function (data, status) {
                                         $('#actual-value').html(data.data.actual_hours);
                                         $('#'+$form.attr('data-modal-id')).modal('hide');
+                                        window.location.reload();
                                     },
 
                                     error:  function (request, status, error) {
                                         alert(request.responseText);
                                         alert("Please check your submission and try again.");
                                     }
+                                    
 
                                 });
                                 event.preventDefault();
                             });
+                            
                 });
                 </script>
         </div>
