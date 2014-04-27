@@ -6,7 +6,7 @@ Instructor Dash
 @stop
 
 @section('page_header')
-Burndown Chart
+Earned Value Chart
 @stop
 
 @section('content')
@@ -14,6 +14,7 @@ Burndown Chart
 $curDate = date("mdy_His");
     echo "<div> \n";
    foreach(Auth::user()->projects as $project){
+        echo "<div align=\"center\"><h3><strong>".$project->name."</strong></h3>";
         echo " <canvas id='".$project->id."canvas' height='500' width='1000'></canvas> \n";
         echo "<script> \n";
         echo "var lineChartData = {
@@ -48,9 +49,10 @@ $curDate = date("mdy_His");
         echo "var myLine = new Chart(document.getElementById('".$project->id."canvas').getContext('2d')).Line(lineChartData, {showLegend: true});\n";
         echo "var graph = document.getElementById('".$project->id."canvas');\n";//augmented
         echo "var cs = new CanvasSaver('./saveme.php');\n";//augmented
-        echo "var btn = cs.generateButton('Save Graph', graph, 'Project".$project->id."BurndownChart_$curDate');\n";//augmented
+        echo "var btn = cs.generateButton('Save ".$project->name." Graph', graph, '".$project->name."EarnedValueChart_$curDate');\n";//augmented
         echo "</script>\n";
-        echo"<div id=\"".$project->id."saveChartBtn\" class=\"button-container\"></div>\n";
+        echo"<div id=\"".$project->id."saveChartBtn\" class=\"button-container\"></div>\n";  
+        echo "</div>\n";
         echo"<script>
             var saveBtnDiv = document.getElementById('".$project->id."saveChartBtn');
             saveBtnDiv.appendChild(btn);
