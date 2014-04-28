@@ -96,8 +96,17 @@ class UserController extends BaseController{
 		//Check to make sure both new-password values match
 		if($input_data['new-password'] !== $input_data['new-password-copy']){
 			// Return error
+			return Response::json(
+				array(
+					'status' => 'fail',
+					'messages' => array(
+						'new-password-copy' => 'New Passwords must match'
+					)
+				)
+			);
 		}
 
+		//Hash(old-password) must equal User->password
 		if(!(Hash::check($input_data['old-password'], Auth::user()->password))){
 			return Response::json(
 				array(
@@ -110,7 +119,7 @@ class UserController extends BaseController{
 
 		}
 
-		//Hash(old-password) must equal User->password
+
 		//Change password
 
 		try{
