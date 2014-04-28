@@ -36,10 +36,14 @@ Route::any('/', array('before' => 'user_only', function(){
 
 Route::any('login', array('as' => 'login', 'uses' => 'UserController@loginAction', 'before' => 'guest_only'));
 
+//Editing user info
+Route::post('api/change_password', array('as' => 'changePassword', 'uses' => 'UserController@changePassword'));
+
 //Ticket editing 
 Route::post('api/create_ticket', array('as' => 'createTicket', 'uses' => 'TicketController@createticketAction'));
 Route::post('api/edit_ticket/{project_name}/{ticket_number}', array('as' => 'createTicket', 'uses' => 'TicketController@editTicketAction'));
 Route::post('api/owner_assign/{project_name}/{ticket_number}', array('as' => 'ownerAssign', 'uses' => 'TicketController@assignTicketOwner'));
+
 //Getting ticket info
 Route::get('api/owner_select/{project_name}/{ticket_number}', array('as' => 'ownerList', 'uses' => 'TicketController@getOwnerSelectedInList'));
 Route::get('api/ticket_title/{project_name}/{ticket_number}', array('as' => 'getTitle', 'uses' => 'TicketController@getTicketTitle'));

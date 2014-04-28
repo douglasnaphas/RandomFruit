@@ -4,12 +4,24 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel">Edit Settings</h4>
-            </div>
+			</div>
             <form class="form" role="form" data-async data-target="editSettings" data-modal-id="editSettings" id="ct_form" action="" method="post">
+                <div class="modal-body">
+                    <div class="form-group" id="old-password">
+                        <label for="old-password">Enter Old Password</label>
+                        <input type="password" class="form-control" name="old-passowrd">
+                    </div>
+                </div>
                 <div class="modal-body">
                     <div class="form-group" id="new-password">
                         <label for="new-password">Enter New Password</label>
-                        <input type="password" class="form-control">
+                        <input type="password" class="form-control" name="new-password">
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group" id="new-password-copy">
+                        <label for="new-password-copy">Re-Enter New Password</label>
+                        <input type="password" class="form-control" name="new-password-copy">
                     </div>
                 </div>
                 <div class="modal-footer">

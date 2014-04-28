@@ -27,8 +27,12 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	public static $validation_rules = array(
 		'username' => 'sometimes|unique:users',
 		'password' => 'sometimes',
-		'email' => 'sometimes|email'
+		'email' => 'sometimes|email',
+		'old-password' => 'sometimes',
+		'new-password' => 'sometimes',
+		'new-password-copy' => 'sometimes'
 	);
+
 
 	/**
 	 * Get the unique identifier for the user.
