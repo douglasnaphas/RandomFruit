@@ -90,7 +90,7 @@ Ticket::saved(function($ticket){
 	if($filledModel->number != NULL && $filledModel->number > 0){
 		return;	
 	}
-	$ticket_count = Ticket::where('project_id', '=', $filledModel->project_id)->count();
+	$ticket_count = Ticket::withTrashed()->where('project_id', '=', $filledModel->project_id)->count();
 	$filledModel->number = $ticket_count;
 	$filledModel->save();
 });

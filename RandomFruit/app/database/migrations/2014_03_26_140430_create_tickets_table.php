@@ -29,6 +29,7 @@ class CreateTicketsTable extends Migration {
 			$table->foreign('creator_id')->references('id')->on('users')->onDelete('cascade');
 			$table->integer('owner_id')->unsigned();
 			$table->foreign('owner_id')->references('id')->on('users')->onDelete('cascade');
+			$table->softDeletes();
 			$table->unique(array('project_id', 'number'));
 
 

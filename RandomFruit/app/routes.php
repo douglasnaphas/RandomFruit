@@ -53,6 +53,10 @@ Route::get('api/week_completed_select/{project_name}/{ticket_number}', array('as
 Route::post('api/week_due_assign/{project_name}/{ticket_number}', array('as' => 'assignWeekDue', 'uses' => 'TicketController@assignWeekDue'));
 Route::post('api/week_completed_assign/{project_name}/{ticket_number}', array('as' => 'assignWeekCompleted', 'uses' => 'TicketController@assignWeekCompleted'));
 
+
+// Deleting stuff
+Route::any('api/delete_ticket/{project_name}/{ticket_number}', array('as' => 'deleteTicket', 'uses' => 'TicketController@deleteTicket'));
+
 //Getting and creating comments
 Route::get('api/get_comments/{project_name}/{ticket_number}', array('as' => 'getComments', 'uses' => 'TicketController@showCommentsHTML'));
 Route::post('api/create_comment/{project_name}/{ticket_number}', array('as' => 'createComment', 'uses' => 'TicketController@createComment'));

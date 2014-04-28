@@ -6,7 +6,9 @@ class Ticket extends Eloquent {
     /**
      * @var string The database table used by the model.
      */
-    protected $table = 'tickets';
+	protected $table = 'tickets';
+
+	protected $softDelete = 'true';
 
     /* Defines values that cannot be filled from array */
     protected $guarded = array('id', 'number');
@@ -116,6 +118,15 @@ class Ticket extends Eloquent {
 			return $sum;
 		}
 		return '0.0';
-    }
+	}
+
+	public function deleteUrl(){
+		return URL::route('deleteTicket', 
+			array(
+				'project_name' => $this->project->name, 
+				'ticket_number' => $this->number
+			)
+		);
+	}
 
 }
