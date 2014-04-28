@@ -1,4 +1,11 @@
-<!-- Begin top nav bar -->
+<?php
+$instructor_status = Auth::user()->is_admin;
+
+if($instructor_status == 1) {
+}
+?>
+
+@section('topbar')
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -52,16 +59,13 @@
         </div>
     </div>
 </div>
-<!-- End top nav bar -->
 
 <script>
     $("[data-toggle=tooltip]").tooltip();
 </script>
+@show
 
-<!-- "Create a Ticket" Modal -->
-@include('dash/modals/createaticket');
-
-<!-- Begin sidebar -->
+@section('sidebar')
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar" id="sidebar-links">
@@ -93,10 +97,15 @@
                 <li><a href="{{URL::to('courses')}}">View Courses</a></li>
             </ul>
         </div>
-        <!-- End sidebar -->
+
 
         <!-- Create a Course Modal -->
         @include('dash/modals/createcourse');
         
-        <!-- Create a Course Modal -->
+        <!-- Create a User Modal -->
         @include('dash/modals/createuser');
+
+        <!-- "Create a Ticket" Modal -->
+        @include('dash/modals/createaticket');
+
+@show
