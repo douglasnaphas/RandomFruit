@@ -25,7 +25,7 @@
                     </a>
                 </li>
                 <li data-toggle="tooltip" data-placement="bottom" title="Settings">
-                    <a href="#">
+                    <a href="#" data-toggle="modal" data-target="#editSettings">
                         <i class="glyphicon glyphicon-cog"></i>
                     </a>
                 </li>
@@ -60,6 +60,9 @@
 
 <!-- "Create a Ticket" Modal -->
 @include('dash/modals/createaticket');
+
+<!-- "Settings" Modal -->
+@include('dash/modals/editsettings');
 
 <!-- Begin sidebar -->
 <div class="container-fluid">
