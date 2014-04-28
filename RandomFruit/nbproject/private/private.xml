@@ -3,14 +3,21 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Jeff/jeffrepo/RandomFruit/app/views/dash/modals/addproject.blade.php</file>
-            <file>file:/C:/Users/Jeff/jeffrepo/RandomFruit/app/views/instructordash.blade.php</file>
+            <file>file:/C:/Users/Jeff/jeffrepo/RandomFruit/app/views/dashlayout.blade.php</file>
             <file>file:/C:/Users/Jeff/jeffrepo/RandomFruit/app/views/viewcourse.blade.php</file>
             <file>file:/C:/Users/Jeff/jeffrepo/RandomFruit/app/models/Project.php</file>
-            <file>file:/C:/Users/Jeff/jeffrepo/RandomFruit/app/views/dash/modals/adduser.blade.php</file>
             <file>file:/C:/Users/Jeff/jeffrepo/RandomFruit/app/views/dash/dashnav.blade.php</file>
+            <file>file:/C:/Users/Jeff/jeffrepo/RandomFruit/app/views/viewtickets.blade.php</file>
             <file>file:/C:/Users/Jeff/jeffrepo/RandomFruit/app/views/dash/modals/createuser.blade.php</file>
             <file>file:/C:/Users/Jeff/jeffrepo/RandomFruit/app/views/dash/modals/createcourse.blade.php</file>
+            <file>file:/C:/Users/Jeff/jeffrepo/RandomFruit/app/views/dash/modals/createcomment.blade.php</file>
+            <file>file:/C:/Users/Jeff/jeffrepo/RandomFruit/public/includes/modals/createticket.php</file>
+            <file>file:/C:/Users/Jeff/jeffrepo/RandomFruit/app/views/tickettable.blade.php</file>
+            <file>file:/C:/Users/Jeff/jeffrepo/RandomFruit/app/views/instructordash.blade.php</file>
+            <file>file:/C:/Users/Jeff/jeffrepo/RandomFruit/app/models/User.php</file>
+            <file>file:/C:/Users/Jeff/jeffrepo/RandomFruit/app/views/ticket.blade.php</file>
+            <file>file:/C:/Users/Jeff/jeffrepo/RandomFruit/app/views/dash/modals/createaticket.blade.php</file>
+            <file>file:/C:/Users/Jeff/jeffrepo/RandomFruit/public/includes/js/bootstrap-datepicker.js</file>
         </group>
     </open-files>
 </project-private>

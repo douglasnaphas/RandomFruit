@@ -78,12 +78,10 @@
                     <a href="#collapseTicket" data-toggle="collapse" data-parent="#sidebar-links">View Tickets</a>
                     <div id="collapseTicket" class="collapse">
                         <ul>
-                            <li><a href="#">Active Tickets</a></li>
-                            <li><a href="#">Completed Tickets</a></li>
-                            <li><a href="#">Assigned To Me</a></li>
-                            <li><a href="#">My Tickets</a></li>
                             @foreach(Auth::user()->projects as $project)
+                            @if($project->course->active)
                             <li><a href="{{URL::to("project/$project->name/tickets")}}">All {{$project->name}} Tickets</a></li>
+                            @endif
                             @endforeach
                         </ul>
                     </div>

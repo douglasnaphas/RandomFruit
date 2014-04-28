@@ -17,7 +17,14 @@ View Courses
 
 <div class="ccontain">
     @foreach(Course::all() as $course)
-    <h3>  {{  $course->code  }} - {{ $course->description }} </h3>
+    <table class ="table-nonfluid">
+        <td>
+            <h3>  {{  $course->code  }} - {{ $course->description }} </h3>
+        </td>
+        <td>
+            <div class="icon-course glyphicon glyphicon-remove"></div>
+        </td>
+    </table>
         <table class="table-nonfluid">
             <tr>
                 <td><strong>Project Name</strong></td>
@@ -33,23 +40,23 @@ View Courses
 				</td>
                                 
             </tr>
-            <tr>
                 @foreach($course->projects as $project)
                 <tr>
                     <td>
-                        <strong> <a href="{{URL::to("project/$project->name/tickets")}}"> {{ $project->name }} </a> </strong>
-                    </td>
+                        <strong> <a href="{{URL::to("project/$project->name/tickets")}}"> {{ $project->name }} </a> </strong> &nbsp; <div class="icon-name glyphicon glyphicon-remove"></div>
+                    </td>                    
                 </tr>
                 <tr> 
                     <td>
                         <strong> Team Members: </strong>
 					</td>
 					@foreach($project->users as $user)
-					<td width="100">{{$user->username}}</td>
+                                        <td width="100">{{$user->username}}&nbsp;&nbsp;<div class="icon-user glyphicon glyphicon-remove"></div></td>
 					@endforeach
                 </tr>
                 @endforeach
-        </table>    
+        </table>
+    <br />
     @endforeach
 	<script>
 		$(function(){
