@@ -98,6 +98,18 @@ class UserController extends BaseController{
 			// Return error
 		}
 
+		if(!(Hash::check($input_data['old-password'], Auth::user()->password))){
+			return Response::json(
+				array(
+					'status' => 'fail',
+					'messages' => array(
+						'old-password' => 'Current password was incorrect'
+					)
+				)
+			);
+
+		}
+
 		//Hash(old-password) must equal User->password
 		//Change password
 

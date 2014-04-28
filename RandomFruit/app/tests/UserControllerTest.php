@@ -50,4 +50,21 @@ class UserControllerTest extends TestCase{
 		$this->assertTrue(Hash::check('testPassword', $jeff->password));
 	}
 
+	public function testChangeUserPasswordWrongOld(){
+		//Log in as jeff
+		$jeff = User::fromUserName('jeff');
+		$this->be($jeff);
+
+
+		$post_data = array(
+			'old-password' => 'incorrect',
+			'new-password' => 'testPassword',
+			'new-password-copy' => 'testPassword'
+		);
+
+		$response = $this->action("POST", "UserController@changePassword", $post_data);
+		$response_json = json_decode($response->getContent());
+		$this->assertEquals($response_json->status, "fail");
+		$this->assertTrue($response_json->messages->{'old-password'} != NULL);
+	}
 }
