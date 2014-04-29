@@ -17,7 +17,7 @@ if($instructor_status == 1) {
             </button>
             <span class="navbar-brand">Random Fruit</span>
         </div>
-        <span class="navbar-left" style="color:#ffffff; padding-top: 17px">Instructor</span>
+        <span class="navbar-left" id="dashtype" style="color:#ffffff; padding-top: 17px">Student</span>
 
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -89,12 +89,7 @@ if($instructor_status == 1) {
                     </div>
                 </li>
             </ul>
-            <strong>COURSE</strong>
-            <ul class="nav nav-sidebar">
-                <li> <a href="#" data-toggle="modal" data-target="#createCourse">Create Course</a></li> 
-                <li> <a href="#" data-toggle="modal" data-target="#createUser">Create User</a></li>
-                <li><a href="{{URL::to('courses')}}">View Courses</a></li>
-            </ul>
+
         </div>
 
         <!-- Create a User Modal -->
