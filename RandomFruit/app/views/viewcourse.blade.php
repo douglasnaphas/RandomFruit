@@ -22,7 +22,7 @@ View Courses
             <h3>  {{  $course->code  }} - {{ $course->description }} </h3>
         </td>
         <td>
-            <div class="icon-course glyphicon glyphicon-remove"></div>
+			<div class="icon-course glyphicon glyphicon-remove course-remove" data-delete-url="{{$course->getDeleteUrl()}}"></div>
         </td>
     </table>
         <table class="table-nonfluid">
