@@ -43,7 +43,8 @@ View Courses
                 @foreach($course->projects as $project)
                 <tr>
                     <td>
-                        <strong> <a href="{{URL::to("project/$project->name/tickets")}}"> {{ $project->name }} </a> </strong> &nbsp; <div class="icon-name glyphicon glyphicon-remove"></div>
+						<strong> <a href="{{URL::to("project/$project->name/tickets")}}"> {{ $project->name }} </a> </strong> &nbsp; <span class="icon-name glyphicon glyphicon-remove project-remove" 
+							data-delete-url="{{$project->getDeleteUrl()}}"></span>
                     </td>                    
                 </tr>
                 <tr> 
