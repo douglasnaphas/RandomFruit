@@ -3,7 +3,6 @@
 class ProjectControllerTest extends TestCase{
 	public function setUp(){
 		parent::setUp();
-		Artisan::call('migrate:reset');
 		Artisan::call('migrate');
 		$this->seed();
 	}
@@ -49,6 +48,26 @@ class ProjectControllerTest extends TestCase{
 		$this->assertEquals($response_json->data->project->name, "barbeque sause");
 		$this->assertTrue(Project::fromName('barbeque sause') != NULL);
 		
+	}
+
+	public function testDeleteProject(){
+		$admin = User::fromUserName('admin');
+		$this->be($admin);
+
+		$project = Project::create(
+			array(
+				'course_id' => Course::fromCode('CIS 3223')->id,
+				'name' => 'testProject',
+				'description' => 'testProject'
+			)
+		);
+
+		$response = $this->call("GET", $project->getDeleteUrl());
+		$this->assertResponseOk();
+		$response_json =  json_decode($response->getContent());
+		var_dump($response_json);
+		$this->assertEquals("success", $response_json->status);
+		$this->assertNull(Project::find($project->id));
 	}
 
 }

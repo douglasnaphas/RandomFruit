@@ -83,6 +83,10 @@ Route::group(array('before' => 'admin_only'), function(){
 
 	Route::any('api/toggle-active/{course_id}', array('as' => 'toggleActive', 'uses' =>'CourseController@toggleActive'));
 	Route::any('api/toggle-planning/{course_id}', array('as' => 'togglePlanning', 'uses' =>'CourseController@togglePlanning'));
+	Route::any(
+		'api/delete-project/{project_id}',
+		array('as' => 'deleteProject', 'uses' =>'ProjectController@deleteProject')
+	);
 });
 
 Route::any('dash', array('as' => 'dash', 'before' => 'user_only', function(){

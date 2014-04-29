@@ -137,4 +137,13 @@ class Project extends Eloquent {
 		}
 		return $legendArray;
 	}
+
+	public function getDeleteUrl(){
+		return URL::action(
+			'ProjectController@deleteProject',
+			array(
+				'project_id' => $this->id
+			)
+		);
+	}
 }

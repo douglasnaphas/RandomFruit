@@ -78,4 +78,38 @@ class ProjectController extends BaseController
 			return Response::json(array('status' => 'fail', 'messages' => $validator->messages->all()));
 		}
 	}
+
+	public function deleteProject($project_id){
+		try{
+			$project = Project::findOrFail($project_id);
+		}
+		catch(Exception $e){
+			return Response::JSON(
+				array(
+					'status' => 'fail',
+					'message' => "Project $project_id does not exist"
+				)
+			);
+		}
+
+		try{
+
+			$project->delete();
+			return Response::JSON(
+				array(
+					'status' => 'success',
+					'data' => 'null'
+				)
+			);
+
+		}
+		catch(Exception $e){
+			return Response::JSON(
+				array(
+					'status' => 'error',
+					'message' => "Project $project->name could not be deleted"
+				)
+			);
+		}
+	}
 }
