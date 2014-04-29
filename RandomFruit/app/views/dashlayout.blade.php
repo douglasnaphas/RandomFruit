@@ -60,7 +60,26 @@
 <!-- Activate any sortable tables if they exist -->
 <script type="text/javascript">
 	$(function(){
-		$('.tablesorter').tablesorter();
+			$('.tablesorter').tablesorter();
+			$('.ticket-remove').click(
+				function(){
+					$delete_button = $(this);
+					if(confirm('This ticket will be deleted.')){
+						$.ajax(
+							{ 
+								method: 'GET',
+								type: 'json',
+								url: $delete_button.attr('data-delete-url'),
+								success: function(data, status){
+									if(data.status == "success")
+										window.location.reload();	
+									}
+										
+							}
+						);
+					}
+				}
+			);
 	});
 </script>
 

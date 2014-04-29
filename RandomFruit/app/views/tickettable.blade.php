@@ -37,11 +37,12 @@
                             
                         </td>
                         <td>
-                            <div class="icon-ticket glyphicon glyphicon-remove"></div>
+							<div class="icon-ticket glyphicon glyphicon-remove ticket-remove"
+								data-delete-url="{{$ticket->deleteUrl()}}"></div>
                         </td>
                         
                     </tr>
                     @endforeach
                 </tbody>
-            </table>    
+            </table>   
         </div>
