@@ -14,8 +14,8 @@ class AddCourseToProjects extends Migration {
 	{
 		Schema::table('projects', function(Blueprint $table)
 		{
-			$table->integer('course_id')->unsigned()->nullable();
-			$table->foreign('course_id')->references('id')->on('courses')->nullable()->onDelete('set null');
+			$table->integer('course_id')->unsigned();
+			$table->foreign('course_id')->references('id')->on('courses')->nullable()->onDelete('cascade');
 		});
 	}
 

@@ -23,4 +23,13 @@ class Course extends Eloquent {
 		return $this->hasMany('Project');
 	}
 
+	public function getDeleteUrl(){
+		return URL::action(
+			'CourseController@deleteCourse',
+			array(
+				'course_id' => $this->id
+			)
+		);
+	}
+
 }

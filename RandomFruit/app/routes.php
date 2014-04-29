@@ -87,6 +87,10 @@ Route::group(array('before' => 'admin_only'), function(){
 		'api/delete-project/{project_id}',
 		array('as' => 'deleteProject', 'uses' =>'ProjectController@deleteProject')
 	);
+	Route::any(
+		'api/delete-course/{course_id}',
+		array('as' => 'deleteCourse', 'uses' =>'CourseController@deleteCourse')
+	);
 });
 
 Route::any('dash', array('as' => 'dash', 'before' => 'user_only', function(){

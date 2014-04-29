@@ -128,5 +128,39 @@ class CourseController extends BaseController{
 		}
 	}
 
+	public function deleteCourse($course_id){
+		try{
+			$course = Course::findOrFail($course_id);
+		}
+		catch(Exception $e){
+			return Response::JSON(
+				array(
+					'status' => 'fail',
+					'message' => "Course $course_id does not exist"
+				)
+			);
+		}
+
+		try{
+
+			$course->delete();
+			return Response::JSON(
+				array(
+					'status' => 'success',
+					'data' => 'null'
+				)
+			);
+
+		}
+		catch(Exception $e){
+			return Response::JSON(
+				array(
+					'status' => 'error',
+					'message' => "Course $course->code could not be deleted"
+				)
+			);
+		}
+	}
+
 
 }

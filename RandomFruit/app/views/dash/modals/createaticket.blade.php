@@ -49,23 +49,25 @@
                     <div class="form-group" id="owner-input">
                         <label for="owner-input">Assignee</label>
                         <select id="owner" name="owner" class="form-control">
-                            <?php $first_project = Auth::user()->projects->first() ?>
+							<?php $first_project = Auth::user()->projects->first() ?>
+							@if($first_project != null)
                             @foreach($first_project->users as $user)
                             <option value="{{$user->id}}" data-project="{{$first_project->id}}">{{$user->username}}
                             </option>
-                            @endforeach
-
+							@endforeach
+							@endif
                         </select>
                     </div>
                     <div class="form-group" id="week_due-input">
                         <label for="week_due-input">Week</label>
-                        <select id="week_due" name="week_due" class="form-control">
-                            <?php $first_project = Auth::user()->projects->first() ?>
+						<select id="week_due" name="week_due" class="form-control">
+							@if($first_project != null)
                             @foreach($first_project->weeks as $week)
                             <option value="{{$week->id}}" data-project="{{$first_project->id}}">{{"$week->number
                                 ($week->end_date)"}}
                             </option>
                             @endforeach
+							@endif
 
                         </select>
                     </div>

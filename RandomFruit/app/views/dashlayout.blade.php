@@ -99,6 +99,25 @@
 					}
 				}
 			);
+			$('.course-remove').click(
+				function(){
+					$delete_button = $(this);
+					if(confirm('This course will be deleted.')){
+						$.ajax(
+							{ 
+								method: 'GET',
+								type: 'json',
+								url: $delete_button.attr('data-delete-url'),
+								success: function(data, status){
+									if(data.status == "success")
+										window.location.reload();	
+									}
+										
+							}
+						);
+					}
+				}
+			);
 	});
 </script>
 
