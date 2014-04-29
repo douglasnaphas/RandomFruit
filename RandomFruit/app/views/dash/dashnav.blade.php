@@ -32,7 +32,7 @@ if($instructor_status == 1) {
                     </a>
                 </li>
                 <li data-toggle="tooltip" data-placement="bottom" title="Settings">
-                    <a href="#">
+                    <a href="#" data-toggle="modal" data-target="#editSettings">
                         <i class="glyphicon glyphicon-cog"></i>
                     </a>
                 </li>
@@ -66,6 +66,7 @@ if($instructor_status == 1) {
 @show
 
 @section('sidebar')
+<!-- Begin sidebar -->
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar" id="sidebar-links">
@@ -79,12 +80,10 @@ if($instructor_status == 1) {
                     <a href="#collapseTicket" data-toggle="collapse" data-parent="#sidebar-links">View Tickets</a>
                     <div id="collapseTicket" class="collapse">
                         <ul>
-                            <li><a href="#">Active Tickets</a></li>
-                            <li><a href="#">Completed Tickets</a></li>
-                            <li><a href="#">Assigned To Me</a></li>
-                            <li><a href="#">My Tickets</a></li>
                             @foreach(Auth::user()->projects as $project)
+                            @if($project->course->active)
                             <li><a href="{{URL::to("project/$project->name/tickets")}}">All {{$project->name}} Tickets</a></li>
+                            @endif
                             @endforeach
                         </ul>
                     </div>
@@ -98,14 +97,13 @@ if($instructor_status == 1) {
             </ul>
         </div>
 
-
-        <!-- Create a Course Modal -->
-        @include('dash/modals/createcourse');
-        
         <!-- Create a User Modal -->
         @include('dash/modals/createuser');
 
         <!-- "Create a Ticket" Modal -->
         @include('dash/modals/createaticket');
+
+        <!-- "Settings" Modal -->
+        @include('dash/modals/editsettings');
 
 @show

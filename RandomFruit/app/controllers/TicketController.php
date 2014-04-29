@@ -511,4 +511,44 @@ class TicketController extends BaseController
 			return new Response('A server side error occurred', 506);
 		}
 	}
+
+	public function deleteTicket($project_name, $ticket_number){
+		$project = Project::fromName($project_name);
+		$ticket = $project->getTicketFromNumber($ticket_number);
+		if($project == null){
+			return Response::JSON(
+				array(
+					"status" => "fail",
+					"message" => "Requested project '$project_name' does not exist"
+				)
+			);
+		}
+		if($ticket == NULL){
+			return Response::JSON(
+				array(
+					"status" => "fail",
+					"message" => "Requested ticket '$ticket_number' does not exist"
+				)
+			);
+
+		}
+		try{
+			$ticket->delete();
+			return Response::JSON(
+				array(
+					"status" => "success",
+					"data" => NULL
+				)
+			);
+		}
+		catch(Exception $e){
+			return Response::JSON(
+				array(
+					"status" => "error",
+					"message" => "An error occurred while attempting to delete the ticket",
+					"debug" => $e->getMessage()
+				)
+			);
+		}
+	}
 }

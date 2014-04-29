@@ -34,6 +34,7 @@
     {{HTML::script('includes/js/jeditable.js')}}
     {{HTML::script('includes/js/chart.js')}}
     {{HTML::script('includes/js/canvassaver.js')}}
+    {{HTML::script('includes/js/tablesorter/jquery.tablesorter.min.js')}}
     
     <script src="../../assets/js/docs.min.js"></script>
     @show
@@ -55,6 +56,32 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
+
+<!-- Activate any sortable tables if they exist -->
+<script type="text/javascript">
+	$(function(){
+			$('.tablesorter').tablesorter();
+			$('.ticket-remove').click(
+				function(){
+					$delete_button = $(this);
+					if(confirm('This ticket will be deleted.')){
+						$.ajax(
+							{ 
+								method: 'GET',
+								type: 'json',
+								url: $delete_button.attr('data-delete-url'),
+								success: function(data, status){
+									if(data.status == "success")
+										window.location.reload();	
+									}
+										
+							}
+						);
+					}
+				}
+			);
+	});
+</script>
 
 </body>
 </html>

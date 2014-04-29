@@ -72,4 +72,77 @@ class UserController extends BaseController{
 		    return 'remember_token';
 	}
 
+	public function changePassword()
+	{
+
+		//Check to make sure that old-password, new-password and new-password copy are not null
+		$input_data = array(
+			'old-password' => Input::get('old-password'),
+			'new-password' => Input::get('new-password'),
+			'new-password-copy' => Input::get('new-password-copy')
+		);
+
+		$validator = Validator::make($input_data, User::$validation_rules);
+
+		if($validator->fails()){
+			return Response::json(
+				array(
+					'status' => 'success',
+					'messages' => $validator->getMessages()->toArray()
+				)
+			);
+		}
+
+		//Check to make sure both new-password values match
+		if($input_data['new-password'] !== $input_data['new-password-copy']){
+			// Return error
+			return Response::json(
+				array(
+					'status' => 'fail',
+					'messages' => array(
+						'new-password-copy' => 'New Passwords must match'
+					)
+				)
+			);
+		}
+
+		//Hash(old-password) must equal User->password
+		if(!(Hash::check($input_data['old-password'], Auth::user()->password))){
+			return Response::json(
+				array(
+					'status' => 'fail',
+					'messages' => array(
+						'old-password' => 'Current password was incorrect'
+					)
+				)
+			);
+
+		}
+
+
+		//Change password
+
+		try{
+			$user = Auth::user();	
+			$user->password = Hash::make($input_data['new-password']);
+			$user->save();
+			return Response::json(
+				array(
+					'status' => 'success',
+					'data' => $user->getAuthPassword()
+				)
+			);
+		}
+		catch(Exception $e){
+			return Response::json(
+				array(
+					'status' => 'error',
+					'message' => 'The server was unable to process the password change',
+					'data' => $e->getMessage()
+				)
+			);
+		}
+		
+	}
+
 }

@@ -20,6 +20,8 @@ class CreateCoursesTable extends Migration {
 			$table->string('description');
 			$table->boolean('active');
 			$table->boolean('planning');
+			$table->date('start_date');
+			$table->integer('week_number');
 			$table->timestamps();
 		});
 	}

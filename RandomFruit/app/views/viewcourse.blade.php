@@ -17,31 +17,70 @@ View Courses
 
 <div class="ccontain">
     @foreach(Course::all() as $course)
-    <h3>  {{  $course->code  }}  </h3>
+    <table class ="table-nonfluid">
+        <td>
+            <h3>  {{  $course->code  }} - {{ $course->description }} </h3>
+        </td>
+        <td>
+            <div class="icon-course glyphicon glyphicon-remove"></div>
+        </td>
+    </table>
         <table class="table-nonfluid">
             <tr>
                 <td><strong>Project Name</strong></td>
-                <td width="100"><input type="checkbox" id="activecheck" value="courseactive"> Active</td>
-                <td width="100"><input type="checkbox" id="plancheck" value="courseplanning"> Planning</td>
+				<td width="100"><input type="checkbox" class="course-toggle" id="active-{{$course->id}}"
+					value="courseactive" {{$course->active ? 'checked' : ''}}
+					data-target="{{URL::route('toggleActive', array('course_id' => $course->id))}}">
+					Active
+				</td>
+				<td width="100"><input type="checkbox" class="course-toggle" id="planning->{{$course->id}}"
+					value="courseplanning" {{$course->planning ? 'checked' : ''}}
+					data-target="{{URL::route('togglePlanning', array('course_id' => $course->id))}}">
+					Planning
+				</td>
+                                
             </tr>
-            <tr>
                 @foreach($course->projects as $project)
                 <tr>
                     <td>
-                        <strong> <a href="{{URL::to("project/$project->name/tickets")}}"> {{ $project->name }} </a> </strong>
-                    </td>
+                        <strong> <a href="{{URL::to("project/$project->name/tickets")}}"> {{ $project->name }} </a> </strong> &nbsp; <div class="icon-name glyphicon glyphicon-remove"></div>
+                    </td>                    
                 </tr>
                 <tr> 
                     <td>
                         <strong> Team Members: </strong>
 					</td>
 					@foreach($project->users as $user)
-					<td width="100">{{$user->username}}</td>
+                                        <td width="100">{{$user->username}}&nbsp;&nbsp;<div class="icon-user glyphicon glyphicon-remove"></div></td>
 					@endforeach
                 </tr>
                 @endforeach
-        </table>    
+        </table>
+    <br />
     @endforeach
+	<script>
+		$(function(){
+			$('.course-toggle').change(function(){
+				$checkElement = $(this);
+				ajax_data = {
+					url:  $checkElement.attr('data-target'),
+					method: 'GET',
+					type: 'json',
+					success: function (data, status){
+						if (data.status != 'success'){
+							alert(data.message);
+						}
+					},
+					error: function(request, status, error){
+						alert(request.responseText);
+					}
+					
+				}
+				$.ajax(ajax_data);
+			});
+		});
+
+	</script>
     <br>
     <br>
     <div>

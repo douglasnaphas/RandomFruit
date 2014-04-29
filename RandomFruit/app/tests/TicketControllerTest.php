@@ -258,4 +258,27 @@ class TicketControllerTest extends TestCase{
 		var_dump($response_json);
 		$this->assertEquals($week_id, $response_json->data->week_due);
 	}
+
+	public function testDeleteTicket(){
+		$user = User::fromUserName('jeff');
+		$this->be($user);
+		$project = Project::fromName('RandomFruit');
+
+		//create a test ticket
+		$ticket = new Ticket();
+		$ticket->title = "testing";
+		$ticket->description = "testing";
+		$ticket->owner_id = $user->id;
+		$ticket->creator_id = $user->id;
+		$ticket->project_id = $project->id;
+		$ticket->save();
+		$ticket = Ticket::find($ticket->id);
+
+		$response = $this->call('GET', $ticket->deleteUrl());
+		$this->assertResponseOk();
+		$response_json = json_decode($response->getContent());
+		$this->assertEquals("success", $response_json->status);
+		$this->assertEquals(0, Ticket::where('id', '=', $ticket->id)->count());
+	}
+
 }

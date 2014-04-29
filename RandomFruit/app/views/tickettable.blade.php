@@ -1,12 +1,12 @@
 <div class="table-responsive">
-                <table class="table table-striped table-hover">
+                <table class="table table-striped table-hover tablesorter">
                 <thead>
                 <tr>
+                    <th>Project</th>
                     <th>Ticket #</th>
                     <th>Title</th>
                     <th>Creator</th>
                     <th>Owner</th>
-                    <th>Description</th>
                     <th>Planned</th>
                     <th>Actual</th>
                 </tr>
@@ -14,6 +14,9 @@
                 <tbody>
                     @foreach($tickets as $ticket)
                     <tr>
+                        <td>
+                            {{{ $ticket->project->name }}}
+                        </td>
                         <td>
                             {{{ $ticket->number }}}
                         </td>
@@ -27,16 +30,19 @@
                             {{{ $ticket->owner->username }}}
                         </td>
                         <td>
-                            {{{ substr($ticket->strippedDescription(), 0, 50) . "..." }}}
-                        </td>
-                        <td>
                             {{{ $ticket->planned_hours }}}
                         </td>
                         <td>
-                            {{{ $ticket->actual_hours }}}
+                            {{{ $ticket->computeActualHours() }}}
+                            
                         </td>
+                        <td>
+							<div class="icon-ticket glyphicon glyphicon-remove ticket-remove"
+								data-delete-url="{{$ticket->deleteUrl()}}"></div>
+                        </td>
+                        
                     </tr>
                     @endforeach
                 </tbody>
-            </table>    
+            </table>   
         </div>

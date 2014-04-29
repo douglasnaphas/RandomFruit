@@ -90,7 +90,24 @@ Ticket::saved(function($ticket){
 	if($filledModel->number != NULL && $filledModel->number > 0){
 		return;	
 	}
-	$ticket_count = Ticket::where('project_id', '=', $filledModel->project_id)->count();
+	$ticket_count = Ticket::withTrashed()->where('project_id', '=', $filledModel->project_id)->count();
 	$filledModel->number = $ticket_count;
 	$filledModel->save();
+});
+
+Project::saved(function($project){
+	if($project->weeks()->count() == 0){
+		$start_date = new DateTime($project->course->start_date);
+		$week_number = $project->course->week_number;
+		for($n = 1; $n <= $week_number; $n++){
+			$dateInterval = new DateInterval("P" . $n . "W");	
+			$end_date = clone $start_date;
+			$end_date->add($dateInterval);
+			$week = new Week();
+			$week->number = $n;
+			$week->project()->associate($project);
+			$week->end_date = $end_date->format('Y-m-d');
+			$week->save();
+		}
+	}
 });
