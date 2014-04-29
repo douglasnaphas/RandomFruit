@@ -1,10 +1,3 @@
-<?php
-$instructor_status = Auth::user()->is_admin;
-
-if($instructor_status == 1) {
-}
-?>
-
 @section('topbar')
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container-fluid">
@@ -100,5 +93,8 @@ if($instructor_status == 1) {
 
         <!-- "Settings" Modal -->
         @include('dash/modals/editsettings');
+
+	<!-- "Course" Modal -->
+        @include('dash/modals/createcourse');
 
 @show
