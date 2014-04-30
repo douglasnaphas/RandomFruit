@@ -48,18 +48,18 @@ class ProjectController extends BaseController
 
 			'name' => Input::get('project_name'),
 			'description' => Input::get('project_description'),
-			'course_id' => Input::get('course_id')
-
+			'course_id' => Input::get('course_id'),
 		);
+
 		$validator = Validator::make($input_array, Project::$validation_rules);
 
 		if($validator->passes()){
 			try{
 				$course = Course::find($input_array['course_id']);
-				$project = new Project();
+                $project = new Project();
 				$project->name = $input_array['name'];
-				$project->description = $input_array['description'];
-				$course->projects()->save($project);
+                $project->description = $input_array['description'];
+                $course->projects()->save($project);
 
 				return Response::json(
 					array(
@@ -75,7 +75,7 @@ class ProjectController extends BaseController
 			}
 		}
 		else{
-			return Response::json(array('status' => 'fail', 'messages' => $validator->messages->all()));
+			return Response::json(array('status' => 'fail', 'messages' => $validator->messages()->all()));
 		}
 	}
 

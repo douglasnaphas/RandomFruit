@@ -16,7 +16,9 @@ class CourseControllerTest extends TestCase{
 		//Create a ticket (not from the frontend)
 		$post_data = array(
 			'code' => 'CIS 1111',
-			'description' => 'Not a real course.'
+            'description' => 'Not a real course.',
+            'start-date' => '7/13/2015',
+            'number-weeks' => 4
 		);
 
 		$response  = $this->action( "POST", "CourseController@createCourse", $post_data);

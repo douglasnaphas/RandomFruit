@@ -10,7 +10,9 @@ class CourseController extends BaseController{
 	public function createCourse(){
 		$input_array = array(
 			'code' => Input::get('code'),
-			'description' => Input::get('description')
+			'description' => Input::get('description'),
+            'start_date' => Input::get('start-date'),
+            'week_number' => Input::get('number-weeks')
 		);
 		$validator = Validator::make($input_array, Course::$validation_rules);
 
@@ -18,15 +20,19 @@ class CourseController extends BaseController{
 			try{
 				$course = new Course();
 				$course->code = $input_array['code'];
-				$course->description = $input_array['description'];
+                $course->description = $input_array['description'];
+                $weekObject = new DateTime($input_array['start_date']);
+                $course->start_date = $weekObject->format('Y-m-d');
+                $course->week_number = $input_array['week_number'];
+
 				$course->save();
 				return Response::json(array('status' => 'success', 'data' => $course->toArray()));
 			}
 			catch(Exception $e){
-				return Response::json(array('status' => 'fail', 'error' => $e->getMessages()));
+				return Response::json(array('status' => 'fail', 'error' => $e->getMessage()));
 			}
 		}else{
-			return Response::json(array('status' => 'fail', 'messages' => $validator->messages->all()));
+			return Response::json(array('status' => 'fail', 'messages' => $validator->messages()->all()));
 		}
 
 	}

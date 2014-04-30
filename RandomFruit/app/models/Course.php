@@ -12,7 +12,9 @@ class Course extends Eloquent {
 
 	public static $validation_rules = array(
 		'code' => 'required',
-		'description' => 'required'
+        'description' => 'required',
+        'start_date' => 'date|required',
+        'week_number' => 'numeric'
 	);
 	
 	public static function fromCode($code){
