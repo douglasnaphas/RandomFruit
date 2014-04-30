@@ -146,4 +146,14 @@ class Project extends Eloquent {
 			)
 		);
 	}
+
+    public function getRemoveMemberUrl($user){
+        return Url::action(
+            'ProjectController@removeMember',
+            array(
+                'project_id' => $this->id,
+                'user_id' => $user->id
+            )
+        );
+    }
 }

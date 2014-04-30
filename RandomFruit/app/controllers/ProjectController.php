@@ -111,5 +111,49 @@ class ProjectController extends BaseController
 				)
 			);
 		}
-	}
+    }
+
+    public function removeMember($project_id, $user_id){
+        $membership = Membership::where('user_id', '=', $user_id)->where('project_id', '=', $project_id)->get();
+        if(count($membership) == 0){
+            return Response::JSON(
+                array(
+                    'status' => 'fail',
+                    'message' => "User $user_id is not a member of project $project_id"
+                )
+            );
+        }
+
+        try{
+            $membership = $membership->first();
+            $membership->delete();
+            return Response::JSON(
+                array(
+                    'status' => 'success',
+                    'data' => NULL
+                )
+            );
+        }
+        catch(Exception $e){
+			return Response::JSON(
+				array(
+					'status' => 'error',
+                    'message' => "Member $user_id could not be deleted from project $project_id",
+                    'debug' => $e->getMessage()
+				)
+			);
+
+        }
+            
+    }
+
+    public function getRemoveMemberUrl($user){
+        return Url::action(
+            'ProjectController@removeMember',
+            array(
+                'user_id' => $user->id,
+                'project_id' => $this->id
+            )
+        );
+    }
 }

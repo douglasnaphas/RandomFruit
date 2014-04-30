@@ -68,6 +68,22 @@ class ProjectControllerTest extends TestCase{
 		var_dump($response_json);
 		$this->assertEquals("success", $response_json->status);
 		$this->assertNull(Project::find($project->id));
-	}
+    }
+
+    public function testRemoveUser(){
+        $admin = User::fromUserName('admin');
+        $this->be($admin);
+        $jeff = User::fromUserName('jeff');
+        $project = Project::fromName('RandomFruit');
+        $url = $project->getRemoveMemberUrl($jeff);
+
+
+        $response = $this->call('GET', $url);
+        $this->assertResponseOk();
+        $response_json = json_decode($response->getContent());
+        var_dump($response_json);
+        $this->assertEquals($response_json->status, "success");
+        $this->assertFalse($project->hasMember($jeff->id));
+    }
 
 }
