@@ -1,4 +1,4 @@
-<!-- Begin top nav bar -->
+@section('topbar')
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -10,7 +10,7 @@
             </button>
             <span class="navbar-brand">Random Fruit</span>
         </div>
-        <span class="navbar-left" style="color:#ffffff; padding-top: 17px">Instructor</span>
+        <span class="navbar-left" id="dashtype" style="color:#ffffff; padding-top: 17px">Student</span>
 
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -52,18 +52,13 @@
         </div>
     </div>
 </div>
-<!-- End top nav bar -->
 
 <script>
     $("[data-toggle=tooltip]").tooltip();
 </script>
+@show
 
-<!-- "Create a Ticket" Modal -->
-@include('dash/modals/createaticket');
-
-<!-- "Settings" Modal -->
-@include('dash/modals/editsettings');
-
+@section('sidebar')
 <!-- Begin sidebar -->
 <div class="container-fluid">
     <div class="row">
@@ -87,17 +82,19 @@
                     </div>
                 </li>
             </ul>
-            <strong>COURSE</strong>
-            <ul class="nav nav-sidebar">
-                <li> <a href="#" data-toggle="modal" data-target="#createCourse">Create Course</a></li> 
-                <li> <a href="#" data-toggle="modal" data-target="#createUser">Create User</a></li>
-                <li><a href="{{URL::to('courses')}}">View Courses</a></li>
-            </ul>
-        </div>
-        <!-- End sidebar -->
 
-        <!-- Create a Course Modal -->
-        @include('dash/modals/createcourse');
-        
-        <!-- Create a Course Modal -->
+        </div>
+
+        <!-- Create a User Modal -->
         @include('dash/modals/createuser');
+
+        <!-- "Create a Ticket" Modal -->
+        @include('dash/modals/createaticket');
+
+        <!-- "Settings" Modal -->
+        @include('dash/modals/editsettings');
+
+	<!-- "Course" Modal -->
+        @include('dash/modals/createcourse');
+
+@show

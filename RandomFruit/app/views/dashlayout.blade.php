@@ -44,7 +44,13 @@
 <body>
 
 <!-- Include navigation top bar and side bar -->
-@include('dash/dashnav');
+@if(Auth::user()->is_admin == 1) {
+    @include('dash/instructornav');
+}
+@else {
+    @include('dash/dashnav');
+}
+@endif
 
 <!-- Begin main content -->
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
