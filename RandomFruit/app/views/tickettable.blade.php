@@ -37,8 +37,10 @@
                             
                         </td>
                         <td>
-							<div class="icon-ticket glyphicon glyphicon-remove ticket-remove"
-								data-delete-url="{{$ticket->deleteUrl()}}"></div>
+							<div class="icon-ticket glyphicon glyphicon-remove rf-deletebutton"
+								data-delete-url="{{$ticket->deleteUrl()}}"
+                                data-delete-confirmation="Ticket {{$ticket->number}} will be deleted">
+                            </div>
                         </td>
                         
                     </tr>

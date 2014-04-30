@@ -61,10 +61,10 @@
 <script type="text/javascript">
 	$(function(){
 			$('.tablesorter').tablesorter();
-			$('.ticket-remove').click(
+			$('.rf-deletebutton').click(
 				function(){
 					$delete_button = $(this);
-					if(confirm('This ticket will be deleted.')){
+					if(confirm($delete_button.attr("data-delete-confirmation"))){
 						$.ajax(
 							{ 
 								method: 'GET',
@@ -80,45 +80,7 @@
 					}
 				}
 			);
-			$('.project-remove').click(
-				function(){
-					$delete_button = $(this);
-					if(confirm('This project will be deleted.')){
-						$.ajax(
-							{ 
-								method: 'GET',
-								type: 'json',
-								url: $delete_button.attr('data-delete-url'),
-								success: function(data, status){
-									if(data.status == "success")
-										window.location.reload();	
-									}
-										
-							}
-						);
-					}
-				}
-			);
-			$('.course-remove').click(
-				function(){
-					$delete_button = $(this);
-					if(confirm('This course will be deleted.')){
-						$.ajax(
-							{ 
-								method: 'GET',
-								type: 'json',
-								url: $delete_button.attr('data-delete-url'),
-								success: function(data, status){
-									if(data.status == "success")
-										window.location.reload();	
-									}
-										
-							}
-						);
-					}
-				}
-			);
-	});
+    });
 </script>
 
 </body>

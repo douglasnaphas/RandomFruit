@@ -22,7 +22,10 @@ View Courses
             <h3>  {{  $course->code  }} - {{ $course->description }} </h3>
         </td>
         <td>
-			<div class="icon-course glyphicon glyphicon-remove course-remove" data-delete-url="{{$course->getDeleteUrl()}}"></div>
+			<div class="icon-course glyphicon glyphicon-remove rf-deletebutton" 
+                data-delete-url="{{$course->getDeleteUrl()}}"
+                data-delete-confirmation="Are you sure you want to delete course {{$course->code}}?">
+                </div>
         </td>
     </table>
         <table class="table-nonfluid">
@@ -43,8 +46,10 @@ View Courses
                 @foreach($course->projects as $project)
                 <tr>
                     <td>
-						<strong> <a href="{{URL::to("project/$project->name/tickets")}}"> {{ $project->name }} </a> </strong> &nbsp; <span class="icon-name glyphicon glyphicon-remove project-remove" 
-							data-delete-url="{{$project->getDeleteUrl()}}"></span>
+						<strong> <a href="{{URL::to("project/$project->name/tickets")}}"> {{ $project->name }} </a> </strong> &nbsp; 
+                        <span class="icon-name glyphicon glyphicon-remove rf-deletebutton" 
+							data-delete-url="{{$project->getDeleteUrl()}}"
+                            data-delete-confirmation="Are you sure you want to delete project {{$project->name}}?"></span>
                     </td>                    
                 </tr>
                 <tr> 
@@ -52,7 +57,12 @@ View Courses
                         <strong> Team Members: </strong>
 					</td>
 					@foreach($project->users as $user)
-                                        <td width="100">{{$user->username}}&nbsp;&nbsp;<div class="icon-user glyphicon glyphicon-remove"></div></td>
+                    <td width="100">{{$user->username}}&nbsp;&nbsp;
+                        <span class="icon-user glyphicon glyphicon-remove rf-deletebutton"
+                            data-delete-url="{{$project->getRemoveMemberUrl($user)}}"
+                            data-delete-confirmation="Are you sure you want to remove this member from {{$project->name}}?">
+                        </span>
+                    </td>
 					@endforeach
                 </tr>
                 @endforeach
