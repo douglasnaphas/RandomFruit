@@ -142,3 +142,8 @@ body {
     width: 20%;
     float: right;
 }
+
+.icon-ticket {
+    color: #FF0000;
+    cursor: pointer;
+}
