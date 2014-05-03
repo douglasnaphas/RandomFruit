@@ -51,6 +51,6 @@ View Tickets for {{ $project->name }}
                     </div>
                     </div>
                 </form>
-               @include('tickettable', array('tickets' => $project->tickets))
+				@include('tickettable', array('tickets' => $project->tickets, 'id' => 1))
 	 </div>
 @stop
