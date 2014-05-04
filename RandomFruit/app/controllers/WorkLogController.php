@@ -2,6 +2,14 @@
 
 class WorkLogController extends BaseController
 {
+    /**
+     * Logs work on a ticket with a week id and hours from post data
+     *
+     * @param string $project_name The name of the project.
+     * @param string $ticket_number The ticket number of the project
+     *
+     * @return Illuminate\Http\Response A JSend formatted response
+     */
 	public function addWorkLog($project_name, $ticket_number){
 		$project;
 		$ticket;
