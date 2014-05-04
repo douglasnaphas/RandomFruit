@@ -28,6 +28,30 @@ class MemberShipTableSeeder extends Seeder {
 				'project_id' => Project::fromName('Lightning')->id
 			)
 		);
+		Membership::create(
+			array(
+				'user_id' => User::fromUserName('alex')->id,
+				'project_id' => Project::fromName('RandomFruit')->id
+			)
+		);
+		Membership::create(
+			array(
+				'user_id' => User::fromUserName('dave')->id,
+				'project_id' => Project::fromName('RandomFruit')->id
+			)
+		);
+		Membership::create(
+			array(
+				'user_id' => User::fromUserName('greg')->id,
+				'project_id' => Project::fromName('RandomFruit')->id
+			)
+		);
+		Membership::create(
+			array(
+				'user_id' => User::fromUserName('doug')->id,
+				'project_id' => Project::fromName('RandomFruit')->id
+			)
+		);
 		$projects = Project::where('name', '=', 'RandomFruit')->get();
 	}
 }
