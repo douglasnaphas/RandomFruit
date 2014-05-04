@@ -1,16 +1,16 @@
 <div class="table-responsive">
-	<table class="table table-striped table-hover tablesorter" id="ticket-table-{{$id}}">
+	<table class="table table-striped table-hover tablesorter ticket-table" id="ticket-table-{{$id}}">
 		<thead>
 			<tr>
-				<th data-ticket-field="project">Project</th>
-				<th data-ticket-field="number">Ticket #</th>
-				<th data-ticket-field="title">Title</th>
-				<th data-ticket-field="creator">Creator</th>
-				<th data-ticket-field="owner">Owner</th>
-				<th data-ticket-field="planned">Planned</th>
-				<th data-ticket-field="actual">Actual</th>
-				<th data-ticket-field="week_due">Week Due</th>
-				<th data-ticket-field="week_completed">Week Completed</th>
+				<th data-ticket-field="project" data-widget-type="selector">Project</th>
+				<th data-ticket-field="number" data-widget-type="text">Ticket #</th>
+				<th data-ticket-field="title" data-widget-type="text">Title</th>
+				<th data-ticket-field="creator" data-widget-type="selector">Creator</th>
+				<th data-ticket-field="owner" data-widget-type="selector">Owner</th>
+				<th data-ticket-field="planned" data-widget-type="selector">Planned</th>
+				<th data-ticket-field="actual" data-widget-type="selector">Actual</th>
+				<th data-ticket-field="week_due" data-widget-type="selector">Week Due</th>
+				<th data-ticket-field="week_completed" data-widget-type="selector">Week Completed</th>
 			</tr>
 		</thead>
 		<tbody>

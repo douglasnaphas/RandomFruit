@@ -36,6 +36,7 @@
     {{HTML::script('includes/js/chart.js')}}
     {{HTML::script('includes/js/canvassaver.js')}}
     {{HTML::script('includes/js/tablesorter/jquery.tablesorter.min.js')}}
+    {{HTML::script('includes/js/tablesearch.js')}}
     
     <script src="../../assets/js/docs.min.js"></script>
     @show
