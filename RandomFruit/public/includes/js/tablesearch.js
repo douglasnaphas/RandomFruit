@@ -127,6 +127,12 @@ function SearchableTicketTable(ticketTable) {
         else if(type == "selector"){
             widget = new SelectorWidget(ticketField, this.getValuesAsArray(ticketField), this);
         }
+        else if(type == "omit"){
+            widget = new OmitWidget(ticketField, this.getValuesAsArray(ticketField), this);
+        }
+        else if(type == "visibility"){
+            widget = new VisibilityWidget(ticketField, this.getValuesAsArray(ticketField), this);
+        }
         else{
             widget = new EmptyWidget();
         }
@@ -151,14 +157,22 @@ function SearchableTicketTable(ticketTable) {
     // Adds the search row to the table
     this.addSearchRow = function(){
 
-        $headRow = this.$table.children('thead');
-        $headRow.after(this.searchRow());
+        $headRow = this.$table.children('tbody');
+        $headRow.prepend(this.searchRow());
+        this.$table.children('widget').hide();
     };
+
+    this.hideSearchRow = function(){
+        this.$table.find('.widget').hide();
+    }
+
+    // This
 
     // basically, this is the constructor
     this.headerIndexArray = {};
     this.tableHeaders = $(this.$table.find('th'));
     this.widgets = [];
+    this.$filterButton = {};
     var typeHash = {};
 
     if (this.tableHeaders.length > 1) {
@@ -166,6 +180,16 @@ function SearchableTicketTable(ticketTable) {
             $tableHeader = $(this.tableHeaders[i]);
             this.headerIndexArray[$tableHeader.data('ticket-field')] = i;
             this.addWidget($tableHeader.data('ticket-field'), $tableHeader.data('widget-type'));
+            if($tableHeader.data('widget-type') == 'visibility'){
+                this.$filterButton = $($tableHeader.children('span'));
+                this.$filterButton.click(
+                        function(){
+                            $(ticketTable).find('.widget').show();
+                            $(this).hide();
+                        }
+                        );
+            }
+
         }
     } else if (this.tableHeaders.length == 1) {
         this.headerIndexArray[$(this.tableHeaders).data('ticket-field')] = 0;
@@ -248,6 +272,7 @@ function TextWidget(ticketField, parentTable) {
 }
 
 
+
 /**
  * A placeholder widget
  */
@@ -256,11 +281,30 @@ function EmptyWidget(){
     this.doSearch = function(){return;};
 }
 
+function OmitWidget(ticketField, options, parentTable){
+    this.$selector = $('<span class="omit-value"/>');
+    this.$selector.html(options.shift());
+    this.doSearch = function(){return;};
+}
+    
+
+function VisibilityWidget(ticketField, options, parentTable){
+    this.$selector = $('<span class="glyphicon glyphicon-eye-close"/>');
+    this.$selector.click(function(){
+        parentTable.$table.find('.widget').each(
+            function(){
+                $(this).hide();
+                parentTable.$filterButton.show();
+            })
+    });
+    this.doSearch = function(){return;};
+}
 jQuery(function ($){
     $('.ticket-table').each(
         function(){
             var myTable = new SearchableTicketTable($(this));
             myTable.addSearchRow();
+            myTable.hideSearchRow();
         });
 });
 

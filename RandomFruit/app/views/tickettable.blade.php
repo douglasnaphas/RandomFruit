@@ -1,16 +1,20 @@
+<?php
+$omit = isset($omit) ? $omit : array();
+?>
 <div class="table-responsive">
 	<table class="table table-striped table-hover tablesorter ticket-table" id="ticket-table-{{$id}}">
 		<thead>
 			<tr>
-				<th data-ticket-field="project" data-widget-type="selector">Project</th>
-				<th data-ticket-field="number" data-widget-type="text">Ticket #</th>
-				<th data-ticket-field="title" data-widget-type="text">Title</th>
-				<th data-ticket-field="creator" data-widget-type="selector">Creator</th>
-				<th data-ticket-field="owner" data-widget-type="selector">Owner</th>
-				<th data-ticket-field="planned" data-widget-type="selector">Planned</th>
-				<th data-ticket-field="actual" data-widget-type="selector">Actual</th>
-				<th data-ticket-field="week_due" data-widget-type="selector">Week Due</th>
-				<th data-ticket-field="week_completed" data-widget-type="selector">Week Completed</th>
+                <th data-ticket-field="project" data-widget-type="{{in_array('project', $omit) ? "omit" : "selector"}}">Project</th>
+                <th data-ticket-field="number" data-widget-type="{{in_array('number', $omit) ? "omit" : "text"}}">Ticket #</th>
+				<th data-ticket-field="title" data-widget-type="{{in_array('title', $omit) ? "omit" : "text"}}">Title</th>
+				<th data-ticket-field="creator" data-widget-type="{{in_array('creator', $omit) ? "omit" : "selector"}}">Creator</th>
+				<th data-ticket-field="owner" data-widget-type="{{in_array('owner', $omit)? "omit" : "selector"}}">Owner</th>
+				<th data-ticket-field="planned" data-widget-type="{{in_array('planned', $omit) ? "omit" : "selector"}}">Planned</th>
+				<th data-ticket-field="actual" data-widget-type="{{in_array('actual', $omit) ? "omit" : "selector"}}">Actual</th>
+				<th data-ticket-field="week_due" data-widget-type="{{in_array('week_due', $omit) ? "omit" : "selector"}}">Week Due</th>
+				<th data-ticket-field="week_completed" data-widget-type="{{in_array('week_completed', $omit) ? "omit" : "selector"}}">Week Completed</th>
+                <th data-ticket-field="" data-widget-type="visibility"><span class="glyphicon glyphicon-filter"></span></td>
 			</tr>
 		</thead>
 		<tbody>
