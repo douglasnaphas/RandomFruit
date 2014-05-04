@@ -550,5 +550,38 @@ class TicketController extends BaseController
 				)
 			);
 		}
-	}
+    }
+
+    public function search(){
+        
+        $searchTerm = Input::get('query');
+        $searchTerm = $searchTerm ? $searchTerm : '';
+        $projects = Auth::user()->projects()->get();
+        $first_project = $projects->shift();
+
+        if($first_project != null){
+            $query = Ticket::where(function($subquery) use ($projects, $first_project){
+                $subquery = $subquery->where('projects.id', '=',$first_project->id);
+                foreach($projects as $project){
+                    $subquery->orWhere('projects.id', '=', $project->id);
+                }
+            });
+            $query = $query->join('projects', 'projects.id', '=', 'tickets.project_id');
+            $query = $query->join('users AS owner', 'owner.id', '=', 'tickets.owner_id');
+            $query = $query->join('users AS creator', 'creator.id', '=', 'tickets.creator_id');
+            $query = $query->where(function($subquery) use ($searchTerm){
+                $subquery = $subquery->where('owner.username', 'like', "%$searchTerm%")
+                    ->orWhere('creator.username', 'like', "%$searchTerm%")
+                    ->orWhere('tickets.description', 'like', "%$searchTerm%")
+                    ->orWhere('tickets.title', 'like', "%$searchTerm%");
+            })
+                ->select('tickets.*');
+            $tickets = $query->get();
+        }
+        else{
+            $tickets = array();
+        }
+
+        return View::make('search')->with(array('tickets' => $tickets));
+    }
 }

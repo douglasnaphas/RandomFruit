@@ -119,4 +119,5 @@ Route::any('project/{project_name}/tickets', function($project_name){
 
 
 Route::any('logout', array('uses' => 'UserController@logout'));
+Route::any('search', array('as' => 'search', 'uses' => 'TicketController@search'));
 
