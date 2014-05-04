@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Test Suite</title>
+</head>
+<body>
+<table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium"><tbody>
+<tr><td><b>Test Suite</b></td></tr>
+<tr><td><a href="Student Login Test.html">Student Login Test</a></td></tr>
+<tr><td><a href="Incorrect Login Test.html">Incorrect Login Test</a></td></tr>
+<tr><td><a href="Instructor Dash Links.html">Instructor Dash Links</a></td></tr>
+<tr><td><a href="Instructor Create and Delete Course.html">Instructor Create and Delete Course</a></td></tr>
+<tr><td><a href="Student Create and Delete Ticket.html">Student Create and Delete Ticket</a></td></tr>
+</tbody></table>
+</body>
+</html>

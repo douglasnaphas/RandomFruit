@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:8888/" />
+<title>Student Create and Delete Ticket</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Student Create and Delete Ticket</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/RandomFruit/login</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=username</td>
+	<td>jeff</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=password</td>
+	<td>ffej</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//button[@type='submit']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=View Tickets</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertVisible</td>
+	<td>link=All RandomFruit Tickets</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=All RandomFruit Tickets</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>View Tickets - RandomFruit - RandomFruit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=i.glyphicon.glyphicon-edit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=owner</td>
+	<td>label=jeff</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=week_due</td>
+	<td>label=12 (2014-05-05)</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=ticket-title</td>
+	<td>Test Ticket</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=ticket-description</td>
+	<td>Selenium Testing</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//form[@id='ct_form']/div/div[8]/label[4]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#ct_form &gt; div.modal-footer &gt; input.btn.btn-primary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>5000</td>
+	<td>5000</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=View Tickets</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=All RandomFruit Tickets</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertVisible</td>
+	<td>link=Test Ticket</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Test Ticket</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>css=span.edit-title</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=View Tickets</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=All RandomFruit Tickets</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//table[@id='ticket-table-1']/tbody/tr[148]/td[10]/div</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeConfirmation</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>link=Test Ticket</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=i.glyphicon.glyphicon-off</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>
