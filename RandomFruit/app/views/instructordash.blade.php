@@ -2,7 +2,7 @@
 
 {{-- app/views/instructordash.blade.php: Default view for instructors --}}
 @section('title')
-Instructor Dash
+{{Auth::user()->is_admin ? "Instructor Dashboard" : "Student Dashboard"}}
 @stop
 
 @section('page_header')
