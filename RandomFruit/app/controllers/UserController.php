@@ -1,5 +1,10 @@
 <?php
 class UserController extends BaseController{
+    /**
+     * Using username and password from post data, log a user in
+     *
+     * @return Illuminate\View\View The login page if no attempt has been made or failed attempt, user dash on success.
+     */
 	public function loginAction(){
 		$error_message = "";
 		if(Input::server("REQUEST_METHOD") == 'POST'){
@@ -15,6 +20,11 @@ class UserController extends BaseController{
 		return View::make('login')->with('error_message', $error_message);
 	}
 
+    /**
+     * Logs out the current user
+     *
+     * @return Illuminate\View\View The log in page with a message confirming the user has logged out.
+     */
 	public function logout(){
 		$error_message = "";
 		if(Auth::check()){
@@ -28,6 +38,11 @@ class UserController extends BaseController{
 
 	}
 
+    /**
+     * Given a username, password and email from post data, create a user
+     *
+     * @return Illuminate\Http\Response JSend formatted response indicating success or failure in 'status'
+     */
 	public function createUser(){
 		$post_input = array(
 			'email' => Input::get('email'),
@@ -72,6 +87,12 @@ class UserController extends BaseController{
 		    return 'remember_token';
 	}
 
+    /**
+     * Given an old password, a new password and a duplicate of the new password,
+     * change the current users password.
+     *
+     * @return Illuminate\Http\Response JSend formatted response indicating success or failure in 'status'
+     */
 	public function changePassword()
 	{
 
