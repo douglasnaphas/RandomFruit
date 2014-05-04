@@ -27,7 +27,7 @@ $omit = isset($omit) ? $omit : array();
 					{{{ $ticket->number }}}
 				</td>
 				<td>
-					<a href="{{$ticket->getURL()}}">{{{ $ticket->title }}}</a>
+                    <a href="{{$ticket->getURL()}}" title="{{$ticket->title}}">{{{ strlen($ticket->title) > 75 ? substr($ticket->title, 0, 72) . "..." : $ticket->title }}}</a>
 				</td>
 				<td>
 					{{{ $ticket->creator->username }}}
