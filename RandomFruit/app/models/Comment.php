@@ -11,14 +11,27 @@ class Comment extends Eloquent {
 	protected $table = 'comments';
 	
 
+    /**
+     * Used to Query the author User Model of the comment
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo The relation used to retrieve the author
+     */
 	public function user(){
 		return $this->belongsTo('User');
 	} 
 
+    /**
+     * Used to Query the ticket Model of the ticket being commented on
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo The relation used to retrieve the ticket
+     */
 	public function ticket(){
 		return $this->belongsTo('Ticket');
-	}
+    }
 
+    /**
+     * Gets a safe html formatted comment from the markdown comment source
+     *
+     * @return string
+     */
 	public function parsedContent(){
 		$purifier_config = HTMLPurifier_Config::createDefault();
 		$parser = new \Michelf\MarkdownExtra;

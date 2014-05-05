@@ -4,8 +4,9 @@ class CourseController extends BaseController{
 
 
 	/**
-	 * Creates a course given code and description from post data
-	 *
+     * Creates a course given code and description from post data
+     *
+	 * @return Illuminate\Http\Response JSend formatted JSON response 
 	 */
 	public function createCourse(){
 		$input_array = array(
@@ -38,7 +39,9 @@ class CourseController extends BaseController{
 	}
 
 	/**
-	 * Adds an existing project to a course from post data
+     * Adds an existing project to a course from post data
+     *
+	 * @return Illuminate\Http\Response JSend formatted JSON response 
 	 */
 	public function addProject(){
 
@@ -78,6 +81,11 @@ class CourseController extends BaseController{
 
 	}
 
+    /**
+     * Changes course from active to inactive, or inactive to active
+     *
+	 * @return Illuminate\Http\Response JSend formatted JSON response 
+     */
 	public function toggleActive($course_id){
 		if(!($course = Course::find($course_id))){
 			return Response::json(
@@ -106,6 +114,13 @@ class CourseController extends BaseController{
 		}
 	}
 
+
+    /**
+     * Changes course from planning-mode to un-planning?, or turns on planning mode
+     *
+     * @param int $course_id The id of the course in the 'courses' table
+	 * @return Illuminate\Http\Response JSend formatted JSON response 
+     */
 	public function togglePlanning($course_id){
 		if(!($course = Course::find($course_id))){
 			return Response::json(
@@ -134,6 +149,12 @@ class CourseController extends BaseController{
 		}
 	}
 
+    /**
+     * Deletes a course.
+     *
+     * @param int $course_id The id of the course in the 'courses' table
+	 * @return Illuminate\Http\Response JSend formatted JSON response 
+     */
 	public function deleteCourse($course_id){
 		try{
 			$course = Course::findOrFail($course_id);
