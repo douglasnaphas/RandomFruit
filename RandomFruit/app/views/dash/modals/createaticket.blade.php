@@ -109,15 +109,8 @@
                     <div class="form-group" id="planned-hours-input">
                         <input type="text" id="planned-hours" name="planned-hours" value="1">
                     </div>
-                    <label for="due-date">Due date</label><br/>
-
-                    <div class="form-group" id="due-date-input">
-                        <input class="form-control" type="text" id="due-date" name="due-date">
-                    </div>
                     <script>
                         $(function () {
-                            $('#due-date').datepicker();
-
                             $("input[name='planned-hours']").TouchSpin({
                                 min: 0,
                                 max: 10000,
