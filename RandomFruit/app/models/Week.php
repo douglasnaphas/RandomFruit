@@ -40,4 +40,9 @@ class Week extends Eloquent {
 
     }
 
+    public function formatEndDate($formatString){
+        $date = new DateTime($this->end_date);
+        return $date->format($formatString);
+    }
+
 }

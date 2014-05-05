@@ -43,12 +43,11 @@ $omit = isset($omit) ? $omit : array();
 
 				</td>
 				<td>
-					{{{ $ticket->due ? $ticket->due->number : "N/A"}}}
+                    {{{ $ticket->due ? "" . $ticket->due->number . " (" . $ticket->due->formatEndDate('m/d/y') . ")" : "N/A"}}}
 
 				</td>
 				<td>
-					{{{ $ticket->completed ? $ticket->completed->number : "N/A" }}}
-
+                    {{{ $ticket->completed ? $ticket->completed->number . " (" . $ticket->completed->formatEndDate('m/d/y') . ")" : "N/A" }}}
 				</td>
 				<td>
 					<div class="icon-ticket glyphicon glyphicon-remove rf-deletebutton"
