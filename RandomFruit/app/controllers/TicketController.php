@@ -251,11 +251,17 @@ class TicketController extends BaseController
 			$ticket->week_due_id = ($week_due_id === 'NULL')? NULL : $week_due_id;
 			$ticket->save();
 			$ticket = Ticket::find($ticket->id);
+            if($ticket->week_due_id){
+                $dataAsString = $ticket->due->number . " (". $ticket->due->end_date .")";
+            }
+            else{
+                $dataAsString = "Unset (Click to assign)";
+            }
 			$payload = array( 
 				'status' => 'success',
 				'extra' => $week_due_id,
 				'data' => array( 
-					$modified_attribute => $ticket->week_due_id
+					$modified_attribute => $dataAsString
 				)
 			);
 			return Response::JSON($payload, 200);
@@ -312,12 +318,18 @@ class TicketController extends BaseController
 			$week_completed_id = Input::get($modified_attribute);
 			$ticket->week_completed_id = ($week_completed_id === 'NULL')? NULL : $week_completed_id;
 			$ticket->save();
-			$ticket = Ticket::find($ticket->id);
+            $ticket = Ticket::find($ticket->id);
+            if($ticket->week_completed_id){
+                $dataAsString = $ticket->completed->number . " (". $ticket->completed->end_date .")";
+            }
+            else{
+                $dataAsString = "Not Completed (Click to mark as done)";
+            }
 			$payload = array( 
 				'status' => 'success',
 				'extra' => $week_completed_id,
 				'data' => array( 
-					$modified_attribute => $ticket->week_due_id
+					$modified_attribute => $dataAsString
 				)
 			);
 			return Response::JSON($payload, 200);
@@ -410,8 +422,8 @@ class TicketController extends BaseController
 		{
 			try{
 				$payload = array();
-				$week_id = $ticket->week_due_id ? $ticket->week_due_id : 'NULL';
-				$payload['NULL'] = "Unset (Click to assign) $ticket->week_due_id";
+				$week_id = $ticket->week_completed_id ? $ticket->week_completed_id : 'NULL';
+				$payload['NULL'] = "Unset (Click to assign) $ticket->week_completed_id";
 				foreach($project->weeks as $week){
 					$payload[$week->id] = "$week->number ($week->end_date)";
 				}
