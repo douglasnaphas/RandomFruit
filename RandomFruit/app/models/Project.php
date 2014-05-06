@@ -130,11 +130,34 @@ class Project extends Eloquent {
         return $returnArray;
 	}
 
-	public function weeksLegendArray(){
-		$legendArray = array("Week 0");
-		foreach($this->weeks()->orderBy('weeks.number')->get() as $week){
-			$legendArray[] = "Week $week->number";
+    /**
+     * Returns an array of y/m/d formatted week strings used for the project graph
+     *
+     * @return Array
+     */
+    public function weeksLegendArray(){
+        //Placeholder in case there are no weeks defined
+        $legendArray = array("Week 0");
+
+        // The list of Week models for the project
+        $weeks = $this->weeks()->orderBy('weeks.number')->get();
+
+        // Zero the graph by setting a week before the end of the
+        // first week.
+        if($this->weeks()->count() > 0){
+            $week_interval = new DateInterval("P1W");
+            $week_zero = new DateTime($weeks[0]->end_date);
+            $week_zero->sub($week_interval);
+            $legendArray[0] = $week_zero->format('m/d/y');
+        }
+
+        // Add each week to the graph legend formatted m/d/y
+        foreach($weeks as $week){
+            $dateTime = new DateTime($week->end_date);
+			$legendArray[] = $dateTime->format("m/d/y");
 		}
+
+        // Return the array of formatted dates
 		return $legendArray;
 	}
 
