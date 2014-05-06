@@ -82,27 +82,6 @@
                         <textarea class="form-control" rows="6" placeholder="Enter description"
                                   name="ticket-description" id="ticket-description"></textarea>
                     </div>
-
-                    <!-- TODO: add type to ticket model and TicketController
-
-                    <label for="ticket-type">Type</label><br/>
-
-                    <div class="btn-group" data-toggle="buttons">
-                        <label class="btn btn-primary">
-                            <input type="radio" name="ticket-type" id="task">Task
-                        </label>
-                        <label class="btn btn-primary">
-                            <input type="radio" name="ticket-type" id="documentation">Documentation
-                        </label>
-                        <label class="btn btn-primary">
-                            <input type="radio" name="ticket-type" id="planning">Planning
-                        </label>
-                        <label class="btn btn-primary">
-                            <input type="radio" name="ticket-type" id="defect">Defect
-                        </label>
-                    </div>
-                    <br/>
-                    -->
                     <br/>
                     <label for="planned-hours">Planned Value (hours)</label><br/>
 
@@ -124,26 +103,6 @@
 
                     </script>
 
-                    <!-- TODO: add this to ticket model -->
-                    <label for="ticket-priority">Priority</label><br/>
-
-                    <div class="btn-group" data-toggle="buttons">
-                        <label class="active btn btn-primary">
-                            <input type="radio" name="ticket-priority" id="blocker">Blocker
-                        </label>
-                        <label class="btn btn-primary">
-                            <input type="radio" name="ticket-priority" id="critical">Critical
-                        </label>
-                        <label class="btn btn-primary">
-                            <input type="radio" name="ticket-priority" id="major">Major
-                        </label>
-                        <label class="btn btn-primary">
-                            <input type="radio" name="ticket-priority" id="minor">Minor
-                        </label>
-                        <label class="btn btn-primary">
-                            <input type="radio" name="ticket-priority" id="trivial">Trivial
-                        </label>
-                    </div>
                     
                 </div>
                 <div class="modal-footer">
