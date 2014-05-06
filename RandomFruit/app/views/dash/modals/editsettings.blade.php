@@ -26,7 +26,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<input type="submit" class="btn btn-primary" value="Create ticket" data-toggle="modal">
+					<input type="submit" class="btn btn-primary" value="Change Password" data-toggle="modal">
 				</div>
 			</form>
 <script type="text/javascript">
