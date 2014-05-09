@@ -256,7 +256,7 @@ class TicketControllerTest extends TestCase{
 		   	$post_input);
 		$response_json = json_decode($response->getcontent());
 		var_dump($response_json);
-		$this->assertEquals($week_id, $response_json->data->week_due);
+		$this->assertEquals($week_id, $response_json->extra);
 	}
 
 	public function testDeleteTicket(){
