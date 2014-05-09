@@ -1,0 +1,185 @@
+<?php
+/**
+*  Controller for the User model.
+*/
+class UserController extends BaseController{
+    /**
+     * Using username and password from post data, log a user in.
+     *
+     * @return Illuminate\View\View The login page if no attempt has been made or failed attempt, user dash on success.
+     */
+	public function loginAction(){
+		$error_message = "";
+		if(Input::server("REQUEST_METHOD") == 'POST'){
+			$validator = Validator::make(Input::all(), User::$loginRules);
+			if($validator->passes()){
+				if (Auth::attempt(array('username' => Input::get("username"), 'password' => Input::get("password")))){
+					return Redirect::route("dash");	
+				}
+
+			}
+			$error_message = "username/password is incorrect";
+		}
+		return View::make('login')->with('error_message', $error_message);
+	}
+
+    /**
+     * Logs out the current user.
+     *
+     * @return Illuminate\View\View The log in page with a message confirming the user has logged out.
+     */
+	public function logout(){
+		$error_message = "";
+		if(Auth::check()){
+			$error_message = "User " . Auth::user()->username . " has been logged out.";
+			Auth::logout();
+		}
+		else{
+			$error_message = "Sorry, you must be logged in to log out.";
+		}
+		return View::make('login')->with('error_message', $error_message);
+
+	}
+
+    /**
+     * Given a username, password and email from post data, create a user.
+     *
+     * @return Illuminate\Http\Response JSend formatted response indicating success or failure in 'status'
+     */
+	public function createUser(){
+		$post_input = array(
+			'email' => Input::get('email'),
+			'username' => Input::get('username'),
+			'password' => Hash::make(Input::get('password'))
+		);
+
+		$validator = Validator::make($post_input, User::$validation_rules);
+
+		if($validator->passes()){
+			try{
+				$newUser = new User();
+				$newUser->email = $post_input['email'];
+				$newUser->username = $post_input['username'];
+				$newUser->password = $post_input['password'];
+				$newUser->save();
+				return Response::json(array('status' => 'success', 'data' => $newUser->toArray()));
+			}
+			catch(Exception $e)
+			{
+				return Response::json(array('status' => 'fail', 'error' => $e->getMessage()));
+			}
+
+		}else{
+			return Response::json(array('status' => 'success', 'messages' => $validator->messages()->toArray()));
+		}
+
+	}
+
+	/**
+	*  Get the remember token.
+	*  @return string
+	*/
+	public function getRememberToken()
+	{
+		    return $this->remember_token;
+	}
+
+	/**
+	*  Set the remember token to $value
+	*  @param $value Set the remember token to this.
+	*  @return void
+	*/
+	public function setRememberToken($value)
+	{
+		    $this->remember_token = $value;
+	}
+
+	/**
+	*  Get the remember token name.
+	*  @return string
+	*/
+	public function getRememberTokenName()
+	{
+		    return 'remember_token';
+	}
+
+    /**
+     * Given an old password, a new password and a duplicate of the new password, change the current users password.
+     *
+     * @return Illuminate\Http\Response JSend formatted response indicating success or failure in 'status'
+     */
+	public function changePassword()
+	{
+
+		//Check to make sure that old-password, new-password and new-password copy are not null
+		$input_data = array(
+			'old-password' => Input::get('old-password'),
+			'new-password' => Input::get('new-password'),
+			'new-password-copy' => Input::get('new-password-copy')
+		);
+
+		$validator = Validator::make($input_data, User::$validation_rules);
+
+		if($validator->fails()){
+			return Response::json(
+				array(
+					'status' => 'success',
+					'messages' => $validator->getMessages()->toArray()
+				)
+			);
+		}
+
+		//Check to make sure both new-password values match
+		if($input_data['new-password'] !== $input_data['new-password-copy']){
+			// Return error
+			return Response::json(
+				array(
+					'status' => 'fail',
+					'messages' => array(
+						'new-password-copy' => 'New Passwords must match'
+					)
+				)
+			);
+		}
+
+		//Hash(old-password) must equal User->password
+		if(!(Hash::check($input_data['old-password'], Auth::user()->password))){
+			return Response::json(
+				array(
+					'status' => 'fail',
+					'messages' => array(
+						'old-password' => 'Current password was incorrect'
+					)
+				)
+			);
+
+		}
+
+
+		//Change password
+
+		try{
+			$user = Auth::user();	
+			$user->password = Hash::make($input_data['new-password']);
+			$user->save();
+			return Response::json(
+				array(
+					'status' => 'success',
+					'data' => $user->getAuthPassword()
+				)
+			);
+		}
+		catch(Exception $e){
+			return Response::json(
+				array(
+					'status' => 'error',
+					'message' => 'The server was unable to process the password change',
+					'data' => $e->getMessage()
+				)
+			);
+		}
+		
+	}
+
+}
+

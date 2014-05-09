@@ -1,7 +1,13 @@
 <?php
-
+/**
+*  Controller for the Project model.
+*/
 class ProjectController extends BaseController
 {
+	/**
+	*  Add a user. Get the user from web page data.
+	*  @return JSON
+	*/
 	public function addUser(){
 		$user;
 		$project;
@@ -40,7 +46,8 @@ class ProjectController extends BaseController
 	}
 
 	/**
-	 * Adds an existing project to a course from post data
+	 * Adds an existing project to a course from post data.
+	 * @return JSON
 	 */
 	public function createProject(){
 
@@ -79,6 +86,11 @@ class ProjectController extends BaseController
 		}
 	}
 
+	/**
+	*  Delete a project.
+	*  @param $project_id The id of the project to delete.
+	*  @return JSON
+	*/
 	public function deleteProject($project_id){
 		try{
 			$project = Project::findOrFail($project_id);
@@ -113,6 +125,12 @@ class ProjectController extends BaseController
 		}
     }
 
+	/**
+	*  Remove a user from a project.
+	*  @param $project_id The project from which the user is to be removed.
+	*  @param $user_id The id of the user to remove.
+	*  @return JSON
+	*/
     public function removeMember($project_id, $user_id){
         $membership = Membership::where('user_id', '=', $user_id)->where('project_id', '=', $project_id)->get();
         if(count($membership) == 0){
@@ -147,6 +165,11 @@ class ProjectController extends BaseController
             
     }
 
+/**
+*  Get the URL for removing a member. Going here removes a member.
+*  @param $user The user to remove.
+*  @return URL
+*/
     public function getRemoveMemberUrl($user){
         return Url::action(
             'ProjectController@removeMember',

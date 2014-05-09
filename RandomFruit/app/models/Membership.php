@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The data access object for the memberships table
+ * The data access object for the memberships table.
  */
 class Membership extends Eloquent {
 
@@ -13,7 +13,7 @@ class Membership extends Eloquent {
     protected $table = 'memberships';
 
     /**
-     * Gets the relationship to the project
+     * Gets the relationship to the project.
      *
      * @return Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -22,7 +22,7 @@ class Membership extends Eloquent {
 	}
 
     /**
-     * Gets the relationship to the User
+     * Gets the relationship to the User.
      *
      * @return Illuminate\Database\Eloquent\Relations\HasMany
      */

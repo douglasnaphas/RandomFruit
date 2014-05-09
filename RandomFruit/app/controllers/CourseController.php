@@ -1,10 +1,13 @@
 <?php
 
+/**
+*  Controller for the Course model.
+*/
 class CourseController extends BaseController{
 
 
 	/**
-     * Creates a course given code and description from post data
+     * Creates a course given code and description from post data.
      *
 	 * @return Illuminate\Http\Response JSend formatted JSON response 
 	 */
@@ -39,7 +42,7 @@ class CourseController extends BaseController{
 	}
 
 	/**
-     * Adds an existing project to a course from post data
+     * Adds an existing project to a course from post data.
      *
 	 * @return Illuminate\Http\Response JSend formatted JSON response 
 	 */
@@ -82,7 +85,7 @@ class CourseController extends BaseController{
 	}
 
     /**
-     * Changes course from active to inactive, or inactive to active
+     * Changes course from active to inactive, or inactive to active.
      *
 	 * @return Illuminate\Http\Response JSend formatted JSON response 
      */
@@ -116,7 +119,7 @@ class CourseController extends BaseController{
 
 
     /**
-     * Changes course from planning-mode to un-planning?, or turns on planning mode
+     * Changes course from planning-mode to un-planning?, or turns on planning mode.
      *
      * @param int $course_id The id of the course in the 'courses' table
 	 * @return Illuminate\Http\Response JSend formatted JSON response 

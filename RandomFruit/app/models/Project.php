@@ -1,6 +1,8 @@
 <?php
 
-
+/**
+*  A project within a course. Projects are the entities reported on by graphs. Projects (not courses) have user-members, and tickets.
+*/
 class Project extends Eloquent {
 
 	/**
@@ -10,6 +12,9 @@ class Project extends Eloquent {
 	 */
 	protected $table = 'projects';
 
+	/**
+	*  Enforce validation rules.
+	*/
 	public static $validation_rules =
 		array(
 			'name' => 'sometimes',
@@ -17,21 +22,29 @@ class Project extends Eloquent {
 			'course_id' => 'sometimes|exists:courses,id'
 		);
 	
-
+	/**
+	*  Get the user-members of this project.
+	*/
 	public function users(){
 		return $this->belongsToMany('User', 'memberships');
 	} 
 
+	/**
+	*  Get the tickets in this project.
+	*/
 	public function tickets(){
 		return $this->hasMany('Ticket');
 	}
         
+	/**
+	*  Get the course this project belongs to.
+	*/
         public function course(){
             return $this->belongsTo('Course');
         }
 
 	/**
-	 * Searches for a project with the given name
+	 * Searches for a project with the given name.
 	 *
 	 * @param string name - The project name
 	 * @return Project - The project if it exists. Otherwise null
@@ -42,7 +55,7 @@ class Project extends Eloquent {
 
 
 	/**
-	 * Gets a project's ticket relative to it's number
+	 * Gets a project's ticket relative to its number.
 	 * @param integer $ticket_number - The ticket number
 	 *
 	 * @return Ticket - The corresponding ticket number
@@ -51,14 +64,28 @@ class Project extends Eloquent {
 		return Ticket::where('project_id', '=', $this->id)->where('number', '=', $ticket_number)->get()->first();
 	}
 
+	/**
+	*  Check whether the user with user id $user_id is in this project.
+	*  @return bool true if the user is in the project, false otherwise.
+	*/
 	public function hasMember($user_id){
 		return (Membership::where('project_id', '=', $this->id)->where('user_id', '=', $user_id)->count() == 1);
 	}
 
+	/**
+	*  Get the collection of weeks in this project. Weeks are set based on properties of the course.
+	*/
 	public function weeks(){
 		return $this->hasMany('Week');
     }
 
+	/**
+	*  Get the data for the graph of earned value.
+	*
+	*  Earned value is the sum as of a date of planned value on tasks that have been completed.
+	*
+	*  @return array An array of the earned value as of the end of each week in the project.
+	*/
     public function getEarnedValueData(){
         $results = DB::table('projects')
             ->join('tickets', 'tickets.project_id', '=', 'projects.id')
@@ -81,6 +108,13 @@ class Project extends Eloquent {
 
     }
 
+	/**
+	*  Get the data for the graph of actual value.
+	*
+	*  Actual value is the sum as of a date of hours incurred on the project, on completed or un-completed tasks.
+	*
+	*  @return array An array of the actual value as of the end of each week in the project.
+	*/
     public function getActualValueData(){
         $results =  DB::table('projects')->join('tickets', 'tickets.project_id', '=', 'projects.id')
             ->join('work_logs', 'work_logs.ticket_id', '=', 'tickets.id')
@@ -103,6 +137,13 @@ class Project extends Eloquent {
         return $returnArray;
     }
 
+	/**
+	*  Get the data for the graph of planned value.
+	*
+	*  Planned value is the sum as of a date of hours that are planned to be incurred on a project.
+	*
+	*  @return array An array of the planned value as of the end of each week in the project.
+	*/
     public function getPlannedValueData(){
         $results = DB::table('projects')
             ->join('tickets', 'tickets.project_id', '=', 'projects.id')
@@ -161,6 +202,9 @@ class Project extends Eloquent {
 		return $legendArray;
 	}
 
+	/**
+	*  Get the URL for deleting this project. Going there deletes the project.
+	*/
 	public function getDeleteUrl(){
 		return URL::action(
 			'ProjectController@deleteProject',
@@ -170,6 +214,11 @@ class Project extends Eloquent {
 		);
 	}
 
+	/**
+	*  Get the URL for removing a member from this project. Going there removes the member.
+	*
+	*  @param $user the member to remove.
+	*/
     public function getRemoveMemberUrl($user){
         return Url::action(
             'ProjectController@removeMember',

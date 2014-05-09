@@ -1,6 +1,8 @@
 <?php
 
-
+/**
+*  A week. Projects have weeks. They determine how many weeks they have, and when the first one ends, based on values set for the course. Weeks are the X-axis values on graphs.
+*/
 class Week extends Eloquent {
 
 	/**
@@ -10,36 +12,68 @@ class Week extends Eloquent {
 	 */
 	protected $table ='weeks';
 	
-
+	/**
+	*  Get the project this week belongs to.
+	*  @return Project
+	*/
 	public function project(){
 		return $this->belongsTo('Project');
 	}
 
+	/**
+	*  Get the tickets due this week.
+	*  @return array
+	*/
 	public function ticketsDue(){
 		return $this->hasMany('Ticket', 'week_due_id');
 	}
 
+	/**
+	*  Get the tickets completed this week.
+	*  @return array
+	*/
 	public function ticketsCompleted(){
 		return $this->hasMany('Ticket', 'week_completed_id');
 	}
 
+	/**
+	*  Get the Work Logs logged during this week.
+	*  @return array
+	*/
 	public function workLogs(){
 		return $this->hasMany('WorkLog');
     }
 
+	/**
+	*  Get the total hours planned to be worked during this week.
+	*  @return float
+	*/
     public function computePlannedValue(){
         return $this->ticketsDue()->sum('tickets.planned_hours')->get();
     }
 
+	/**
+	*  Get the value earned this week.
+	*  @return float
+	*/
     public function computeEarnedValue(){
         return $this->ticketsCompleted->sum('tickets.planned_hours')->get();
     }
 
+	/**
+	*  Get the value incurred this week, the hours actually worked.
+	*  @return float
+	*/
     public function computeActualValue(){
         return $this->workLogs()->sum('work_logs.value')->get();
 
     }
 
+	/**
+	*  Format the end date for this week according.
+	*  @param $formatString The format for the returned string.
+	*  @return string A formatted date string of this week's end date.
+	*/
     public function formatEndDate($formatString){
         $date = new DateTime($this->end_date);
         return $date->format($formatString);

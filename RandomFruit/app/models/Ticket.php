@@ -1,6 +1,8 @@
 <?php
 
-
+/**
+*  A ticket or task. Represents a piece of work. Tickets store data about the task, including comments, hours planned, and completion status (in the form of a potentially null week-completed).
+*/
 class Ticket extends Eloquent {
 
     /**
@@ -10,13 +12,21 @@ class Ticket extends Eloquent {
 
 	protected $softDelete = 'true';
 
-    /* Defines values that cannot be filled from array */
+	/**
+	*  @var array values that cannot be filled from array.
+	*/
     protected $guarded = array('id', 'number');
 
+	/**
+	*  Get the creator of this ticket, a user.
+	*/
     public function creator(){
         return $this->belongsTo('User', 'creator_id');
     }
 
+	/**
+	*  Get the WorkLog entries logged against this ticket.
+	*/
     public function workLogs(){
         return $this->hasMany('WorkLog');
     }
@@ -35,8 +45,7 @@ class Ticket extends Eloquent {
 
 
     /**
-     * Defines the tickets relationship to it's owner.
-     * This allows use of the 'owner' attribute as if it were a User model.
+     * Defines the tickets relationship to its owner. This allows use of the 'owner' attribute as if it were a User model.
      *
      * @example: $owner = $ticket->owner; echo $owner->username;
      * 
@@ -46,7 +55,7 @@ class Ticket extends Eloquent {
     } 
 
     /**
-     * Defines the tickets relationship to it's project
+     * Defines the tickets relationship to its project.
      * @example $project = $ticket->owner; echo $project->title
      * 
      */
@@ -54,20 +63,31 @@ class Ticket extends Eloquent {
         return $this->belongsTo('Project');
     }
 
+	/**
+	*  Get the comments on this ticket.
+	*  @return array
+	*/
     public function comments(){
         return $this->hasMany('Comment');
     }
 
+/**
+*  Get the week this ticket is planned to be completed.
+*/
     public function due(){
         return $this->belongsTo('Week', 'week_due_id');
     }
 
+/**
+*  Get the week this ticket was actually completed. Tickets are marked done by assignment of a week completed. Tickets with a null week completed are not done.
+*  @return Week
+*/
     public function completed(){
         return $this->belongsTo('Week', 'week_completed_id');
     }
 
     /**
-     * Generate the url to the ticket's home page
+     * Generate the url to the ticket's home page.
      *
      * @return string The url to the tickets home page
      */
@@ -76,9 +96,9 @@ class Ticket extends Eloquent {
     }
 
     /**
-     * Generates a safe, description string containing html from the parsed markdown
+     * Generates a safe, description string containing html from the parsed markdown.
      *
-     * @return The description as whitelisted html
+     * @return string The description as whitelisted html
      */
     public function parsedDescription(){
         $purifier_config = HTMLPurifier_Config::createDefault();
@@ -95,7 +115,7 @@ class Ticket extends Eloquent {
     /**
      * Generates a description with markdown syntax removed. Used for description previes
      *
-     * @return The html/markdown-free description
+     * @return string The html/markdown-free description
      */
     public function strippedDescription(){
 
@@ -108,10 +128,17 @@ class Ticket extends Eloquent {
         return $purifier->purify(strip_tags($parser->transform($this->description)));
     }
 
+/**
+*  Get owned tickets.
+*/
     public function ticketsOwned(){
         return $this->hasMany('Ticket', 'owner_id');
     }
 
+	/**
+	*  Get the sum of actual hours incurred on this ticket.
+	*  @return float Total hours incurred by anyone on this ticket. Anyone in a ticket's project can log hours against it.
+	*/
     public function computeActualHours(){
 		$sum =  $this->workLogs()->sum('value');
 		if($sum){
@@ -120,6 +147,9 @@ class Ticket extends Eloquent {
 		return '0.0';
 	}
 
+	/**
+	*  Get the URL to delete this ticket. Going there deletes it.
+	*/
 	public function deleteUrl(){
 		return URL::route('deleteTicket', 
 			array(

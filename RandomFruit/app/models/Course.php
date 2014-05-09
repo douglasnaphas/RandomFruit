@@ -1,6 +1,8 @@
 <?php
 
-
+/**
+*  Represents a course. Courses are the top-level data structure. They have projects, which have tickets.
+*/
 class Course extends Eloquent {
 
 	/**
@@ -11,7 +13,7 @@ class Course extends Eloquent {
 	protected $table ='courses';
 
     /**
-     * The validation rules used to validate course creation form data
+     * The validation rules used to validate course creation form data.
      *
      * @var array
      */
@@ -23,7 +25,7 @@ class Course extends Eloquent {
 	);
 	
     /**
-     * Retrieves a course model based on the course code
+     * Retrieves a course model based on the course code.
      *
      * @return Course
      */
@@ -32,7 +34,7 @@ class Course extends Eloquent {
 	}
 
     /**
-     * Defines the relation to the courses projects
+     * Defines the relation to the courses projects.
      *
      * @return Illuminate\Database\Eloquent\Relations\HasMany The relation used to retrieve the author
      */
@@ -41,7 +43,7 @@ class Course extends Eloquent {
 	}
 
     /**
-     * Gets the url that can be used to delete the course
+     * Gets the url that can be used to delete the course.
      *
      * @return string
      */

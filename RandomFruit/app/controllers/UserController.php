@@ -1,7 +1,10 @@
 <?php
+/**
+*  Controller for the User model.
+*/
 class UserController extends BaseController{
     /**
-     * Using username and password from post data, log a user in
+     * Using username and password from post data, log a user in.
      *
      * @return Illuminate\View\View The login page if no attempt has been made or failed attempt, user dash on success.
      */
@@ -21,7 +24,7 @@ class UserController extends BaseController{
 	}
 
     /**
-     * Logs out the current user
+     * Logs out the current user.
      *
      * @return Illuminate\View\View The log in page with a message confirming the user has logged out.
      */
@@ -39,7 +42,7 @@ class UserController extends BaseController{
 	}
 
     /**
-     * Given a username, password and email from post data, create a user
+     * Given a username, password and email from post data, create a user.
      *
      * @return Illuminate\Http\Response JSend formatted response indicating success or failure in 'status'
      */
@@ -72,24 +75,36 @@ class UserController extends BaseController{
 
 	}
 
+	/**
+	*  Get the remember token.
+	*  @return string
+	*/
 	public function getRememberToken()
 	{
 		    return $this->remember_token;
 	}
 
+	/**
+	*  Set the remember token to $value
+	*  @param $value Set the remember token to this.
+	*  @return void
+	*/
 	public function setRememberToken($value)
 	{
 		    $this->remember_token = $value;
 	}
 
+	/**
+	*  Get the remember token name.
+	*  @return string
+	*/
 	public function getRememberTokenName()
 	{
 		    return 'remember_token';
 	}
 
     /**
-     * Given an old password, a new password and a duplicate of the new password,
-     * change the current users password.
+     * Given an old password, a new password and a duplicate of the new password, change the current users password.
      *
      * @return Illuminate\Http\Response JSend formatted response indicating success or failure in 'status'
      */

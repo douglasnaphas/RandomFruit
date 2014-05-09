@@ -1,10 +1,13 @@
 <?php
 use \Michelf\MarkdownExtra;
 
+/**
+*  Controller for the Ticket model.
+*/
 class TicketController extends BaseController
 {
 	/**
-	 * Creates a ticket from POST data and returns the ticket in json
+	 * Creates a ticket from POST data and returns the ticket in json.
 	 *
 	 * Route:  api/createticket
 	 *
@@ -79,8 +82,7 @@ class TicketController extends BaseController
      * @param string $project_name The name of the project.
 	 * @param string $ticket_number The ticket number of the project
 	 *
-	 * @return Illuminate\Http\Response 200 with ticket model if successfull, 406 with error messages if validation fails, 
-	 * 	501 with {error: "human readable", debug: "exception message"} if sql satements fail
+	 * @return Illuminate\Http\Response 200 with ticket model if successfull, 406 with error messages if validation fails, 501 with {error: "human readable", debug: "exception message"} if sql satements fail
 	 */
 	public function editTicketAction($project_name, $ticket_number)
 	{
@@ -145,10 +147,11 @@ class TicketController extends BaseController
 	}
 
 	/**
-	 * Given a project_name, ticket number from a url, and an owner id from post data, re-assign a ticket
+	 * Given a project_name, ticket number from a url, and an owner id from post data, re-assign a ticket.
      *
      * @param string $project_name The name of the project
      * @param int $ticket_number The number of the ticket being assigned
+     * @return JSON
 	 */
 	public function assignTicketOwner($project_name, $ticket_number)
 	{
@@ -204,7 +207,7 @@ class TicketController extends BaseController
 	}
 
     /**
-     * Given a project name and ticket number, and an week id from post data, change the tickets week due
+     * Given a project name and ticket number, and an week id from post data, change the tickets week due.
 	 *
      * @param string $project_name The name of the project
      * @param int $ticket_number The number of the ticket being assigned
@@ -272,7 +275,7 @@ class TicketController extends BaseController
 	}
 
     /**
-     * Given a project name and ticket number, and an week id from post data, change the tickets week completed
+     * Given a project name and ticket number, and an week id from post data, change the tickets week completed.
 	 *
      * @param string $project_name The name of the project
      * @param int $ticket_number The number of the ticket being assigned
@@ -340,7 +343,7 @@ class TicketController extends BaseController
 	}
 
 	/**
-	 * Gets a list of users for a project as a json response
+	 * Gets a list of users for a project as a json response.
      *
      * @param string $project_name The name of the project
      * @param int $ticket_number The number of the ticket being assigned
@@ -390,8 +393,7 @@ class TicketController extends BaseController
 	}
 
 	/**
-     * Gets a list of the weeks in a project, with the week due marked as selected.
-     * This is for the Jeditable drop down menus
+     * Gets a list of the weeks in a project, with the week due marked as selected. This is for the Jeditable drop down menus.
 	 *
      * @param string $project_name The name of the project
      * @param int $ticket_number The number of the ticket being assigned
@@ -521,7 +523,7 @@ class TicketController extends BaseController
 	}
 
     /**
-     * Returns html formatted list of comments. Used to update comment stream
+     * Returns html formatted list of comments. Used to update comment stream.
      *
      * @param string $project_name The name of the project
      * @param int $ticket_number The number of the ticket being assigned
@@ -537,7 +539,7 @@ class TicketController extends BaseController
 
 
     /**
-     * Creates a comment from post data
+     * Creates a comment from post data.
      *
      * @param string $project_name The name of the project
      * @param int $ticket_number The number of the ticket being assigned
@@ -571,7 +573,7 @@ class TicketController extends BaseController
 	}
 
     /**
-     *  Deletes a ticket
+     *  Deletes a ticket.
      * @param string $project_name The name of the project
      * @param int $ticket_number The number of the ticket being assigned
      * @return Illuminate\Http\Response The JSend formatted response indicating success or failure
@@ -618,9 +620,7 @@ class TicketController extends BaseController
     }
 
     /**
-     * Given a search term as 'query' from post or get data, renders a ticket table view of
-     * matching tickets. It searches through descriptions, titles, Project names, owners and
-     * creators 
+     * Given a search term as 'query' from post or get data, renders a ticket table view of matching tickets. It searches through descriptions, titles, Project names, owners and creators.
      *
      * @return Illuminate\View\View The View displaying the matching tickets
      */

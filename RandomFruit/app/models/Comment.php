@@ -1,6 +1,8 @@
 <?php
 
-
+/**
+*  Represents a comment on a ticket.
+*/
 class Comment extends Eloquent {
 
 	/**
@@ -12,7 +14,7 @@ class Comment extends Eloquent {
 	
 
     /**
-     * Used to Query the author User Model of the comment
+     * Used to Query the author User Model of the comment.
      * @return Illuminate\Database\Eloquent\Relations\BelongsTo The relation used to retrieve the author
      */
 	public function user(){
@@ -20,7 +22,7 @@ class Comment extends Eloquent {
 	} 
 
     /**
-     * Used to Query the ticket Model of the ticket being commented on
+     * Used to Query the ticket Model of the ticket being commented on.
      * @return Illuminate\Database\Eloquent\Relations\BelongsTo The relation used to retrieve the ticket
      */
 	public function ticket(){
@@ -28,7 +30,7 @@ class Comment extends Eloquent {
     }
 
     /**
-     * Gets a safe html formatted comment from the markdown comment source
+     * Gets a safe html formatted comment from the markdown comment source.
      *
      * @return string
      */

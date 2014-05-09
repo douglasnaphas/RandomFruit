@@ -1,0 +1,194 @@
+<?php
+
+class CourseController extends BaseController{
+
+
+	/**
+     * Creates a course given code and description from post data
+     *
+	 * @return Illuminate\Http\Response JSend formatted JSON response 
+	 */
+	public function createCourse(){
+		$input_array = array(
+			'code' => Input::get('code'),
+			'description' => Input::get('description'),
+            'start_date' => Input::get('start-date'),
+            'week_number' => Input::get('number-weeks')
+		);
+		$validator = Validator::make($input_array, Course::$validation_rules);
+
+		if($validator->passes()){
+			try{
+				$course = new Course();
+				$course->code = $input_array['code'];
+                $course->description = $input_array['description'];
+                $weekObject = new DateTime($input_array['start_date']);
+                $course->start_date = $weekObject->format('Y-m-d');
+                $course->week_number = $input_array['week_number'];
+
+				$course->save();
+				return Response::json(array('status' => 'success', 'data' => $course->toArray()));
+			}
+			catch(Exception $e){
+				return Response::json(array('status' => 'fail', 'error' => $e->getMessage()));
+			}
+		}else{
+			return Response::json(array('status' => 'fail', 'messages' => $validator->messages()->all()));
+		}
+
+	}
+
+	/**
+     * Adds an existing project to a course from post data
+     *
+	 * @return Illuminate\Http\Response JSend formatted JSON response 
+	 */
+	public function addProject(){
+
+		$input_array = array(
+
+			'name' => Input::get('project_name'),
+			'description' => Input::get('project_description'),
+			'course_id' => Input::get('course_id')
+
+		);
+		$validator = Validator::make($input_array, Project::$validation_rules);
+
+		if($validator->passes()){
+			try{
+				$course = Course::find($course_id);
+				$project = new Project();
+				$project->name = $input_array['name'];
+				$project->description = $input_array['description'];
+				$course->projects()->save($project);
+
+				return Response::json(
+					array(
+						'status' => 'success',
+						'data' => array(
+							'project' => $project->toArray(),
+						)
+					)
+				);
+			}
+			catch(Exception $e){
+				return Response::json(array('status' => 'fail', 'message' => $e->getMessage()));
+			}
+		}
+		else{
+			return Response::json(array('status' => 'fail', 'messages' => $validator->messages->all()));
+		}
+
+	}
+
+    /**
+     * Changes course from active to inactive, or inactive to active
+     *
+	 * @return Illuminate\Http\Response JSend formatted JSON response 
+     */
+	public function toggleActive($course_id){
+		if(!($course = Course::find($course_id))){
+			return Response::json(
+				array(
+					'status' => 'fail',
+					'message' => "The course $course_id does not exist"
+				), 404);
+		}
+		try{
+			$course->active = !($course->active);
+			$course->save();
+			return Response::json(
+				array(
+					'status' => 'success',
+					'data' => $course->active
+				)
+			);
+
+		}
+		catch(Exception $e){
+			return Response::json(
+				array(
+					'status' => 'fail',
+					'message' => $e->getMessage() 
+				), 404);
+		}
+	}
+
+
+    /**
+     * Changes course from planning-mode to un-planning?, or turns on planning mode
+     *
+     * @param int $course_id The id of the course in the 'courses' table
+	 * @return Illuminate\Http\Response JSend formatted JSON response 
+     */
+	public function togglePlanning($course_id){
+		if(!($course = Course::find($course_id))){
+			return Response::json(
+				array(
+					'status' => 'fail',
+					'message' => "The course $course_id does not exist"
+				), 404);
+		}
+		try{
+			$course->planning = !($course->planning);
+			$course->save();
+			return Response::json(
+				array(
+					'status' => 'success',
+					'data' => $course->planning
+				)
+			);
+
+		}
+		catch(Exception $e){
+			return Response::json(
+				array(
+					'status' => 'fail',
+					'message' => $e->getMessage() 
+				), 404);
+		}
+	}
+
+    /**
+     * Deletes a course.
+     *
+     * @param int $course_id The id of the course in the 'courses' table
+	 * @return Illuminate\Http\Response JSend formatted JSON response 
+     */
+	public function deleteCourse($course_id){
+		try{
+			$course = Course::findOrFail($course_id);
+		}
+		catch(Exception $e){
+			return Response::JSON(
+				array(
+					'status' => 'fail',
+					'message' => "Course $course_id does not exist"
+				)
+			);
+		}
+
+		try{
+
+			$course->delete();
+			return Response::JSON(
+				array(
+					'status' => 'success',
+					'data' => 'null'
+				)
+			);
+
+		}
+		catch(Exception $e){
+			return Response::JSON(
+				array(
+					'status' => 'error',
+					'message' => "Course $course->code could not be deleted"
+				)
+			);
+		}
+	}
+
+
+}
+

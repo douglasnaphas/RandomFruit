@@ -1,0 +1,660 @@
+<?php
+use \Michelf\MarkdownExtra;
+
+/**
+*  Controller for the Ticket model.
+*/
+class TicketController extends BaseController
+{
+	/**
+	 * Creates a ticket from POST data and returns the ticket in json.
+	 *
+	 * Route:  api/createticket
+	 *
+	 * @return Response 500 if validator fails 501 if sql fails
+	 */
+	public function createticketAction()
+	{
+
+		/* Convert form input names to mysql field names */
+
+		$ticket_attributes = array(
+			'title' => Input::get("ticket-title"),
+			'creator_id' => Auth::user()->id,
+			'owner_id' => Input::get("owner"),
+			'project_id' => Input::get("project"),
+			'planned_hours' => Input::get("planned-hours"),
+			/* Project::fromName('RandomFruit')->id, */
+			'description' => Input::get("ticket-description"),
+			'week_due_id' => Input::get("week_due")
+			// 'ticket-type' => Input::get("ticket-type"),
+			// 'ticket-priority' => Input::get("ticket-priority"));
+		);
+		$due_date = Input::get('due-date');
+
+		if($due_date != '' && $due_date != NULL){
+			$due_date = new DateTime($due_date);
+			$ticket_attributes['due_date'] = $due_date->format('Y-m-d');
+		}
+		
+
+
+
+		/* Create a validator using the rules defined in the tickets model */
+		
+		$validator = Validator::make($ticket_attributes, Ticket::$validation_rules);
+
+		// If the input from the form wasn't valid, return an error message
+		if($validator->fails()){
+
+			// According to http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+			// 406 = "Not Acceptable"
+
+			return Response::json($validator->messages()->toArray(), 406);
+		}
+		else{ 
+
+			// Otherwise, attempt to create the ticket
+			try{
+
+				// Creates the ticket and returns the new ticket model
+				$ticket = Ticket::create($ticket_attributes);
+				
+				// Returns json response with return code "OK"
+				return Response::json($ticket, 200); //Return the ticket as a json file
+
+			}catch(Exception $e){
+
+				//If we hit an exception, then we have to revise our validator
+				//500 -- "Internal Server error"
+				return Response::json(
+					array("message" => "An sql error has occured", 
+					"debug" =>  $e->getMessage()), 501);
+			}
+
+		}
+
+	}
+
+	/**
+	 * Edits a ticket!
+	 *
+     * @param string $project_name The name of the project.
+	 * @param string $ticket_number The ticket number of the project
+	 *
+	 * @return Illuminate\Http\Response 200 with ticket model if successfull, 406 with error messages if validation fails, 501 with {error: "human readable", debug: "exception message"} if sql satements fail
+	 */
+	public function editTicketAction($project_name, $ticket_number)
+	{
+		$values_to_edit = array();
+		$rules_to_check = array();
+		$selected_ticket;
+		$validator;
+		if(!($selected_ticket = Project::fromName($project_name)->getTicketFromNumber($ticket_number))){
+			return; //error
+		}
+		if(Input::has('planned_hours')){
+			$modified_attribute = 'planned_hours';
+			$selected_ticket->planned_hours = Input::get('planned_hours');
+		}
+		if(Input::has('actual_hours')){
+			$modified_attribute = 'actual_hours';
+			$selected_ticket->actual_hours = Input::get('actual_hours');
+		}
+		if(Input::has('description')){
+			$modified_attribute = 'description';
+			$selected_ticket->description = Input::get('description');
+		}
+        if(Input::has('title')){
+            $modified_attribute = 'title';
+            $selected_ticket->title = Input::get('title');
+        }
+		if(Input::has('owner_id')){
+			$modified_attribute = 'owner_id';
+			$selected_ticket->owner_id = Input::get('owner_id');
+		}
+		$validator = Validator::make(array($modified_attribute => Input::get($modified_attribute)), Ticket::$validation_rules);
+		if($validator->fails()){
+			$original = $selected_ticket->getOriginal();
+			$payload = array(
+				'status' => 'fail',
+				'messages' => $validator->messages()->toArray(),
+				'data' => array(
+					$modified_attribute => $original[$modified_attribute]
+				)
+			);
+			return Response::json($payload);
+
+		}
+		try{
+
+			$selected_ticket->save();
+			$selected_ticket = Ticket::find($selected_ticket->id);
+			$payload = array( 
+				'status' => 'success',
+				'data' => array( 
+					$modified_attribute => htmlspecialchars($selected_ticket->getAttribute($modified_attribute))
+				)
+			);
+			if($modified_attribute == "description"){
+				$payload['data'][$modified_attribute] = $selected_ticket->parsedDescription();
+			}
+			return Response::json($payload, 200);
+
+		}catch(Exception $e){
+			return Response::json(array( 'error' => 'Unable to process request', 'debug' => $e->getMessage()), 501);
+		}
+	}
+
+	/**
+	 * Given a project_name, ticket number from a url, and an owner id from post data, re-assign a ticket.
+     *
+     * @param string $project_name The name of the project
+     * @param int $ticket_number The number of the ticket being assigned
+     * @return JSON
+	 */
+	public function assignTicketOwner($project_name, $ticket_number)
+	{
+		$project = Project::fromName($project_name);
+		$ticket = $project->getTicketFromNumber($ticket_number);
+		if($project == null){
+			return Response::JSON(
+				array(
+					"status" => "fail",
+					"message" => "Requested project '$project_name' does not exist"
+				)
+			);
+		}
+		if($ticket == NULL ){
+
+			return Response::JSON(
+				array(
+					"status" => "fail",
+					"message" => "Requested ticket '$ticket_number' does not exist"
+				)
+			);
+
+		}
+		$modified_attribute = "owner_id";
+		$validator = Validator::make(array($modified_attribute => Input::get($modified_attribute)), Ticket::$validation_rules);
+		if($validator->fails()){
+			$original = $ticket->getOriginal();
+			$payload = array(
+				'status' => 'fail',
+				'messages' => $validator->messages()->toArray(),
+				'data' => array(
+					$modified_attribute => $original[$modified_attribute]
+				)
+			);
+			return Response::JSON($payload);
+
+		}
+		try{
+			$ticket->owner_id = Input::get($modified_attribute);
+			$ticket->save();
+			$ticket = Ticket::find($ticket->id);
+			$payload = array( 
+				'status' => 'success',
+				'data' => array( 
+					$modified_attribute => $ticket->owner->username
+				)
+			);
+			return Response::JSON($payload, 200);
+
+		}catch(Exception $e){
+			return Response::JSON(array( 'error' => 'Unable to process request', 'debug' => $e->getMessage()), 501);
+		}
+	}
+
+    /**
+     * Given a project name and ticket number, and an week id from post data, change the tickets week due.
+	 *
+     * @param string $project_name The name of the project
+     * @param int $ticket_number The number of the ticket being assigned
+     * @return Illuminate\Http\Response A JSend formatted response
+	 */
+	public function assignWeekDue($project_name, $ticket_number)
+	{
+		$project = Project::fromName($project_name);
+		$ticket = $project->getTicketFromNumber($ticket_number);
+		if($project == null){
+			return Response::JSON(
+				array(
+					"status" => "fail",
+					"message" => "Requested project '$project_name' does not exist"
+				)
+			);
+		}
+		if($ticket == NULL ){
+
+			return Response::JSON(
+				array(
+					"status" => "fail",
+					"message" => "Requested ticket '$ticket_number' does not exist"
+				)
+			);
+
+		}
+		$modified_attribute = "week_due";
+		$validator = Validator::make(array($modified_attribute => Input::get($modified_attribute)), Ticket::$validation_rules);
+		if($validator->fails()){
+			$original = $ticket->getOriginal();
+			$payload = array(
+				'status' => 'fail',
+				'messages' => $validator->messages()->toArray(),
+				'data' => array(
+					$modified_attribute => $original[$modified_attribute]
+				)
+			);
+			return Response::JSON($payload);
+
+		}
+		try{
+			$week_due_id = Input::get($modified_attribute);
+			$ticket->week_due_id = ($week_due_id === 'NULL')? NULL : $week_due_id;
+			$ticket->save();
+			$ticket = Ticket::find($ticket->id);
+            if($ticket->week_due_id){
+                $dataAsString = $ticket->due->number . " (". $ticket->due->end_date .")";
+            }
+            else{
+                $dataAsString = "Unset (Click to assign)";
+            }
+			$payload = array( 
+				'status' => 'success',
+				'extra' => $week_due_id,
+				'data' => array( 
+					$modified_attribute => $dataAsString
+				)
+			);
+			return Response::JSON($payload, 200);
+
+		}catch(Exception $e){
+			return Response::JSON(array( 'error' => 'Unable to process request', 'debug' => $e->getMessage()), 501);
+		}
+	}
+
+    /**
+     * Given a project name and ticket number, and an week id from post data, change the tickets week completed.
+	 *
+     * @param string $project_name The name of the project
+     * @param int $ticket_number The number of the ticket being assigned
+     * @return Illuminate\Http\Response A JSend formatted response
+	 */
+	public function assignWeekCompleted($project_name, $ticket_number)
+	{
+		$project = Project::fromName($project_name);
+		$ticket = $project->getTicketFromNumber($ticket_number);
+		if($project == null){
+			return Response::JSON(
+				array(
+					"status" => "fail",
+					"message" => "Requested project '$project_name' does not exist"
+				)
+			);
+		}
+		if($ticket == NULL ){
+
+			return Response::JSON(
+				array(
+					"status" => "fail",
+					"message" => "Requested ticket '$ticket_number' does not exist"
+				)
+			);
+
+		}
+		$modified_attribute = "week_completed";
+		$validator = Validator::make(array($modified_attribute => Input::get($modified_attribute)), Ticket::$validation_rules);
+		if($validator->fails()){
+			$original = $ticket->getOriginal();
+			$payload = array(
+				'status' => 'fail',
+				'messages' => $validator->messages()->toArray(),
+				'data' => array(
+					$modified_attribute => $original[$modified_attribute]
+				)
+			);
+			return Response::JSON($payload);
+
+		}
+		try{
+			$week_completed_id = Input::get($modified_attribute);
+			$ticket->week_completed_id = ($week_completed_id === 'NULL')? NULL : $week_completed_id;
+			$ticket->save();
+            $ticket = Ticket::find($ticket->id);
+            if($ticket->week_completed_id){
+                $dataAsString = $ticket->completed->number . " (". $ticket->completed->end_date .")";
+            }
+            else{
+                $dataAsString = "Not Completed (Click to mark as done)";
+            }
+			$payload = array( 
+				'status' => 'success',
+				'extra' => $week_completed_id,
+				'data' => array( 
+					$modified_attribute => $dataAsString
+				)
+			);
+			return Response::JSON($payload, 200);
+
+		}catch(Exception $e){
+			return Response::JSON(array( 'error' => 'Unable to process request', 'debug' => $e->getMessage()), 501);
+		}
+	}
+
+	/**
+	 * Gets a list of users for a project as a json response.
+     *
+     * @param string $project_name The name of the project
+     * @param int $ticket_number The number of the ticket being assigned
+     * @return Illuminate\Http\Response A JSend formatted response on fail or a JSON  list of users
+	 */
+	public function getOwnerSelectedInList($project_name, $ticket_number){
+		$project = Project::fromName($project_name);
+		$ticket = $project->getTicketFromNumber($ticket_number);
+		if($project == null){
+			return Response::JSON(
+				array(
+					"status" => "fail",
+					"message" => "Requested project '$project_name' does not exist"
+				)
+			);
+		}
+		if($ticket == NULL ){
+
+			return Response::JSON(
+				array(
+					"status" => "fail",
+					"message" => "Requested ticket '$ticket_number' does not exist"
+				)
+			);
+
+		}
+		else
+		{
+			try{
+				$payload = array();
+				$owner_id = $ticket->owner->id;
+				foreach($project->users as $user){
+					$payload[$user->id] = $user->username;
+				}
+				$payload['selected'] = $owner_id;
+				return Response::JSON($payload);
+			}catch (Exception $e){
+				return Response::JSON(
+					array(
+						"status"=>"error",
+						"message"=>"An internal server error occurred."
+					)
+				);
+			}
+
+		}
+	}
+
+	/**
+     * Gets a list of the weeks in a project, with the week due marked as selected. This is for the Jeditable drop down menus.
+	 *
+     * @param string $project_name The name of the project
+     * @param int $ticket_number The number of the ticket being assigned
+     * @return Illuminate\Http\Response A JSend formatted response on fail or a JSON  list of weeks
+	 */
+	public function getWeekDueSelectedInList($project_name, $ticket_number){
+		$project = Project::fromName($project_name);
+		$ticket = $project->getTicketFromNumber($ticket_number);
+		if($project == null){
+			return Response::JSON(
+				array(
+					"status" => "fail",
+					"message" => "Requested project '$project_name' does not exist"
+				)
+			);
+		}
+		if($ticket == NULL ){
+
+			return Response::JSON(
+				array(
+					"status" => "fail",
+					"message" => "Requested ticket '$ticket_number' does not exist"
+				)
+			);
+
+		}
+		else
+		{
+			try{
+				$payload = array();
+				$week_id = $ticket->week_completed_id ? $ticket->week_completed_id : 'NULL';
+				$payload['NULL'] = "Unset (Click to assign) $ticket->week_completed_id";
+				foreach($project->weeks as $week){
+					$payload[$week->id] = "$week->number ($week->end_date)";
+				}
+				$payload['selected'] = $week_id;
+				return Response::JSON($payload);
+			}catch (Exception $e){
+				return Response::JSON(
+					array(
+						"status"=>"error",
+						"message"=>"An internal server error occurred."
+					)
+				);
+			}
+		}
+	}
+
+	/**
+     * Gets a list of the weeks in a project, with the week completed  marked as selected.
+	 *
+     * @param string $project_name The name of the project
+     * @param int $ticket_number The number of the ticket being assigned
+     * @return Illuminate\Http\Response A JSend formatted response on fail or a JSON  list of weeks
+	 */
+	public function getWeekCompletedSelectedInList($project_name, $ticket_number){
+		$project = Project::fromName($project_name);
+		$ticket = $project->getTicketFromNumber($ticket_number);
+		if($project == null){
+			return Response::JSON(
+				array(
+					"status" => "fail",
+					"message" => "Requested project '$project_name' does not exist"
+				)
+			);
+		}
+		if($ticket == NULL ){
+
+			return Response::JSON(
+				array(
+					"status" => "fail",
+					"message" => "Requested ticket '$ticket_number' does not exist"
+				)
+			);
+
+		}
+		else
+		{
+			try{
+				$payload = array();
+				$week_id = $ticket->week_completed_id ? $ticket->week_completed_id : 'NULL';
+				$payload['NULL'] = "Not Complete";
+				foreach($project->weeks as $week){
+					$payload[$week->id] = "$week->number ($week->end_date)";
+				}
+				$payload['selected'] = $week_id;
+				return Response::JSON($payload);
+			}catch (Exception $e){
+				return Response::JSON(
+					array(
+						"status"=>"error",
+						"message"=>"An internal server error occurred."
+					)
+				);
+			}
+		}
+	}
+
+	/**
+	 * Returns, in plain text the title of a ticket.
+	 *
+     * @param string $project_name The name of the project
+     * @param int $ticket_number The number of the ticket being assigned
+     * @return string The value of the ticket title in the datablase
+	 */
+    public function getTicketTitle($project_name, $ticket_number){
+        $selected_ticket;
+        if(!($selected_ticket = Project::fromName($project_name)->getTicketFromNumber($ticket_number))){
+            return "Could not load title"; //error
+        }
+        return $selected_ticket->title;
+    }
+
+	/**
+	 * Returns, in plain text(markdown) the title of a ticket.
+	 *
+     * @param string $project_name The name of the project
+     * @param int $ticket_number The number of the ticket being assigned
+     * @return string The value of the ticket description in the datablase
+	 */
+	public function getTicketDescription($project_name, $ticket_number){
+		$selected_ticket;
+		if(!($selected_ticket = Project::fromName($project_name)->getTicketFromNumber($ticket_number))){
+			return "Could not load description"; //error
+		}
+		return $selected_ticket->description;
+	}
+
+    /**
+     * Returns html formatted list of comments. Used to update comment stream.
+     *
+     * @param string $project_name The name of the project
+     * @param int $ticket_number The number of the ticket being assigned
+     * @return Illuminate\View\View The html formatted comments for the ticket
+     */
+	public function showCommentsHTML($project_name, $ticket_number){
+		$selected_ticket;
+		if(!($selected_ticket = Project::fromName($project_name)->getTicketFromNumber($ticket_number))){
+			return "Could not load comments"; //error
+		}
+		return View::make('ajax/listComments')->with(array('ticket' => $selected_ticket));
+	}
+
+
+    /**
+     * Creates a comment from post data.
+     *
+     * @param string $project_name The name of the project
+     * @param int $ticket_number The number of the ticket being assigned
+     * @return Illuminate\View\View The html formatted comments for the ticket
+     */
+	public function createComment($project_name, $ticket_number){
+		//Get the current user
+		$comment_author = Auth::user();
+		$project = Project::fromName($project_name);
+		$ticket = $project->getTicketFromNumber($ticket_number);
+		if(!($project || $ticket)){ //If project or ticket is null
+			return new Response('Project/ticket combination does not exist', Response::HTTP_NOT_FOUND);
+		}
+		//Make sure that the user can create a comment
+		if(!($project->hasMember($comment_author->id))){
+			throw new Exception('Boop!');
+			return new Response('You cannot comment on a project unless you are a member', Response::HTTP_FORBIDDEN);
+		}
+		//Create a comment
+		try{
+			$comment = new Comment();
+			$comment->content = Input::get('content');
+			$comment->ticket()->associate($ticket);
+			$comment->user()->associate($comment_author);
+			$comment->save();
+			return View::make('ajax/listComments')->with(array('ticket' => $ticket));
+		}catch(Exception $e){
+			throw $e;
+			return new Response('A server side error occurred', 506);
+		}
+	}
+
+    /**
+     *  Deletes a ticket.
+     * @param string $project_name The name of the project
+     * @param int $ticket_number The number of the ticket being assigned
+     * @return Illuminate\Http\Response The JSend formatted response indicating success or failure
+     *
+     */
+	public function deleteTicket($project_name, $ticket_number){
+		$project = Project::fromName($project_name);
+		$ticket = $project->getTicketFromNumber($ticket_number);
+		if($project == null){
+			return Response::JSON(
+				array(
+					"status" => "fail",
+					"message" => "Requested project '$project_name' does not exist"
+				)
+			);
+		}
+		if($ticket == NULL){
+			return Response::JSON(
+				array(
+					"status" => "fail",
+					"message" => "Requested ticket '$ticket_number' does not exist"
+				)
+			);
+
+		}
+		try{
+			$ticket->delete();
+			return Response::JSON(
+				array(
+					"status" => "success",
+					"data" => NULL
+				)
+			);
+		}
+		catch(Exception $e){
+			return Response::JSON(
+				array(
+					"status" => "error",
+					"message" => "An error occurred while attempting to delete the ticket",
+					"debug" => $e->getMessage()
+				)
+			);
+		}
+    }
+
+    /**
+     * Given a search term as 'query' from post or get data, renders a ticket table view of matching tickets. It searches through descriptions, titles, Project names, owners and creators.
+     *
+     * @return Illuminate\View\View The View displaying the matching tickets
+     */
+    public function search(){
+        
+        $searchTerm = Input::get('query');
+        $searchTerm = $searchTerm ? $searchTerm : '';
+        $projects = Auth::user()->projects()->get();
+        $first_project = $projects->shift();
+
+        if($first_project != null){
+            $query = Ticket::where(function($subquery) use ($projects, $first_project){
+                $subquery = $subquery->where('projects.id', '=',$first_project->id);
+                foreach($projects as $project){
+                    $subquery->orWhere('projects.id', '=', $project->id);
+                }
+            });
+            $query = $query->join('projects', 'projects.id', '=', 'tickets.project_id');
+            $query = $query->join('users AS owner', 'owner.id', '=', 'tickets.owner_id');
+            $query = $query->join('users AS creator', 'creator.id', '=', 'tickets.creator_id');
+            $query = $query->where(function($subquery) use ($searchTerm){
+                $subquery = $subquery->where('owner.username', 'like', "%$searchTerm%")
+                    ->orWhere('creator.username', 'like', "%$searchTerm%")
+                    ->orWhere('tickets.description', 'like', "%$searchTerm%")
+                    ->orWhere('tickets.title', 'like', "%$searchTerm%");
+            })
+                ->select('tickets.*');
+            $tickets = $query->get();
+        }
+        else{
+            $tickets = array();
+        }
+
+        return View::make('search')->with(array('tickets' => $tickets));
+    }
+}
+

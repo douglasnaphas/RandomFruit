@@ -1,9 +1,12 @@
 <?php
 
+/**
+*  Controller for the Work Log model. A Work Log is an event: an occasion of a user adding actual hours occurring in a week to a project.
+*/
 class WorkLogController extends BaseController
 {
     /**
-     * Logs work on a ticket with a week id and hours from post data
+     * Logs work on a ticket with a week id and hours from post data.
      *
      * @param string $project_name The name of the project.
      * @param string $ticket_number The ticket number of the project
