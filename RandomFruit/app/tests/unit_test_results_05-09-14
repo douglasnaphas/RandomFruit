@@ -1,0 +1,352 @@
+PHPUnit 4.0.0 by Sebastian Bergmann.
+
+Configuration read from /vagrant/RandomFruit/phpunit.xml
+
+The Xdebug extension is not loaded. No code coverage will be generated.
+
+..object(stdClass)#963 (2) {
+  ["status"]=>
+  string(7) "success"
+  ["data"]=>
+  bool(false)
+}
+...object(stdClass)#2874 (2) {
+  ["status"]=>
+  string(7) "success"
+  ["data"]=>
+  object(stdClass)#2864 (1) {
+    ["project"]=>
+    object(stdClass)#2860 (7) {
+      ["name"]=>
+      string(14) "barbeque sause"
+      ["description"]=>
+      string(14) "barbeque sause"
+      ["course_id"]=>
+      string(1) "8"
+      ["updated_at"]=>
+      string(19) "2014-05-09 17:48:25"
+      ["created_at"]=>
+      string(19) "2014-05-09 17:48:25"
+      ["id"]=>
+      int(7)
+      ["course"]=>
+      object(stdClass)#2861 (9) {
+        ["id"]=>
+        string(1) "8"
+        ["code"]=>
+        string(8) "CIS 7228"
+        ["description"]=>
+        string(27) "Programming Sentient Robots"
+        ["active"]=>
+        string(1) "1"
+        ["planning"]=>
+        string(1) "1"
+        ["start_date"]=>
+        string(10) "2014-02-10"
+        ["week_number"]=>
+        string(2) "12"
+        ["created_at"]=>
+        string(19) "2014-05-09 17:48:23"
+        ["updated_at"]=>
+        string(19) "2014-05-09 17:48:23"
+      }
+    }
+  }
+}
+.object(stdClass)#3458 (2) {
+  ["status"]=>
+  string(7) "success"
+  ["data"]=>
+  string(4) "null"
+}
+.object(stdClass)#4054 (2) {
+  ["status"]=>
+  string(7) "success"
+  ["data"]=>
+  NULL
+}
+.object(stdClass)#4664 (10) {
+  ["title"]=>
+  string(11) "ThisIsATest"
+  ["creator_id"]=>
+  string(2) "41"
+  ["owner_id"]=>
+  string(2) "41"
+  ["project_id"]=>
+  string(2) "13"
+  ["planned_hours"]=>
+  string(1) "4"
+  ["description"]=>
+  string(13) "Fix this test"
+  ["week_due_id"]=>
+  NULL
+  ["updated_at"]=>
+  string(19) "2014-05-09 17:48:31"
+  ["created_at"]=>
+  string(19) "2014-05-09 17:48:31"
+  ["id"]=>
+  int(877)
+}
+.{"status":"success","data":{"planned_hours":"7.0"}}object(stdClass)#5276 (2) {
+  ["status"]=>
+  string(7) "success"
+  ["data"]=>
+  object(stdClass)#5281 (1) {
+    ["planned_hours"]=>
+    string(3) "7.0"
+  }
+}
+.{"status":"success","data":{"actual_hours":"7.0"}}object(stdClass)#5887 (2) {
+  ["status"]=>
+  string(7) "success"
+  ["data"]=>
+  object(stdClass)#5892 (1) {
+    ["actual_hours"]=>
+    string(3) "7.0"
+  }
+}
+.{"status":"fail","messages":{"actual_hours":["The actual hours must be a number."]},"data":{"actual_hours":"0.0"}}object(stdClass)#6498 (3) {
+  ["status"]=>
+  string(4) "fail"
+  ["messages"]=>
+  object(stdClass)#6495 (1) {
+    ["actual_hours"]=>
+    array(1) {
+      [0]=>
+      string(34) "The actual hours must be a number."
+    }
+  }
+  ["data"]=>
+  object(stdClass)#6502 (1) {
+    ["actual_hours"]=>
+    string(3) "0.0"
+  }
+}
+.{"status":"success","data":{"description":"NewDescription\n"}}object(stdClass)#7109 (2) {
+  ["status"]=>
+  string(7) "success"
+  ["data"]=>
+  object(stdClass)#7114 (1) {
+    ["description"]=>
+    string(15) "NewDescription
+"
+  }
+}
+.http://localhost/api/owner_assign/RandomFruit/147{"status":"success","data":{"owner_id":"jeff"}}object(stdClass)#7746 (2) {
+  ["status"]=>
+  string(7) "success"
+  ["data"]=>
+  object(stdClass)#7749 (1) {
+    ["owner_id"]=>
+    string(4) "jeff"
+  }
+}
+.http://localhost/api/create_comment/RandomFruit/147<div class="comment panel panel-default">
+	<div class="comment-info panel-heading">Author: admin Date: 2014-05-09 17:48:41</div>
+	<div class="comment-text panel-body">
+		this project sucks
+	</div>
+</div>
+string(204) "<div class="comment panel panel-default">
+	<div class="comment-info panel-heading">Author: admin Date: 2014-05-09 17:48:41</div>
+	<div class="comment-text panel-body">
+		this project sucks
+	</div>
+</div>
+"
+.array(6) {
+  ["ticket-title"]=>
+  string(11) "ThisIsATest"
+  ["ticket-description"]=>
+  string(13) "Fix this test"
+  ["project"]=>
+  string(2) "27"
+  ["owner"]=>
+  string(2) "97"
+  ["planned-hours"]=>
+  float(4)
+  ["week_due"]=>
+  string(3) "313"
+}
+object(stdClass)#8976 (10) {
+  ["title"]=>
+  string(11) "ThisIsATest"
+  ["creator_id"]=>
+  string(2) "97"
+  ["owner_id"]=>
+  string(2) "97"
+  ["project_id"]=>
+  string(2) "27"
+  ["planned_hours"]=>
+  string(1) "4"
+  ["description"]=>
+  string(13) "Fix this test"
+  ["week_due_id"]=>
+  string(3) "313"
+  ["updated_at"]=>
+  string(19) "2014-05-09 17:48:44"
+  ["created_at"]=>
+  string(19) "2014-05-09 17:48:44"
+  ["id"]=>
+  int(1906)
+}
+.array(5) {
+  ["ticket-title"]=>
+  string(11) "ThisIsATest"
+  ["ticket-description"]=>
+  string(13) "Fix this test"
+  ["project"]=>
+  string(2) "29"
+  ["owner"]=>
+  string(3) "105"
+  ["planned-hours"]=>
+  float(4)
+}
+object(stdClass)#9588 (10) {
+  ["title"]=>
+  string(11) "ThisIsATest"
+  ["creator_id"]=>
+  string(3) "105"
+  ["owner_id"]=>
+  string(3) "105"
+  ["project_id"]=>
+  string(2) "29"
+  ["planned_hours"]=>
+  string(1) "4"
+  ["description"]=>
+  string(13) "Fix this test"
+  ["week_due_id"]=>
+  NULL
+  ["updated_at"]=>
+  string(19) "2014-05-09 17:48:46"
+  ["created_at"]=>
+  string(19) "2014-05-09 17:48:46"
+  ["id"]=>
+  int(2053)
+}
+object(stdClass)#9592 (3) {
+  ["status"]=>
+  string(7) "success"
+  ["extra"]=>
+  string(3) "337"
+  ["data"]=>
+  object(stdClass)#9591 (1) {
+    ["week_due"]=>
+    string(14) "1 (2014-02-17)"
+  }
+}
+...object(stdClass)#11414 (2) {
+  ["status"]=>
+  string(7) "success"
+  ["data"]=>
+  string(60) "$2y$10$.mXJjRSHF79EBGD954m5WuIfzmbnKvsUembAY.VUongiVKMGj4l1G"
+}
+...object(stdClass)#13259 (2) {
+  ["status"]=>
+  string(7) "success"
+  ["data"]=>
+  object(stdClass)#13261 (2) {
+    ["work_log"]=>
+    object(stdClass)#13260 (7) {
+      ["week_id"]=>
+      string(1) "1"
+      ["value"]=>
+      string(3) "4.0"
+      ["user_id"]=>
+      string(1) "4"
+      ["ticket_id"]=>
+      string(3) "147"
+      ["updated_at"]=>
+      string(19) "2014-05-09 17:49:01"
+      ["created_at"]=>
+      string(19) "2014-05-09 17:49:01"
+      ["id"]=>
+      int(115)
+    }
+    ["actual_hours"]=>
+    string(3) "4.0"
+  }
+}
+.object(stdClass)#13876 (2) {
+  ["status"]=>
+  string(7) "success"
+  ["data"]=>
+  object(stdClass)#13878 (2) {
+    ["work_log"]=>
+    object(stdClass)#13877 (7) {
+      ["week_id"]=>
+      string(1) "1"
+      ["value"]=>
+      string(3) "4.0"
+      ["user_id"]=>
+      string(1) "4"
+      ["ticket_id"]=>
+      string(3) "147"
+      ["updated_at"]=>
+      string(19) "2014-05-09 17:49:03"
+      ["created_at"]=>
+      string(19) "2014-05-09 17:49:03"
+      ["id"]=>
+      int(115)
+    }
+    ["actual_hours"]=>
+    string(3) "4.0"
+  }
+}
+object(stdClass)#13875 (2) {
+  ["status"]=>
+  string(7) "success"
+  ["data"]=>
+  object(stdClass)#13880 (2) {
+    ["work_log"]=>
+    object(stdClass)#13881 (7) {
+      ["week_id"]=>
+      string(1) "1"
+      ["value"]=>
+      string(3) "4.0"
+      ["user_id"]=>
+      string(1) "4"
+      ["ticket_id"]=>
+      string(3) "147"
+      ["updated_at"]=>
+      string(19) "2014-05-09 17:49:03"
+      ["created_at"]=>
+      string(19) "2014-05-09 17:49:03"
+      ["id"]=>
+      int(116)
+    }
+    ["actual_hours"]=>
+    string(3) "8.0"
+  }
+}
+object(stdClass)#13873 (2) {
+  ["status"]=>
+  string(7) "success"
+  ["data"]=>
+  object(stdClass)#13869 (2) {
+    ["work_log"]=>
+    object(stdClass)#13300 (7) {
+      ["week_id"]=>
+      string(1) "1"
+      ["value"]=>
+      string(3) "4.0"
+      ["user_id"]=>
+      string(1) "4"
+      ["ticket_id"]=>
+      string(3) "147"
+      ["updated_at"]=>
+      string(19) "2014-05-09 17:49:03"
+      ["created_at"]=>
+      string(19) "2014-05-09 17:49:03"
+      ["id"]=>
+      int(117)
+    }
+    ["actual_hours"]=>
+    string(4) "12.0"
+  }
+}
+
+
+Time: 48.13 seconds, Memory: 68.50Mb
+
+[30;42mOK (23 tests, 68 assertions)[0m
