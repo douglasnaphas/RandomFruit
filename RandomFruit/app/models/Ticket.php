@@ -8,9 +8,9 @@ class Ticket extends Eloquent {
     /**
      * @var string The database table used by the model.
      */
-	protected $table = 'tickets';
+    protected $table = 'tickets';
 
-	protected $softDelete = 'true';
+    protected $softDelete = 'true';
 
 	/**
 	*  @var array values that cannot be filled from array.
@@ -140,23 +140,64 @@ class Ticket extends Eloquent {
 	*  @return float Total hours incurred by anyone on this ticket. Anyone in a ticket's project can log hours against it.
 	*/
     public function computeActualHours(){
-		$sum =  $this->workLogs()->sum('value');
-		if($sum){
-			return $sum;
-		}
-		return '0.0';
-	}
+        $sum =  $this->workLogs()->sum('value');
+        if($sum){
+            return $sum;
+        }
+        return '0.0';
+    }
 
-	/**
-	*  Get the URL to delete this ticket. Going there deletes it.
-	*/
-	public function deleteUrl(){
-		return URL::route('deleteTicket', 
-			array(
-				'project_name' => $this->project->name, 
-				'ticket_number' => $this->number
-			)
-		);
-	}
+    public function deleteUrl(){
+        return URL::route('deleteTicket', 
+            array(
+                'project_name' => $this->project->name, 
+                'ticket_number' => $this->number
+            )
+        );
+    }
+
+    public static function create(array $attributes){
+        // Oh no!
+        //
+        // This is very scary but have no fear
+        //
+        // All I'm doing is creating the ticket with a number unique for
+        // that ticket.
+        $model = new static($attributes);
+        $pdo = DB::connection()->getPdo();
+        $unprepared_query = "INSERT INTO tickets (" .
+            "created_at, updated_at,".
+            "title," .
+            "description," .
+            "number," .
+            "planned_hours," .
+            "actual_hours," .
+            "due_date," .
+            "project_id," .
+            "creator_id, " .
+            "owner_id," .
+            "week_due_id," .
+            "week_completed_id)" .
+            "VALUES (NOW(),NOW(),?,?," .
+            "1 + " .
+            "(SELECT COUNT(*) FROM (SELECT id FROM tickets WHERE project_id = ?) " .
+            " as myAlias )," .
+            "?,?,?,?,?,?,?, ?);";
+        $pq = $pdo->prepare($unprepared_query);
+        $result = $pq->execute(
+            array($model->title, 
+            $model->description, 
+            $model->project->id,
+            $model->planned_hours,
+            $model->actual_hours ? $model->actual_hours : 0,
+            $model->due_date, $model->project->id,
+            $model->creator ? $model->creator->id : NULL,
+            $model->owner ? $model->owner->id : $model->creator->id, 
+            $model->week_due ? $model->week_due->id : NULL,
+            $model->week_completed ? $model->week_due->id : NULL
+        )
+    );
+        return self::find($pdo->lastInsertId());
+    }
 
 }
