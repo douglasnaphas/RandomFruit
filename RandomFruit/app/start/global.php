@@ -85,15 +85,15 @@ require app_path().'/filters.php';
  * Attach the number assinging to Ticket::save();
  *
  */
-Ticket::saved(function($ticket){
-	$filledModel = Ticket::find($ticket->id);
-	if($filledModel->number != NULL && $filledModel->number > 0){
-		return;	
-	}
-	$ticket_count = Ticket::withTrashed()->where('project_id', '=', $filledModel->project_id)->count();
-	$filledModel->number = $ticket_count;
-	$filledModel->save();
-});
+// Ticket::saved(function($ticket){
+	// $filledModel = Ticket::find($ticket->id);
+	// if($filledModel->number != NULL && $filledModel->number > 0){
+		// return;	
+	// }
+	// $ticket_count = Ticket::withTrashed()->where('project_id', '=', $filledModel->project_id)->count();
+	// $filledModel->number = $ticket_count;
+	// $filledModel->save();
+// });
 
 Project::saved(function($project){
 	if($project->weeks()->count() == 0){
