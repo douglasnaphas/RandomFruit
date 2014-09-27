@@ -2,7 +2,7 @@ Random Fruit
 ============
 Random Fruit is project management software for student projects. It supports earned value reporting.
 
-It was developed in the spring semester of 2014 for the course CIS 4398 - Projects in Computer Science at Temple University in Philadelphia by Douglas Naphas (douglasnaphas@gmail.com), Alex Curtin (viperx120@gmail.com), Greg Aiello (gregory.aiello@temple.edu, gregory.aiello693@gmail.com), Jeff Ramspacher (jtr31993@gmail.com, jeffreyramspacher@temple.edu), and Dave Mayer (tuc05799@temple.edu).
+It was developed in the spring semester of 2014 for the course CIS 4398 - Projects in Computer Science at Temple University in Philadelphia by Douglas Naphas (douglasnaphas@gmail.com), Alex Curtin (viperx120@gmail.com), Greg Aiello (gregoryaiello693@gmail.com), Jeff Ramspacher (jtr31993@gmail.com, jeffreyramspacher@temple.edu), and Dave Mayer (tuc05799@temple.edu).
 
 Important Files and Directories
 --------------------------------
